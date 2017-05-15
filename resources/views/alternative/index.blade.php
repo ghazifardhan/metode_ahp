@@ -7,7 +7,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <table class="table table-border">
+                    <table class="table table-bordered table-hover table-striped table-condensed">
                       <tr>
                         <th>ID</th>
                         <th>Alternative</th>
@@ -15,9 +15,12 @@
                       </tr>
                       @foreach($alternative as $alternatives)
                       <tr>
-                        <td><?php echo $alternatives->id; ?></td>
-                        <td><?php echo $alternatives->alternative; ?></td>
-                        <td>{!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}</td>
+
+                        <td>{{ $alternatives->id }}</td>
+                        <td>{{ $alternatives->alternative }}</td>
+                        <td>
+                          {!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}
+                        </td>
                       </tr>
                       @endforeach
                     </table>
