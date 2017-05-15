@@ -17,6 +17,7 @@
                       <tr>
                         <td><?php echo $alternatives->id; ?></td>
                         <td><?php echo $alternatives->alternative; ?></td>
+                        <td>{!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}</td>
                       </tr>
                       @endforeach
                     </table>
