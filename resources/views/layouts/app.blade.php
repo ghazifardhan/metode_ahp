@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>AHP</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        AHP
                     </a>
                 </div>
 
@@ -39,6 +39,9 @@
                       @if(Auth::guest())
                       @else
                         <li><a href="{{ url('alternative') }}">Alternative</a></li>
+                        <li><a href="{{ url('criteria') }}">Criteria</a></li>
+                        <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
+                        <li><a href="{{ url('ahp') }}">AHP Process</a></li>
                       @endif
                     </ul>
 
@@ -79,5 +82,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @yield('script')
 </body>
 </html>

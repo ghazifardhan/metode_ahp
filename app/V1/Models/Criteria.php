@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Criteria extends Model
 {
-    //
+    protected $table = 'criteria';
+
+    protected $fillable = [
+      'criteria'
+    ];
+
+    public function data_alternative(){
+      return $this->hasMany('App\V1\Models\DataAlternative', 'criteria_id', 'id');
+    }
 }

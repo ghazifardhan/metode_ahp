@@ -9,24 +9,28 @@
                 <div class="panel-body">
                     <table class="table table-bordered table-hover table-striped table-condensed">
                       <tr>
-                        <th>ID</th>
-                        <th>Alternative</th>
+                        <th>No</th>
+                        <th>Criteria ID 1</th>
+                        <th>Value</th>
+                        <th>Criteria ID 2</th>
                         <th>Action</th>
                       </tr>
-                      @foreach($alternative as $alternatives)
+                      <?php $no = 1; ?>
+                      @foreach($criteria_comparison as $row)
                       <tr>
-
-                        <td>{{ $alternatives->id }}</td>
-                        <td>{!! link_to_route('alternative.show', $alternatives->alternative, array($alternatives->id), array('class' => '')) !!}</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $row->criteria1->criteria }}</td>
+                        <td>{{ $row->importance_level->level_name . " - " . $row->importance_level->level_value }}</td>
+                        <td>{{ $row->criteria2->criteria }}</td>
                         <td>
-                          {!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}
+                          {!! link_to_route('criteria_comparison.edit', 'Edit', array($row->id), array('class' => 'btn btn-info')) !!}
 
-                          <button class="btn btn-danger delete" data-id="{{ $alternatives->id }}" data-token="{{ csrf_token() }}">Delete</button>
+                          <button class="btn btn-danger delete" data-id="{{ $row->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         </td>
                       </tr>
                       @endforeach
                     </table>
-                    <a href="{{ route('alternative.create') }}">Create New Alternative</a>
+                    <a href="{{ route('criteria_comparison.create') }}">Create New Comparison</a>
                 </div>
             </div>
         </div>
@@ -40,12 +44,12 @@
     var id = $(this).data('id');
     var token = $(this).data('token');
     $.ajax({
-      url: 'alternative/' + id,
+      url: 'criteria_comparison/' + id,
       type: 'POST',
       data: {'_method': 'DELETE', '_token':token},
       success: function(){
         console.log('Success Delete!');
-        window.location.href = "{{ url('alternative') }}";
+        window.location.href = "{{ url('criteria_comparison') }}";
       }
     });
   });

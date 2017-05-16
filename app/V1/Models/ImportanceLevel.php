@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImportanceLevel extends Model
 {
-    //
+    protected $table = 'importance_level';
 }

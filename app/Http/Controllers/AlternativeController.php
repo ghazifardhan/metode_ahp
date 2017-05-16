@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 use App\V1\Models\Alternative;
+use App\V1\Models\DataAlternative;
+use App\V1\Models\Criteria;
 use Redirect;
 
 class AlternativeController extends BaseController
@@ -49,12 +52,36 @@ class AlternativeController extends BaseController
 
     public function show($id){
       $alternative = $this->alternative->find($id);
-      return view('alternative.show', compact('alternative'));
+      $criteria = Criteria::orderBy('id', 'asc')->get();
+
+      return view('alternative.show', compact('alternative', 'criteria'));
     }
 
     public function destroy($id){
       $alternative = $this->alternative->find($id);
       $alternative->delete();
+      return Redirect::route('alternative.index');
+    }
+
+    public function test(Request $request){
+
+      date_default_timezone_set('Asia/Jakarta');
+      $time = date('Y-m-d H:i:s');
+
+      $value = $request->input('value');
+      $alternative_id = $request->input('alternative_id');
+      $criteria_id = $request->input('criteria_id');
+
+      for($x = 0; $x < count($value); $x++){
+        DB::table('data_alternative')->insert([
+          'alternative_id' => $alternative_id,
+          'criteria_id' => $criteria_id[$x],
+          'value' => $value[$x],
+          'created_at' => $time,
+          'updated_at' => $time,
+        ]);
+      }
+
       return Redirect::route('alternative.index');
     }
 }
