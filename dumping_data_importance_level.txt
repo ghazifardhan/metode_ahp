@@ -1,0 +1,17 @@
+INSERT INTO importance_level VALUES (1,'Sama Penting Dengan (Nilai=1)',1,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (2,'Nilai Berdekatan Dengan (Nilai=2)',2,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (3,'Sedikit Lebih Penting Dari(Nilai=3)',3,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (4,'Nilai Berdekatan Dengan (Nilai=4)',4,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (5,'Lebih Penting Dari(Nilai=5)',5,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (6,'Nilai Berdekatan Dengan (Nilai=6)',6,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (7,'Lebih Mutlak Penting Dari(Nilai=7)',7,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (8,'Nilai Berdekatan Dengan (Nilai=8)',8,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (9,'Mutlak Penting Dari(Nilai=9)',9,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (10,'Nilai Berdekatan Dengan (Nilai=1/2)',0.5,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (11,'Sedikit Lebih Penting Dari(Nilai=1/3)',0.333333333333,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (12,'Nilai Berdekatan Dengan (Nilai=1/4)',0.25,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (13,'Lebih Penting Dari(Nilai=1/5)',0.2,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (14,'Nilai Berdekatan Dengan (Nilai=1/6)',0.166666666667,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (15,'Lebih Mutlak Penting Dari(Nilai=1/7)',0.142857142857,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (16,'Nilai Berdekatan Dengan (Nilai=1/8)',0.125,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');
+INSERT INTO importance_level VALUES (17,'Mutlak Penting Dari(Nilai=1/9)',0.111111111111,'2017-05-16 23:14:49.000001','2017-05-16 23:14:49.000001');

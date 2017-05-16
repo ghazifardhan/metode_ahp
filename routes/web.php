@@ -26,3 +26,4 @@ Route::resource('criteria_comparison', 'CriteriaComparisonController');
 Route::get('ahp', 'AHPController@get_ahp_matrix_criteria');
 Route::get('ahp_test', 'AHPController@ahp_get_per_kriteria');
 Route::post('test', 'AlternativeController@test');
+Route::post('test_update', 'AlternativeController@test_update');

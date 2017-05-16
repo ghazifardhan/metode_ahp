@@ -53,8 +53,13 @@ class AlternativeController extends BaseController
     public function show($id){
       $alternative = $this->alternative->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
+      $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
 
-      return view('alternative.show', compact('alternative', 'criteria'));
+      if(count($data_alternative) == 0){
+        return view('alternative.show', compact('alternative', 'criteria'));
+      } else {
+        return view('alternative.show_update', compact('alternative', 'criteria', 'data_alternative'));
+      }
     }
 
     public function destroy($id){
@@ -83,5 +88,27 @@ class AlternativeController extends BaseController
       }
 
       return Redirect::route('alternative.index');
+    }
+
+    public function test_update(Request $request){
+
+      //echo json_encode($request->input());
+
+      date_default_timezone_set('Asia/Jakarta');
+      $time = date('Y-m-d H:i:s');
+
+      $value = $request->input('value');
+      $alternative_id = $request->input('alternative_id');
+      $criteria_id = $request->input('criteria_id');
+
+      for($x = 0; $x < count($value); $x++){
+        DB::table('data_alternative')->where(['alternative_id' => $alternative_id, 'criteria_id' => $criteria_id[$x]])->update([
+          'value' => $value[$x],
+          'updated_at' => $time,
+        ]);
+      }
+
+      return Redirect::route('alternative.index');
+
     }
 }
