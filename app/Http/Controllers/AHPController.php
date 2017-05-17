@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\V1\Models\Criteria;
 use App\V1\Models\Alternative;
+use App\V1\Models\DataAlternative;
 use App\V1\Models\CriteriaComparison;
 use App\V1\Models\RandomConsistencyIndex;
 
@@ -14,22 +15,22 @@ class AHPController extends Controller
     public function get_ahp_matrix_criteria(){
       $criteria = Criteria::orderBy('id', 'asc')->get();
 
-      $criteria_id = array();
+      $criteria_ids = array();
 
       foreach($criteria as $key => $val){
-        $criteria_id[] = $criteria[$key]['id'];
+        $criteria_ids[] = $criteria[$key]['id'];
       }
 
-      $matrix = $this->ahp_matrix_criteria($criteria_id);
-      $number_of_column = $this->ahp_number_of_column($criteria_id, $matrix);
-      $sum = $this->ahp_sum($criteria_id, $number_of_column);
-      $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_id, $matrix, $sum);
-      $number_of_row = $this->ahp_number_of_row($criteria_id, $norm_matrix);
-      $eigen_vektor = $this->ahp_eigen_vektor($criteria_id, $norm_matrix);
-      $sum_amaks = $this->ahp_amaks($criteria_id, $matrix, $eigen_vektor);
-      $t = $this->ahp_t($criteria_id, $sum_amaks, $eigen_vektor);
-      $ci = $this->ahp_ci($criteria_id, $t);
-      $rci = $this->ahp_rci($criteria_id);
+      $matrix = $this->ahp_matrix_criteria($criteria_ids);
+      $number_of_column = $this->ahp_number_of_column($criteria_ids, $matrix);
+      $sum = $this->ahp_sum($criteria_ids, $number_of_column);
+      $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix, $sum);
+      $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
+      $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
+      $sum_amaks = $this->ahp_amaks($criteria_ids, $matrix, $eigen_vektor);
+      $t = $this->ahp_t($criteria_ids, $sum_amaks, $eigen_vektor);
+      $ci = $this->ahp_ci($criteria_ids, $t);
+      $rci = $this->ahp_rci($criteria_ids);
       $consistency = $this->ahp_consitency($ci, $rci);
 
       $res['t'] = $t;
@@ -39,6 +40,28 @@ class AHPController extends Controller
 
       return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
       //return response($res);
+    }
+
+    public function get_ahp_matrix_alternative(){
+      $alternative = Alternative::orderBy('id', 'asc')->get();
+      $criteria = Criteria::orderBy('id', 'asc')->get();
+
+      $alternative_ids = array();
+
+      foreach($alternative as $key => $val){
+        $alternative_ids[] = $alternative[$key]['id'];
+      }
+
+      foreach ($criteria as $key => $value) {
+        $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where('criteria_id',$criteria[$key]['id'])->get();
+        $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
+        $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
+        $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
+        //$test[] = $data_alternative;
+      }
+
+      return view('ahp.index_alternative', compact('matrix','alternative'));
+      //return response($matrix);
     }
 
     public function ahp_matrix_criteria($criteria_id){
@@ -158,9 +181,12 @@ class AHPController extends Controller
       return $res;
     }
 
-    public function ahp_get_per_kriteria(){
-      $criteria = Criteria::with('data_alternative')->get();
-
-      return response($criteria);
+    public function ahp_matrix_alternative($alternative_ids, $data_alternative){
+      for($x=0;$x<count($alternative_ids);$x++){
+    		for($y=0;$y<count($alternative_ids);$y++){
+    			$matrix[$x][$y] = round($data_alternative[$x]['value']/$data_alternative[$y]['value'],3);
+    		}
+    	}
+    	return $matrix;
     }
 }
