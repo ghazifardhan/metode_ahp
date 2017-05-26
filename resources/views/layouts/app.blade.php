@@ -26,7 +26,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
                         AHP
@@ -38,7 +37,7 @@
                     <ul class="nav navbar-nav">
                       @if(Auth::guest())
                       @else
-                        <li><a href="{{ url('alternative') }}">Alternative</a></li>
+                        <li><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
                         <li><a href="{{ url('criteria') }}">Criteria</a></li>
                         <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
                         <li><a href="{{ url('ahp') }}">AHP Process</a></li>
