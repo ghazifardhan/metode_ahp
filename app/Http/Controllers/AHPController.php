@@ -39,7 +39,7 @@ class AHPController extends Controller
       $res['consistency'] = $consistency;
 
       return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
-      //return response($res);
+      //return response($number_of_column);
     }
 
     public function get_ahp_matrix_alternative(){
@@ -57,6 +57,13 @@ class AHPController extends Controller
         $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
         $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
         $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
+        $sum = $this->ahp_number_of_column($alternative_ids, $matrix[$key]['result']);
+        $matrix[$key]['number_of_column'] = $this->ahp_sum($alternative_ids, $sum);
+        $norm_matrix = $this->ahp_norm_matrix_criteria($alternative_ids, $matrix[$key]['result'], $matrix[$key]['number_of_column']);
+        $matrix[$key]['norm_matrix'] = $norm_matrix;
+        $eigen_vektor = $this->ahp_eigen_vektor_alternative($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
+        arsort($eigen_vektor);
+        $matrix[$key]['eigen_vektor'] = $eigen_vektor;
         //$test[] = $data_alternative;
       }
 
@@ -125,6 +132,15 @@ class AHPController extends Controller
     public function ahp_eigen_vektor($criteria_id, $norm_matrix){
       for($x = 0; $x < count($criteria_id); $x++){
           $eigen_vektor[] = array_sum($norm_matrix[$x])/count($criteria_id);
+      }
+      return $eigen_vektor;
+    }
+
+    public function ahp_eigen_vektor_alternative($criteria_id, $norm_matrix, $alternative){
+      for($x = 0; $x < count($criteria_id); $x++){
+          //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
+          //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
+          $eigen_vektor[$alternative[$x]['alternative']] = array_sum($norm_matrix[$x])/count($criteria_id);
       }
       return $eigen_vektor;
     }
