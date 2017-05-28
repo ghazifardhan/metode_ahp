@@ -74,6 +74,28 @@
                       @endforeach
                     </table>
                     @endforeach
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>*</th>
+                          @foreach($criteria as $items)
+                          <th>{{ $items->criteria }}</th>
+                          @endforeach
+                        </tr>
+                        <tr>
+                            <td>Eigen Vektor</td>
+                            @foreach($eigen_vektor as $row)
+                            <td>{{ $row }}</td>
+                            @endforeach
+                        </tr>
+                        @foreach($alternative as $x => $v)
+                        <tr>
+                          <td>{{$v->alternative}}</td>
+                          @foreach($rank as $y => $val)
+                          <td>{{ $rank[$y][$x] }}</td>
+                          @endforeach
+                        </tr>
+                        @endforeach
+                      </table>
                 </div>
             </div>
         </div>
