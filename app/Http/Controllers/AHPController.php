@@ -38,8 +38,8 @@ class AHPController extends Controller
       $res['rci'] = $rci->index_value;
       $res['consistency'] = $consistency;
 
-      //return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
-      return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
+      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
+      //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
     }
 
     public function get_ahp_matrix_alternative(){
@@ -78,10 +78,15 @@ class AHPController extends Controller
       $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix_crit, $sum);
       $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
       $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
-      $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor);
+      $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
 
-      //return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor'));
-      return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      //return response($amaks);
+    }
+
+    public function array_sort_by_column($amaks) {
+        
     }
 
     public function ahp_matrix_criteria($criteria_id){
@@ -171,7 +176,7 @@ class AHPController extends Controller
       return $sum_amaks;
     }
 
-    public function ahp_amaks_alt($criteria_id, $alternative_id, $matrix, $eigen_vektor){
+    public function ahp_amaks_alt($criteria_id, $alternative_id, $matrix, $eigen_vektor, $alternative){
       for($x = 0; $x <  count($alternative_id); $x++){
         for($y = 0; $y < count($criteria_id); $y++){
           $amaks[$x][$y] = $matrix[$y][$x] * $eigen_vektor[$y];
@@ -179,9 +184,25 @@ class AHPController extends Controller
       }
 
       for($x = 0; $x <  count($alternative_id); $x++){
-          $sum_amaks[] = array_sum($amaks[$x]);
+          $sum_amaks[$x]['id'] = $alternative_id[$x];
+          $sum_amaks[$x]['name'] = $alternative[$x]['alternative'];
+          $sum_amaks[$x]['value'] = array_sum($amaks[$x]);
       }
-      return $sum_amaks;
+
+      $value = array();
+      $rank = 1;
+      foreach ($sum_amaks as $key => $row)
+      {
+          $value[$key]['id'] = $row['id'];
+          $value[$key]['name'] = $row['name'];
+          $value[$key]['value'] = $row['value'];
+      }
+      array_multisort($value, SORT_DESC, $sum_amaks);
+      foreach ($value as $key => $row)
+      {
+          $value[$key]['rank'] = $rank++;
+      }
+      return $value;
     }
 
     public function ahp_t($criteria_id, $sum_amaks, $eigen_vektor){

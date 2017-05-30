@@ -41,6 +41,7 @@
                         <li><a href="{{ url('criteria') }}">Criteria</a></li>
                         <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
                         <li><a href="{{ url('ahp') }}">AHP Process</a></li>
+                        <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
                       @endif
                     </ul>
 

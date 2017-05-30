@@ -96,6 +96,25 @@
                         </tr>
                         @endforeach
                       </table>
+
+                    <table class="table table-bordered">
+                      <tr>
+                        <th colspan="3">Rank Summary</th>
+                      </tr>
+                      <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                      </tr>
+                      @foreach($amaks as $key => $items)
+                      <tr>
+                        <td>{{ $amaks[$key]['rank'] }}</td>
+                        <td>{{ $amaks[$key]['name'] }}</td>
+                        <td>{{ $amaks[$key]['value'] }}</td>
+                      </tr>
+                      @endforeach
+                      </table>
+                </div>
                 </div>
             </div>
         </div>

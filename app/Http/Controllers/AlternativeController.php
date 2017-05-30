@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\V1\Models\Alternative;
 use App\V1\Models\DataAlternative;
 use App\V1\Models\Criteria;
+use App\V1\Models\Division;
 use Redirect;
 
 class AlternativeController extends BaseController
@@ -29,29 +30,41 @@ class AlternativeController extends BaseController
     public function store(Request $request){
       $this->alternative->fill([
         'alternative' => $request->input('alternative'),
+        'age' => $request->input('age'),
+        'address' => $request->input('address'),
+        'phone_number' => $request->input('phone_number'),
+        'salary' => $request->input('salary'),
+        'division_id' => $request->input('division_id'),
       ]);
       $this->alternative->save();
       return Redirect::route('alternative.index');
     }
 
     public function create(){
-    	return view('alternative.form');
+      $division = Division::all();
+    	return view('alternative.form', compact('division'));
     }
 
     public function edit($id){
       $alternative = $this->alternative->find($id);
-      return view('alternative.form_update', compact('alternative'));
+      $division = Division::all();
+      return view('alternative.form_update', compact('alternative', 'division'));
     }
 
     public function update(Request $request, $id){
       $alternative = $this->alternative->find($id);
       $alternative->alternative = $request->input('alternative');
+      $alternative->age = $request->input('age');
+      $alternative->address = $request->input('address');
+      $alternative->phone_number = $request->input('phone_number');
+      $alternative->salary = $request->input('salary');
+      $alternative->division_id = $request->input('division_id');
       $alternative->save();
       return Redirect::route('alternative.index');
     }
 
     public function show($id){
-      $alternative = $this->alternative->find($id);
+      $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
 
