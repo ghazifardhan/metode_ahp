@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Script -->
+    <script src="{{ asset('js/jquery-1.10.2.js') }}"></script>
+    <script src="{{ asset('js/jquery.PrintArea.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -42,7 +46,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
                             <li><a href="{{ url('division') }}">Master Data Division</a></li>
-                            <li><a href="{{ url('rank_gaji') }}">Master Data Rank Gaji</a></li>
+                            <li><a href="{{ url('rank_salary') }}">Master Data Rank Gaji</a></li>
                             <li><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
                         </ul>
                         </li>

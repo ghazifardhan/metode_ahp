@@ -17,6 +17,26 @@
                         <td>Name</td>
                         <td>{{ $alternative->alternative }}</td>
                       </tr>
+                      <tr>
+                        <td>Age</td>
+                        <td>{{ $alternative->age }}</td>
+                      </tr>
+                      <tr>
+                        <td>Address</td>
+                        <td>{{ $alternative->address }}</td>
+                      </tr>
+                      <tr>
+                        <td>Phone Number</td>
+                        <td>{{ $alternative->phone_number }}</td>
+                      </tr>
+                      <tr>
+                        <td>Salary</td>
+                        <td>{{ $alternative->salary }}</td>
+                      </tr>
+                      <tr>
+                        <td>Division</td>
+                        <td>{{ $alternative->division->name }}</td>
+                      </tr>
                     </table>
                     <form method="post" action="{{ url('test_update') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

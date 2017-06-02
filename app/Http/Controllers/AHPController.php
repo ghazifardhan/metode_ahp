@@ -8,6 +8,7 @@ use App\V1\Models\Alternative;
 use App\V1\Models\DataAlternative;
 use App\V1\Models\CriteriaComparison;
 use App\V1\Models\RandomConsistencyIndex;
+use App\V1\Models\RankSalary;
 
 class AHPController extends Controller
 {
@@ -63,7 +64,7 @@ class AHPController extends Controller
         $norm_matrix = $this->ahp_norm_matrix_criteria($alternative_ids, $matrix[$key]['result'], $matrix[$key]['number_of_column']);
         $matrix[$key]['norm_matrix'] = $norm_matrix;
         $eigen_vektor = $this->ahp_eigen_vektor_alternative($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
-        arsort($eigen_vektor);
+        //arsort($eigen_vektor);
         $matrix[$key]['eigen_vektor'] = $eigen_vektor;
         foreach($matrix[$key]['norm_matrix'] as $k => $v){
           $tests[$key][$k] = $matrix[$key]['norm_matrix'][$k][0];
@@ -80,13 +81,13 @@ class AHPController extends Controller
       $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
       $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
 
-      //return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
-      return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return response($amaks);
     }
 
     public function array_sort_by_column($amaks) {
-        
+
     }
 
     public function ahp_matrix_criteria($criteria_id){
@@ -160,6 +161,7 @@ class AHPController extends Controller
           //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
           $eigen_vektor[$alternative[$x]['alternative']] = round(array_sum($norm_matrix[$x])/count($criteria_id), 3);
       }
+      arsort($eigen_vektor);
       return $eigen_vektor;
     }
 
@@ -193,14 +195,21 @@ class AHPController extends Controller
       $rank = 1;
       foreach ($sum_amaks as $key => $row)
       {
+          $value[$key]['value'] = $row['value'];
           $value[$key]['id'] = $row['id'];
           $value[$key]['name'] = $row['name'];
-          $value[$key]['value'] = $row['value'];
       }
       array_multisort($value, SORT_DESC, $sum_amaks);
       foreach ($value as $key => $row)
       {
           $value[$key]['rank'] = $rank++;
+          $up_salary = RankSalary::where('rank', $value[$key]['rank'])->first();
+          if($up_salary){
+            $value[$key]['up_salary'] = $up_salary->up_salary;
+          } else {
+            $value[$key]['up_salary'] = 0;
+          }
+
       }
       return $value;
     }

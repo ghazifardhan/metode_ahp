@@ -39,16 +39,20 @@ class CriteriaComparisonController extends Controller
   public function create(){
     $criteria = Criteria::all();
     $importance_level = ImportanceLevel::all();
-    return view('criteria_comparison.form', compact('criteria', 'importance_level'));
+    $res['create'] = true;
+    $res['status'] = "Create New";
+    $criteria_comparison = null;
+    return view('criteria_comparison.form', compact('criteria', 'importance_level', 'res', 'criteria_comparison'));
   }
 
   public function edit($id){
     $criteria_comparison = $this->criteria_comparison->find($id);
-
+    $res['create'] = false;
+    $res['status'] = "Update";
     $criteria = Criteria::all();
     $importance_level = ImportanceLevel::all();
 
-    return view('criteria_comparison.form_update', compact('criteria_comparison', 'criteria', 'importance_level'));
+    return view('criteria_comparison.form', compact('criteria_comparison', 'criteria', 'importance_level', 'res'));
   }
 
   public function update(Request $request, $id){

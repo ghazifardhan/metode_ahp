@@ -21,7 +21,10 @@ class DivisionController extends Controller
     }
 
     public function create(){
-      return view('division.form');
+      $res['create'] = true;
+      $res['status'] = 'Create New';
+      $division = null;
+      return view('division.form', compact('res', 'division'));
     }
 
     public function store(Request $request){
@@ -40,13 +43,16 @@ class DivisionController extends Controller
     }
 
     public function edit($id){
+      $res['create'] = false;
+      $res['status'] = 'Update';
       $division = $this->division->find($id);
-      return view('division.form_update', compact('division'));
+      return view('division.form', compact('division', 'res'));
     }
 
     public function update(Request $request, $id){
       $division = $this->division->find($id);
       $division->name = $request->input('name');
+      $division->save();
       return Redirect::route('division.index');
     }
 

@@ -32,12 +32,17 @@ class CriteriaController extends Controller
   }
 
   public function create(){
-    return view('criteria.form');
+    $res['create'] = true;
+    $res['status'] = 'Create New';
+    $criteria = null;
+    return view('criteria.form', compact('res', 'criteria'));
   }
 
   public function edit($id){
     $criteria = $this->criteria->find($id);
-    return view('criteria.form_update', compact('criteria'));
+    $res['create'] = false;
+    $res['status'] = 'Update';
+    return view('criteria.form', compact('criteria', 'res'));
   }
 
   public function update(Request $request, $id){

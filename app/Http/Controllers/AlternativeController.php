@@ -42,13 +42,18 @@ class AlternativeController extends BaseController
 
     public function create(){
       $division = Division::all();
-    	return view('alternative.form', compact('division'));
+      $res['create'] = true;
+      $res['status'] = "Create New";
+      $alternative = null;
+    	return view('alternative.form', compact('division', 'alternative', 'res'));
     }
 
     public function edit($id){
       $alternative = $this->alternative->find($id);
       $division = Division::all();
-      return view('alternative.form_update', compact('alternative', 'division'));
+      $res['create'] = false;
+      $res['status'] = "Update";
+      return view('alternative.form', compact('alternative', 'division', 'res'));
     }
 
     public function update(Request $request, $id){
@@ -89,7 +94,7 @@ class AlternativeController extends BaseController
       $value = $request->input('value');
       $alternative_id = $request->input('alternative_id');
       $criteria_id = $request->input('criteria_id');
-      
+
       for($x = 0; $x < count($value); $x++){
         if($value[$x] == null){
           $value[$x] = 0;
@@ -102,7 +107,7 @@ class AlternativeController extends BaseController
           'updated_at' => $time,
         ]);
       }
-      
+
       return Redirect::route('alternative.index');
     }
 

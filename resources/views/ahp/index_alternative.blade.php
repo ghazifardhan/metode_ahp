@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Summary <button id="cetak" class="btn btn-info">Print</button></div>
 
-                <div class="panel-body">
+                <div id="data-print" class="panel-body">
                 <table class="table table-bordered">
                       <tr>
                         <th>*</th>
@@ -33,18 +33,20 @@
 
                     <table class="table table-bordered">
                       <tr>
-                        <th colspan="3">Rank Summary</th>
+                        <th colspan="4">Rank Summary</th>
                       </tr>
                       <tr>
                         <th>No</th>
                         <th>Name</th>
                         <th>Value</th>
+                        <th>Upgrade Salary</th>
                       </tr>
                       @foreach($amaks as $key => $items)
                       <tr>
                         <td>{{ $amaks[$key]['rank'] }}</td>
                         <td>{{ $amaks[$key]['name'] }}</td>
                         <td>{{ $amaks[$key]['value'] }}</td>
+                        <td>{{ "Rp " . number_format($amaks[$key]['up_salary'], "0", ",", ".") }}</td>
                       </tr>
                       @endforeach
                     </table>
@@ -103,9 +105,9 @@
                         <th colspan="{{ count($alternative)+1 }}">Ranking {{ $matrix[$key]['criteria_name'] }}</th>
                       </tr>
                       <tr>
-                        <td>No</td>
-                        <td>Alternative</td>
-                        <td>Values</td>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Values</th>
                       </tr>
                       <?php $no = 1; ?>
                       @foreach($matrix[$key]['eigen_vektor'] as $key => $val)
@@ -117,11 +119,19 @@
                       @endforeach
                     </table>
                     @endforeach
-                    
+
                 </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@stop
+@section('script')
+<script>
+    $('#cetak').on('click', function(){
+      $('#data-print').printArea();
+      console.log("testetststeajhw");
+    });
+</script>
 @endsection
