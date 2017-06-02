@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     <table class="table table-bordered">
                       <tr>
-                        <th colspan="6">Pairwise Comparison</th>
+                        <th colspan="{{ count($criteria)+1 }}">Pairwise Comparison</th>
                       </tr>
                       <tr>
                         <td><b>Criteria</b></td>
@@ -34,7 +34,7 @@
                       </table>
                       <table class="table table-bordered">
                         <tr>
-                          <th colspan="9">Normalisasi Matriks</th>
+                          <th colspan="{{ count($criteria)+4 }}">Normalisasi Matriks</th>
                         </tr>
                         <tr>
                           <td><b>Criteria</b></td>

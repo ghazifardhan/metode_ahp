@@ -80,8 +80,8 @@ class AHPController extends Controller
       $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
       $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
 
-      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
-      //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      //return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return response($amaks);
     }
 
@@ -102,7 +102,7 @@ class AHPController extends Controller
                ])->first();
                if(count($q) > 0){
                  $nilai = $q->importance_level->level_value;
-                 $matrix[$x][$y] = $nilai;
+                 $matrix[$x][$y] = round($nilai, 3);
                  $matrix[$y][$x] = round((1/$nilai),3);
                } else {
                  $matrix[$x][$y] = 1;
@@ -149,7 +149,7 @@ class AHPController extends Controller
 
     public function ahp_eigen_vektor($criteria_id, $norm_matrix){
       for($x = 0; $x < count($criteria_id); $x++){
-          $eigen_vektor[] = array_sum($norm_matrix[$x])/count($criteria_id);
+          $eigen_vektor[] = round(array_sum($norm_matrix[$x])/count($criteria_id), 3);
       }
       return $eigen_vektor;
     }
@@ -158,7 +158,7 @@ class AHPController extends Controller
       for($x = 0; $x < count($criteria_id); $x++){
           //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
           //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
-          $eigen_vektor[$alternative[$x]['alternative']] = array_sum($norm_matrix[$x])/count($criteria_id);
+          $eigen_vektor[$alternative[$x]['alternative']] = round(array_sum($norm_matrix[$x])/count($criteria_id), 3);
       }
       return $eigen_vektor;
     }

@@ -89,8 +89,11 @@ class AlternativeController extends BaseController
       $value = $request->input('value');
       $alternative_id = $request->input('alternative_id');
       $criteria_id = $request->input('criteria_id');
-
+      
       for($x = 0; $x < count($value); $x++){
+        if($value[$x] == null){
+          $value[$x] = 0;
+        }
         DB::table('data_alternative')->insert([
           'alternative_id' => $alternative_id,
           'criteria_id' => $criteria_id[$x],
@@ -99,7 +102,7 @@ class AlternativeController extends BaseController
           'updated_at' => $time,
         ]);
       }
-
+      
       return Redirect::route('alternative.index');
     }
 

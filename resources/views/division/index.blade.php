@@ -4,29 +4,38 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Division</div>
 
                 <div class="panel-body">
                     <table class="table table-bordered table-hover table-striped table-condensed">
                       <tr>
                         <th>ID</th>
-                        <th>Alternative</th>
+                        <th>Name</th>
                         <th>Action</th>
                       </tr>
-                      @foreach($alternative as $alternatives)
+                      <?php
+                      if(count($division) == 0){
+                      ?>
+                      <tr>
+                        <td colspan="3">Tidak ada data</td>
+                      </tr>
+                      <?php } else { 
+                        $no = 1;?>
+                      @foreach($division as $divisions)
                       <tr>
 
-                        <td>{{ $alternatives->id }}</td>
-                        <td>{!! link_to_route('alternative.show', $alternatives->alternative, array($alternatives->id), array('class' => '')) !!}</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{!! link_to_route('division.show', $divisions->name, array($divisions->id), array('class' => '')) !!}</td>
                         <td>
-                          {!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}
+                          {!! link_to_route('division.edit', 'Edit', array($divisions->id), array('class' => 'btn btn-info')) !!}
 
-                          <button class="btn btn-danger delete" data-id="{{ $alternatives->id }}" data-token="{{ csrf_token() }}">Delete</button>
+                          <button class="btn btn-danger delete" data-id="{{ $divisions->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         </td>
                       </tr>
                       @endforeach
+                      <?php } ?>
                     </table>
-                    <a href="{{ route('alternative.create') }}">Create New Alternative</a>
+                    <a href="{{ route('division.create') }}">Create New Division</a>
                 </div>
             </div>
         </div>
@@ -40,12 +49,12 @@
     var id = $(this).data('id');
     var token = $(this).data('token');
     $.ajax({
-      url: 'alternative/' + id,
+      url: 'division/' + id,
       type: 'POST',
       data: {'_method': 'DELETE', '_token':token},
       success: function(){
         console.log('Success Delete!');
-        window.location.href = "{{ url('alternative') }}";
+        window.location.href = "{{ url('division') }}";
       }
     });
   });

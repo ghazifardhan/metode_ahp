@@ -37,8 +37,15 @@
                     <ul class="nav navbar-nav">
                       @if(Auth::guest())
                       @else
-                        <li><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
-                        <li><a href="{{ url('criteria') }}">Criteria</a></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master Data <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
+                            <li><a href="{{ url('division') }}">Master Data Division</a></li>
+                            <li><a href="{{ url('rank_gaji') }}">Master Data Rank Gaji</a></li>
+                            <li><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
+                        </ul>
+                        </li>
                         <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
                         <li><a href="{{ url('ahp') }}">AHP Process</a></li>
                         <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>

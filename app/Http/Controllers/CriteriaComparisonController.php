@@ -46,8 +46,9 @@ class CriteriaComparisonController extends Controller
     $criteria_comparison = $this->criteria_comparison->find($id);
 
     $criteria = Criteria::all();
+    $importance_level = ImportanceLevel::all();
 
-    return view('criteria_comparison.form_update', compact('criteria_comparison', 'criteria'));
+    return view('criteria_comparison.form_update', compact('criteria_comparison', 'criteria', 'importance_level'));
   }
 
   public function update(Request $request, $id){

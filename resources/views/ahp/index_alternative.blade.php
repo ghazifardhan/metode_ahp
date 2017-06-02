@@ -8,7 +8,49 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                <table class="table table-bordered">
+                      <tr>
+                        <th>*</th>
+                          @foreach($criteria as $items)
+                          <th>{{ $items->criteria }}</th>
+                          @endforeach
+                        </tr>
+                        <tr>
+                            <td>Eigen Vektor</td>
+                            @foreach($eigen_vektor as $row)
+                            <td>{{ $row }}</td>
+                            @endforeach
+                        </tr>
+                        @foreach($alternative as $x => $v)
+                        <tr>
+                          <td>{{$v->alternative}}</td>
+                          @foreach($rank as $y => $val)
+                          <td>{{ $rank[$y][$x] }}</td>
+                          @endforeach
+                        </tr>
+                        @endforeach
+                      </table>
+
+                    <table class="table table-bordered">
+                      <tr>
+                        <th colspan="3">Rank Summary</th>
+                      </tr>
+                      <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                      </tr>
+                      @foreach($amaks as $key => $items)
+                      <tr>
+                        <td>{{ $amaks[$key]['rank'] }}</td>
+                        <td>{{ $amaks[$key]['name'] }}</td>
+                        <td>{{ $amaks[$key]['value'] }}</td>
+                      </tr>
+                      @endforeach
+                    </table>
+
                     @foreach($matrix as $key => $val)
+                    <!--
                     <table class="table table-bordered">
                       <tr>
                         <th colspan="{{ count($alternative)+1 }}">{{ $matrix[$key]['criteria_name'] }}</th>
@@ -54,6 +96,7 @@
                       </tr>
                       @endforeach
                     </table>
+                    -->
 
                     <table class="table table-bordered">
                       <tr>
@@ -74,46 +117,7 @@
                       @endforeach
                     </table>
                     @endforeach
-                    <table class="table table-bordered">
-                      <tr>
-                        <th>*</th>
-                          @foreach($criteria as $items)
-                          <th>{{ $items->criteria }}</th>
-                          @endforeach
-                        </tr>
-                        <tr>
-                            <td>Eigen Vektor</td>
-                            @foreach($eigen_vektor as $row)
-                            <td>{{ $row }}</td>
-                            @endforeach
-                        </tr>
-                        @foreach($alternative as $x => $v)
-                        <tr>
-                          <td>{{$v->alternative}}</td>
-                          @foreach($rank as $y => $val)
-                          <td>{{ $rank[$y][$x] }}</td>
-                          @endforeach
-                        </tr>
-                        @endforeach
-                      </table>
-
-                    <table class="table table-bordered">
-                      <tr>
-                        <th colspan="3">Rank Summary</th>
-                      </tr>
-                      <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Value</th>
-                      </tr>
-                      @foreach($amaks as $key => $items)
-                      <tr>
-                        <td>{{ $amaks[$key]['rank'] }}</td>
-                        <td>{{ $amaks[$key]['name'] }}</td>
-                        <td>{{ $amaks[$key]['value'] }}</td>
-                      </tr>
-                      @endforeach
-                      </table>
+                    
                 </div>
                 </div>
             </div>

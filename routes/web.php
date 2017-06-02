@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('alternative', 'AlternativeController');
 Route::resource('criteria', 'CriteriaController');
 Route::resource('criteria_comparison', 'CriteriaComparisonController');
+Route::resource('division', 'DivisionController');
 
 Route::get('ahp', 'AHPController@get_ahp_matrix_criteria');
 Route::get('ahp_summary', 'AHPController@get_ahp_matrix_alternative');
