@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
             <div class="panel panel-default">
-                <div class="panel-heading">AHP</div>
+                <div class="panel-heading">AHP <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
 
                 <div class="panel-body">
                     <table class="table table-bordered">

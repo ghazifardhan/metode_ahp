@@ -20,8 +20,8 @@ class CreateTableDataAlternative extends Migration
           $table->integer('value');
           $table->timestamps();
 
-          $table->foreign('alternative_id')->references('id')->on('alternative');
-          $table->foreign('criteria_id')->references('id')->on('criteria');
+          $table->foreign('alternative_id')->references('id')->on('alternative')->onDelete('cascade');
+          $table->foreign('criteria_id')->references('id')->on('criteria')->onDelete('cascade');
         });
     }
 

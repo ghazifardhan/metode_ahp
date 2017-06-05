@@ -19,8 +19,8 @@ class CreateTableCriteriaComparison extends Migration
           $table->integer('criteria_id_2')->unsigned();
           $table->integer('value');
 
-          $table->foreign('criteria_id_1')->references('id')->on('criteria');
-          $table->foreign('criteria_id_2')->references('id')->on('criteria');
+          $table->foreign('criteria_id_1')->references('id')->on('criteria')->onDelete('cascade');
+          $table->foreign('criteria_id_2')->references('id')->on('criteria')->onDelete('cascade');
         });
     }
 

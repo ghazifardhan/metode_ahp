@@ -20,7 +20,7 @@ class ModifyTableAlternative extends Migration
           $table->double('salary');
           $table->integer('division_id')->unsigned();
 
-          $table->foreign('division_id')->references('id')->on('division');
+          $table->foreign('division_id')->references('id')->on('division')->onDelete('cascade');
         });
     }
 

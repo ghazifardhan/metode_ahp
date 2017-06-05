@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Summary <button id="cetak" class="btn btn-info">Print</button></div>
+                <div class="panel-heading">Summary <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
 
                 <div id="data-print" class="panel-body">
                 <table class="table table-bordered">

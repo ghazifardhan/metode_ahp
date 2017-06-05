@@ -103,8 +103,8 @@ class AHPController extends Controller
                ])->first();
                if(count($q) > 0){
                  $nilai = $q->importance_level->level_value;
-                 $matrix[$x][$y] = round($nilai, 3);
-                 $matrix[$y][$x] = round((1/$nilai),3);
+                 $matrix[$x][$y] = round($nilai, config('app.decimal'));
+                 $matrix[$y][$x] = round((1/$nilai),config('app.decimal'));
                } else {
                  $matrix[$x][$y] = 1;
                  $matrix[$y][$x] = 1;
@@ -128,7 +128,7 @@ class AHPController extends Controller
     public function ahp_norm_matrix_criteria($criteria_id, $matrix, $sum){
       for($x = 0; $x < count($criteria_id); $x++){
         for($y = 0; $y < count($criteria_id); $y++){
-          $norm_matrix[$x][$y] = round($matrix[$x][$y] / $sum[$y], 3);
+          $norm_matrix[$x][$y] = round($matrix[$x][$y] / $sum[$y], config('app.decimal'));
         }
       }
       return $norm_matrix;
@@ -150,7 +150,7 @@ class AHPController extends Controller
 
     public function ahp_eigen_vektor($criteria_id, $norm_matrix){
       for($x = 0; $x < count($criteria_id); $x++){
-          $eigen_vektor[] = round(array_sum($norm_matrix[$x])/count($criteria_id), 3);
+          $eigen_vektor[] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
       }
       return $eigen_vektor;
     }
@@ -159,7 +159,7 @@ class AHPController extends Controller
       for($x = 0; $x < count($criteria_id); $x++){
           //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
           //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
-          $eigen_vektor[$alternative[$x]['alternative']] = round(array_sum($norm_matrix[$x])/count($criteria_id), 3);
+          $eigen_vektor[$alternative[$x]['alternative']] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
       }
       arsort($eigen_vektor);
       return $eigen_vektor;
@@ -188,7 +188,7 @@ class AHPController extends Controller
       for($x = 0; $x <  count($alternative_id); $x++){
           $sum_amaks[$x]['id'] = $alternative_id[$x];
           $sum_amaks[$x]['name'] = $alternative[$x]['alternative'];
-          $sum_amaks[$x]['value'] = array_sum($amaks[$x]);
+          $sum_amaks[$x]['value'] = round(array_sum($amaks[$x]), config('app.decimal'));
       }
 
       $value = array();
@@ -219,13 +219,13 @@ class AHPController extends Controller
         $t[] = $sum_amaks[$x] / $eigen_vektor[$x];
       }
 
-      $sum_t = round(array_sum($t) / count($criteria_id), 3);
+      $sum_t = round(array_sum($t) / count($criteria_id), config('app.decimal'));
 
       return $sum_t;
     }
 
     public function ahp_ci($criteria_id, $sum_t){
-      $ci = round(($sum_t - count($criteria_id))/(count($criteria_id) - 1), 3);
+      $ci = round(($sum_t - count($criteria_id))/(count($criteria_id) - 1), config('app.decimal'));
 
       return $ci;
     }
@@ -241,7 +241,7 @@ class AHPController extends Controller
     }
 
     public function ahp_consitency($ci, $rci){
-      $value = round($ci / $rci->index_value, 3);
+      $value = round($ci / $rci->index_value, config('app.decimal'));
       if($value < 0.100){
         $res['value'] = $value;
         $res['consistency'] = true;
@@ -256,7 +256,7 @@ class AHPController extends Controller
     public function ahp_matrix_alternative($alternative_ids, $data_alternative){
       for($x=0;$x<count($alternative_ids);$x++){
     		for($y=0;$y<count($alternative_ids);$y++){
-    			$matrix[$x][$y] = round($data_alternative[$x]['value']/$data_alternative[$y]['value'],3);
+    			$matrix[$x][$y] = round($data_alternative[$x]['value']/$data_alternative[$y]['value'],config('app.decimal'));
     		}
     	}
     	return $matrix;

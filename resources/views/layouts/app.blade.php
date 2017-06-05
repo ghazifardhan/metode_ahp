@@ -16,6 +16,13 @@
     <!-- Script -->
     <script src="{{ asset('js/jquery-1.10.2.js') }}"></script>
     <script src="{{ asset('js/jquery.PrintArea.js') }}"></script>
+
+    <style>
+    @media print
+    {
+     #not-print { display: none; }
+    }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -51,8 +58,13 @@
                         </ul>
                         </li>
                         <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
-                        <li><a href="{{ url('ahp') }}">AHP Process</a></li>
-                        <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AHP <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{{ url('ahp') }}">Pairwise Comparison</a></li>
+                            <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
+                          </ul>
+                        </li>
                       @endif
                     </ul>
 

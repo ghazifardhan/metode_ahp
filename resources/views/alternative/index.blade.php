@@ -40,7 +40,7 @@
     var id = $(this).data('id');
     var token = $(this).data('token');
     $.ajax({
-      url: 'alternative/' + id,
+      url: '{{ url('alternative') }}/' + id,
       type: 'POST',
       data: {'_method': 'DELETE', '_token':token},
       success: function(){
