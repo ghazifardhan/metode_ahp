@@ -13,6 +13,11 @@
                         <th>Alternative</th>
                         <th>Action</th>
                       </tr>
+                      <?php if(count($alternative) == 0){ ?>
+                      <tr>
+                        <td colspan="3">Tidak ada Data</td>
+                      </tr>
+                      <?php } else { ?>
                       @foreach($alternative as $alternatives)
                       <tr>
 
@@ -25,6 +30,7 @@
                         </td>
                       </tr>
                       @endforeach
+                    <?php } ?>
                     </table>
                     <a href="{{ route('alternative.create') }}">Create New Alternative</a>
                 </div>

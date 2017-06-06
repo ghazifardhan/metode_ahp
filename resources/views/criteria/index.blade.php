@@ -13,6 +13,11 @@
                         <th>Criteria</th>
                         <th>Action</th>
                       </tr>
+                      <?php if(count($criteria) == 0){ ?>
+                      <tr>
+                        <td colspan="3">Tidak ada Data</td>
+                      </tr>
+                      <?php } else { ?>
                       @foreach($criteria as $criterias)
                       <tr>
 
@@ -25,6 +30,7 @@
                         </td>
                       </tr>
                       @endforeach
+                      <?php } ?>
                     </table>
                     <a href="{{ route('criteria.create') }}">Create New Criteria</a>
                 </div>

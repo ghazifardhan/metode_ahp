@@ -6,6 +6,9 @@
                 <div class="panel-heading">AHP <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
 
                 <div class="panel-body">
+                  <?php if(!$matrix){ ?>
+                    <h1 align="center">Tidak ada data</h1>
+                    <?php } else { ?>
                     <table class="table table-bordered">
                       <tr>
                         <th colspan="{{ count($criteria)+1 }}">Pairwise Comparison</th>
@@ -81,6 +84,7 @@
                               <td><?php if($res['consistency']['consistency']){ echo 'Konsisten'; } else { echo 'Tidak Konsisten';} ?></td>
                           </tr>
                         </table>
+                        <?php } ?>
                 </div>
             </div>
     </div>

@@ -14,10 +14,16 @@
                         <th>Salary Upgrade</th>
                         <th>Action</th>
                       </tr>
+                      <?php if(count($rank_salary) == 0){ ?>
+                      <tr>
+                        <td colspan="4">Tidak ada Data</td>
+                      </tr>
+                      <?php } else {
+                        $no = 1; ?>
                       @foreach($rank_salary as $rank_salaries)
                       <tr>
 
-                        <td>{{ $rank_salaries->id }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $rank_salaries->rank }}</td>
                         <td>{{ "Rp " . number_format($rank_salaries->up_salary, "0", ",", ".") }}</td>
                         <td>
@@ -27,6 +33,7 @@
                         </td>
                       </tr>
                       @endforeach
+                      <?php } ?>
                     </table>
                     <a href="{{ route('rank_salary.create') }}">Create New Rank Salary</a>
                 </div>

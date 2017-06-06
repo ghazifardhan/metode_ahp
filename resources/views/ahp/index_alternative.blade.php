@@ -8,6 +8,9 @@
                 <div class="panel-heading">Summary <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
 
                 <div id="data-print" class="panel-body">
+                <?php if($matrix == null){ ?>
+                  <h1 align="center">Tidak ada data</h1>
+                <?php } else { ?>
                 <table class="table table-bordered">
                       <tr>
                         <th>*</th>
@@ -119,6 +122,7 @@
                       @endforeach
                     </table>
                     @endforeach
+                    <?php } ?>
 
                 </div>
                 </div>

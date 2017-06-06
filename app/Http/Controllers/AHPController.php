@@ -18,26 +18,45 @@ class AHPController extends Controller
 
       $criteria_ids = array();
 
-      foreach($criteria as $key => $val){
-        $criteria_ids[] = $criteria[$key]['id'];
+      if(count($criteria) == 0){
+        $matrix = null;
+        $number_of_column = null;
+        $sum = null;
+        $norm_matrix = null;
+        $number_of_row = null;
+        $eigen_vektor = null;
+        $sum_amaks = null;
+        $t = null;
+        $ci = null;
+        $rci = null;
+        $consistency = null;
+
+        $res['t'] = null;
+        $res['ci'] = null;
+        $res['rci'] = null;
+        $res['consistency'] = null;
+      } else {
+        foreach($criteria as $key => $val){
+          $criteria_ids[] = $criteria[$key]['id'];
+        }
+
+        $matrix = $this->ahp_matrix_criteria($criteria_ids);
+        $number_of_column = $this->ahp_number_of_column($criteria_ids, $matrix);
+        $sum = $this->ahp_sum($criteria_ids, $number_of_column);
+        $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix, $sum);
+        $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
+        $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
+        $sum_amaks = $this->ahp_amaks($criteria_ids, $matrix, $eigen_vektor);
+        $t = $this->ahp_t($criteria_ids, $sum_amaks, $eigen_vektor);
+        $ci = $this->ahp_ci($criteria_ids, $t);
+        $rci = $this->ahp_rci($criteria_ids);
+        $consistency = $this->ahp_consitency($ci, $rci);
+
+        $res['t'] = $t;
+        $res['ci'] = $ci;
+        $res['rci'] = $rci->index_value;
+        $res['consistency'] = $consistency;
       }
-
-      $matrix = $this->ahp_matrix_criteria($criteria_ids);
-      $number_of_column = $this->ahp_number_of_column($criteria_ids, $matrix);
-      $sum = $this->ahp_sum($criteria_ids, $number_of_column);
-      $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix, $sum);
-      $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
-      $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
-      $sum_amaks = $this->ahp_amaks($criteria_ids, $matrix, $eigen_vektor);
-      $t = $this->ahp_t($criteria_ids, $sum_amaks, $eigen_vektor);
-      $ci = $this->ahp_ci($criteria_ids, $t);
-      $rci = $this->ahp_rci($criteria_ids);
-      $consistency = $this->ahp_consitency($ci, $rci);
-
-      $res['t'] = $t;
-      $res['ci'] = $ci;
-      $res['rci'] = $rci->index_value;
-      $res['consistency'] = $consistency;
 
       return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
@@ -48,38 +67,47 @@ class AHPController extends Controller
       $criteria = Criteria::orderBy('id', 'asc')->get();
 
       $alternative_ids = array();
-
-      foreach($alternative as $key => $val){
-        $alternative_ids[] = $alternative[$key]['id'];
-      }
-
-      foreach ($criteria as $key => $value) {
-        $criteria_ids[] = $criteria[$key]['id'];
-        $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where('criteria_id',$criteria[$key]['id'])->get();
-        $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
-        $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
-        $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
-        $sum = $this->ahp_number_of_column($alternative_ids, $matrix[$key]['result']);
-        $matrix[$key]['number_of_column'] = $this->ahp_sum($alternative_ids, $sum);
-        $norm_matrix = $this->ahp_norm_matrix_criteria($alternative_ids, $matrix[$key]['result'], $matrix[$key]['number_of_column']);
-        $matrix[$key]['norm_matrix'] = $norm_matrix;
-        $eigen_vektor = $this->ahp_eigen_vektor_alternative($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
-        //arsort($eigen_vektor);
-        $matrix[$key]['eigen_vektor'] = $eigen_vektor;
-        foreach($matrix[$key]['norm_matrix'] as $k => $v){
-          $tests[$key][$k] = $matrix[$key]['norm_matrix'][$k][0];
+      if(count($alternative) == 0){
+        $matrix = null;
+        $alternative = null;
+        $rank = null;
+        $criteria = null;
+        $eigen_vektor = null;
+        $amaks = null;
+      } else {
+        foreach($alternative as $key => $val){
+          $alternative_ids[] = $alternative[$key]['id'];
         }
-        $rank = $tests;
-        //$test[] = $data_alternative;
-      }
 
-      $matrix_crit = $this->ahp_matrix_criteria($criteria_ids);
-      $number_of_column = $this->ahp_number_of_column($criteria_ids, $matrix_crit);
-      $sum = $this->ahp_sum($criteria_ids, $number_of_column);
-      $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix_crit, $sum);
-      $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
-      $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
-      $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
+        foreach ($criteria as $key => $value) {
+          $criteria_ids[] = $criteria[$key]['id'];
+          $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where('criteria_id',$criteria[$key]['id'])->get();
+          $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
+          $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
+          $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
+          $sum = $this->ahp_number_of_column($alternative_ids, $matrix[$key]['result']);
+          $matrix[$key]['number_of_column'] = $this->ahp_sum($alternative_ids, $sum);
+          $norm_matrix = $this->ahp_norm_matrix_criteria($alternative_ids, $matrix[$key]['result'], $matrix[$key]['number_of_column']);
+          $matrix[$key]['norm_matrix'] = $norm_matrix;
+          $eigen_vektor = $this->ahp_eigen_vektor_alternative($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
+          //arsort($eigen_vektor);
+          $matrix[$key]['eigen_vektor'] = $eigen_vektor;
+          foreach($matrix[$key]['norm_matrix'] as $k => $v){
+            $tests[$key][$k] = $matrix[$key]['norm_matrix'][$k][0];
+          }
+          $rank = $tests;
+          //$test[] = $data_alternative;
+        }
+
+
+        $matrix_crit = $this->ahp_matrix_criteria($criteria_ids);
+        $number_of_column = $this->ahp_number_of_column($criteria_ids, $matrix_crit);
+        $sum = $this->ahp_sum($criteria_ids, $number_of_column);
+        $norm_matrix = $this->ahp_norm_matrix_criteria($criteria_ids, $matrix_crit, $sum);
+        $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
+        $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
+        $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
+      }
 
       return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));

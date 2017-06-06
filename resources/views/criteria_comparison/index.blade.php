@@ -15,6 +15,11 @@
                         <th>Criteria ID 2</th>
                         <th>Action</th>
                       </tr>
+                      <?php if(count($criteria_comparison) == 0){ ?>
+                      <tr>
+                        <td colspan="5">Tidak ada Data</td>
+                      </tr>
+                      <?php } else { ?>
                       <?php $no = 1; ?>
                       @foreach($criteria_comparison as $row)
                       <tr>
@@ -29,6 +34,7 @@
                         </td>
                       </tr>
                       @endforeach
+                      <?php } ?>
                     </table>
                     <a href="{{ route('criteria_comparison.create') }}">Create New Comparison</a>
                 </div>
