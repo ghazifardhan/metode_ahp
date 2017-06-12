@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Redirect;
+use Validator;
 
 
 class RankSalaryController extends Controller
@@ -26,6 +27,7 @@ class RankSalaryController extends Controller
     }
 
     public function store(Request $request){
+      Validator::validate($request->input(), $this->rank_salary->validate);
       $this->rank_salary->fill([
         'rank' => $request->input('rank'),
         'up_salary' => $request->input('up_salary'),

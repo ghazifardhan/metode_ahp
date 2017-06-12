@@ -12,6 +12,12 @@ class DataAlternative extends Model
       'alternative_id', 'criteria_id', 'value', 'created_at', 'updated_at'
     ];
 
+    public $validate = [
+      'alternative_id' => 'required',
+      'criteria_id' => 'required',
+      'value' => 'criteria'
+    ];
+
     public function alternative(){
       return $this->hasOne('App\V1\Models\Alternative', 'id', 'alternative_id');
     }

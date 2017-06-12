@@ -201,7 +201,7 @@ class AHPController extends Controller
       }
 
       for($x = 0; $x <  count($criteria_id); $x++){
-          $sum_amaks[] = array_sum($amaks[$x]);
+          $sum_amaks[] = round(array_sum($amaks[$x]), config('app.decimal'));
       }
       return $sum_amaks;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\V1\Models\Division;
 use Redirect;
+use Validator;
 
 class DivisionController extends Controller
 {
@@ -28,6 +29,7 @@ class DivisionController extends Controller
     }
 
     public function store(Request $request){
+      Validator::validate($request->input(), $this->division->validate);
       $this->division->fill([
           'name' => $request->input('name'),
         ]);

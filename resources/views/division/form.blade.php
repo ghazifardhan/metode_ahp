@@ -7,6 +7,13 @@
                 <div class="panel-heading">{{$res['status']}} Division</div>
 
                 <div class="panel-body">
+                  @if($errors->any())
+                    <div class="flash alert-danger">
+                        @foreach($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                  @endif
                     <?php if($res['create']){ ?>
                     {!! Form::model(new App\V1\Models\Division, ['class' => 'form-horizontal', 'route' => 'division.store']) !!}
                     <?php } else { ?>

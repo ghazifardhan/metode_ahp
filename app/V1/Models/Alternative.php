@@ -12,6 +12,15 @@ class Alternative extends Model
       'alternative', 'age', 'address', 'phone_number', 'salary', 'division_id'
     ];
 
+    public $validate = [
+      'alternative' => 'required',
+      'age' => 'required',
+      'address' => 'required',
+      'phone_number' => 'required',
+      'salary' => 'required',
+      'division_id' => 'required',
+    ];
+
     public function division(){
       return $this->hasOne('App\V1\Models\Division', 'id', 'division_id');
     }

@@ -6,7 +6,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ $res['status'] }} Comparison</div>
 
-                <div class="panel-body"><?php if($res['create']){ ?>
+                <div class="panel-body">
+                  @if($errors->any())
+                    <div class="flash alert-danger">
+                        @foreach($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                  @endif
+                  <?php if($res['create']){ ?>
                 {!! Form::model(new App\V1\Models\CriteriaComparison, ['class' => 'form-horizontal', 'route' => 'criteria_comparison.store']) !!}
                 <?php } else { ?>
                 {!! Form::model($criteria_comparison, ['method' => 'PATCH', 'route' => ['criteria_comparison.update', $criteria_comparison->id], 'class' => 'form-horizontal']) !!}

@@ -11,6 +11,7 @@ use App\V1\Models\DataAlternative;
 use App\V1\Models\Criteria;
 use App\V1\Models\Division;
 use Redirect;
+use Validator;
 
 class AlternativeController extends BaseController
 {
@@ -28,6 +29,9 @@ class AlternativeController extends BaseController
     }
 
     public function store(Request $request){
+
+      Validator::validate($request->input(), $this->alternative->validate);
+
       $this->alternative->fill([
         'alternative' => $request->input('alternative'),
         'age' => $request->input('age'),

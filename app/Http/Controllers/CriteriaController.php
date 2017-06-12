@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use App\V1\Models\Criteria;
 use Redirect;
+use Validator;
 
 class CriteriaController extends Controller
 {
@@ -24,6 +25,7 @@ class CriteriaController extends Controller
   }
 
   public function store(Request $request){
+    Validator::validate($request->input(), $this->criteria->validate);
     $this->criteria->fill([
       'criteria' => $request->input('criteria'),
     ]);

@@ -11,4 +11,9 @@ class RankSalary extends Model
     protected $fillable = [
     	'rank', 'up_salary'
     ];
+
+    public $validate = [
+      'rank' => 'required',
+      'up_salary' => 'required'
+    ];
 }

@@ -9,6 +9,7 @@ use App\V1\Models\CriteriaComparison;
 use App\V1\Models\Criteria;
 use App\V1\Models\ImportanceLevel;
 use Redirect;
+use Validator;
 
 class CriteriaComparisonController extends Controller
 {
@@ -27,6 +28,9 @@ class CriteriaComparisonController extends Controller
   }
 
   public function store(Request $request){
+
+    Validator::validate($requtes->input(), $this->criteria_comparison->validate);
+
     $this->criteria_comparison->fill([
       'criteria_id_1' => $request->input('criteria_id_1'),
       'criteria_id_2' => $request->input('criteria_id_2'),

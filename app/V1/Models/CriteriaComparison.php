@@ -12,6 +12,12 @@ class CriteriaComparison extends Model
       'criteria_id_1', 'criteria_id_2', 'value'
     ];
 
+    public $validate = [
+      'criteria_id_1' => 'required',
+      'criteria_id_2' => 'required',
+      'value' => 'required',
+    ];
+
     public function criteria1(){
       return $this->hasOne('App\V1\Models\Criteria', 'id', 'criteria_id_1');
     }

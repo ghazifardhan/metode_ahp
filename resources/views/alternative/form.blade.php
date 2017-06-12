@@ -7,6 +7,14 @@
                 <div class="panel-heading">{{ $res['status'] }} Alternative</div>
 
                 <div class="panel-body">
+
+                  @if($errors->any())
+                      <div class="flash alert-danger">
+                          @foreach($errors->all() as $error)
+                          <p>{{ $error }}</p>
+                          @endforeach
+                      </div>
+                  @endif
                   <?php if($res['create']){ ?>
                   {!! Form::model(new App\V1\Models\Alternative, ['class' => 'form-horizontal', 'route' => 'alternative.store']) !!}
                   <?php } else { ?>
