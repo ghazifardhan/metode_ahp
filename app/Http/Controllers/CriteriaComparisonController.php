@@ -29,7 +29,7 @@ class CriteriaComparisonController extends Controller
 
   public function store(Request $request){
 
-    Validator::validate($requtes->input(), $this->criteria_comparison->validate);
+    Validator::validate($request->input(), $this->criteria_comparison->validate);
 
     $this->criteria_comparison->fill([
       'criteria_id_1' => $request->input('criteria_id_1'),
