@@ -18,6 +18,7 @@ class CreateTableAssessment extends Migration
             $table->integer('alternative_id')->unsigned();
             $table->integer('criteria_id')->unsigned();
             $table->double('value');
+            $table->integer('year_id');
         })
     }
 
