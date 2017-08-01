@@ -24,4 +24,8 @@ class Alternative extends Model
     public function division(){
       return $this->hasOne('App\V1\Models\Division', 'id', 'division_id');
     }
+
+    public function getRouteKeyName(){
+      return 'alternative';
+    }
 }

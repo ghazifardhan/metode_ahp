@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('breadcrumb')
+@include('breadcrumb')
+@stop    
 @section('content')
 <div class="container">
     <div class="row">

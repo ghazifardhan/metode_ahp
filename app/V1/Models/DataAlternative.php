@@ -9,7 +9,7 @@ class DataAlternative extends Model
     protected $table = 'data_alternative';
 
     protected $fillable = [
-      'alternative_id', 'criteria_id', 'value', 'created_at', 'updated_at'
+      'alternative_id', 'criteria_id', 'value', 'year_id', 'created_at', 'updated_at'
     ];
 
     public $validate = [
@@ -23,6 +23,10 @@ class DataAlternative extends Model
     }
 
     public function criteria(){
-      return $this->criteria('App\V1\Models\Criteria', 'id', 'criteria_id');
+      return $this->hasOne('App\V1\Models\Criteria', 'id', 'criteria_id');
+    }
+
+    public function year(){
+      return $this->hasOne('App\V1\Models\Year', 'id', 'year_id');
     }
 }

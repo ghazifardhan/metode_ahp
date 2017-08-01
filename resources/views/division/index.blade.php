@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('breadcrumb')
+@include('breadcrumb')
+@stop  
 @section('content')
 <div class="container">
     <div class="row">
@@ -25,7 +28,7 @@
                       <tr>
 
                         <td>{{ $no++ }}</td>
-                        <td>{!! link_to_route('division.show', $divisions->name, array($divisions->id), array('class' => '')) !!}</td>
+                        <td>{{ $divisions->name }}</td>
                         <td>
                           {!! link_to_route('division.edit', 'Edit', array($divisions->id), array('class' => 'btn btn-info')) !!}
 

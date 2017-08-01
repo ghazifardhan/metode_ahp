@@ -54,6 +54,8 @@ class AlternativeController extends BaseController
 
     public function edit($id){
       $alternative = $this->alternative->find($id);
+      //$alternative = $this->alternative->where('alternative', $slug)->first();
+      //dd($slug);
       $division = Division::all();
       $res['create'] = false;
       $res['status'] = "Update";

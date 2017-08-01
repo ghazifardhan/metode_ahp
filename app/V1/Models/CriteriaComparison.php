@@ -27,6 +27,6 @@ class CriteriaComparison extends Model
     }
 
     public function importance_level(){
-      return $this->hasOne('App\V1\Models\ImportanceLevel', 'id', 'value');
+      return $this->hasOne('App\V1\Models\ImportanceLevel', 'id', 'importance_leve_id');
     }
 }
