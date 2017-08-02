@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+date_default_timezone_set('Asia/Jakarta');
+?>
 <html>
 <head>
   <meta charset="utf-8">
@@ -36,37 +39,61 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+
+  <?php if(Auth::guest()){ ?>
+  .content-wrapper {
+    margin-left: 0px;
+  }
+  .main-footer {
+    margin-left: 0px;
+  }
+  <?php } else { } ?>
+
+  </style>
+
+  @yield('style')
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="getTime()">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{ url('/home') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>A</b>PSP</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>Panel</span>
+      <span class="logo-lg"><b>Admin</b> Panel Spring Preschool</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
+      <!--
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+      -->
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          
+
           <!-- Notifications: style can be found in dropdown.less -->
-          
+
           <!-- Tasks: style can be found in dropdown.less -->
-          
+
           <!-- User Account: style can be found in dropdown.less -->
+          <li><a href="" id="time"></a></li>
           @if (Auth::guest( ))
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Selamat Datang <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
               <li><a href="{{ route('login') }}">Login</a></li>
               <li><a href="{{ route('register') }}">Register</a></li>
+            </ul>
+          </li>
           @else
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -94,6 +121,8 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
+  @if(Auth::guest())
+  @else
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -102,16 +131,14 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-      @if(Auth::guest())
-      @else
         <li class="treeview">
           <a href="{{ url('/home') }}">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <!--<i class="fa fa-dashboard"></i>--> <span>Dashboard</span>
           </a>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Master Data</span>
+            <span>Master Data</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -125,12 +152,12 @@
         </li>
         <li class="treeview">
           <a href="{{ url('criteria_comparison') }}">
-            <i class="fa fa-dashboard"></i> <span>Criteria Comparison</span>
+            <span>Criteria Comparison</span>
           </a>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>AHP</span>
+            <span>AHP</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -140,11 +167,11 @@
             <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
           </ul>
         </li>
-        @endif
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+  @endif
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -185,12 +212,11 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('plugins/sparkline/jquery.sparkline.min.js"') }}></script>
+<script src="{{ asset('plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap -->
 <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
 <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
@@ -209,10 +235,38 @@
 <script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/app.min.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('dist/js/pages/dashboard.') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
+
+<script type="text/javascript">
+
+function getTime(){
+  var weekday = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+
+  var today = new Date();
+  var day = weekday[today.getDay()];
+  var date = today.getDate();
+  var month = months[today.getMonth()];
+  var year = today.getFullYear();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+
+  // add zero if number <= 9
+  m = checkTime(m);
+  s = checkTime(s);
+  $('#time').text(day + ", " + date + " " + month + " "+ year + " " + h+":"+m+":"+s);
+  t = setTimeout(function(){getTime()},500);
+}
+
+function checkTime(i){
+  if (i<10)
+    {
+    i="0" + i;
+    }
+  return i;
+}
+</script>
+
 @yield('script')
 </body>
 </html>

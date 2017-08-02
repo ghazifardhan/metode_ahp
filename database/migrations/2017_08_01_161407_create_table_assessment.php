@@ -13,13 +13,15 @@ class CreateTableAssessment extends Migration
      */
     public function up()
     {
+      /*
         Schema::create('assessment', function(Blueprint $table){
             $table->increments('id');
             $table->integer('alternative_id')->unsigned();
             $table->integer('criteria_id')->unsigned();
             $table->double('value');
             $table->integer('year_id');
-        })
+        });
+        */
     }
 
     /**
