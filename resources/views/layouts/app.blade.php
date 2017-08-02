@@ -64,6 +64,10 @@
           <!-- Tasks: style can be found in dropdown.less -->
           
           <!-- User Account: style can be found in dropdown.less -->
+          @if (Auth::guest( ))
+              <li><a href="{{ route('login') }}">Login</a></li>
+              <li><a href="{{ route('register') }}">Register</a></li>
+          @else
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   {{ Auth::user()->name }} <span class="caret"></span>
@@ -83,6 +87,7 @@
                   </li>
               </ul>
           </li>
+          @endif
           <!-- Control Sidebar Toggle Button -->
         </ul>
       </div>
@@ -97,6 +102,8 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
+      @if(Auth::guest())
+      @else
         <li class="treeview">
           <a href="{{ url('/home') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -133,6 +140,7 @@
             <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
           </ul>
         </li>
+        @endif
       </ul>
     </section>
     <!-- /.sidebar -->
