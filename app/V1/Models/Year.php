@@ -11,4 +11,8 @@ class Year extends Model
     protected $fillable = [
     	'year'
     ];
+
+    public $validate = [
+      'year' => 'required',
+    ];
 }

@@ -138,6 +138,17 @@ date_default_timezone_set('Asia/Jakarta');
         </li>
         <li class="treeview">
           <a href="#">
+            <span>Admin</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('year') }}">Assessment</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <span>Master Data</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
