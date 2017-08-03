@@ -1,25 +1,50 @@
 @extends('layouts.app')
 @section('breadcrumb')
 @include('breadcrumb')
+@stop
+@section('style')
+
+<style>
+
+table {
+  border: 1px solid #f4f4f4;
+  border-collapse: collapse;
+  border-spacing: 10px;
+  padding: 10px;
+}
+
+.mytable {
+  width: 100%;
+  margin-bottom: 22px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+</style>
+
 @stop  
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-11">
             <div class="panel panel-default">
-                <div class="panel-heading">AHP <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
+                <div class="panel-heading">Pairwise Comparison <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
 
                 <div class="panel-body">
                   <?php if(!$matrix){ ?>
                     <h1 align="center">Tidak ada data</h1>
                     <?php } else { ?>
-                    <table class="table table-bordered">
+                    <table border="1" class="mytable">
                       <tr>
                         <th colspan="{{ count($criteria)+1 }}">Pairwise Comparison</th>
                       </tr>
                       <tr>
-                        <td><b>Criteria</b></td>
+                        <td class="col-md-1"><b>Criteria</b></td>
                         @foreach($criteria as $row)
-                        <td>{{ $row->criteria }}</td>
+                        <td class="col-md-1">{{ $row->criteria }}</td>
                         @endforeach
                         @foreach($criteria as $key => $val)
                         <tr>
@@ -36,7 +61,7 @@
                           @endforeach
                         </tr>
                       </table>
-                      <table class="table table-bordered">
+                      <table class="mytable" border="1">
                         <tr>
                           <th colspan="{{ count($criteria)+4 }}">Normalisasi Matriks</th>
                         </tr>
@@ -62,7 +87,7 @@
                           @endforeach
                         </table>
 
-                        <table class="table table-bordered">
+                        <table class="mytable" border="1">
                           <tr>
                             <td>t</td>
                             <td>{{ $res['t'] }}</td>
@@ -90,6 +115,7 @@
                         <?php } ?>
                 </div>
             </div>
+    </div>
     </div>
 </div>
 @endsection
