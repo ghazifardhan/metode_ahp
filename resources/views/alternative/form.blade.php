@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumb')
 @include('breadcrumb')
-@stop  
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -18,12 +18,12 @@
                           @endforeach
                       </div>
                   @endif
-                  <?php if($res['create']){ ?>
-                  {!! Form::model(new App\V1\Models\Alternative, ['class' => 'form-horizontal', 'route' => 'alternative.store']) !!}
-                  <?php } else { ?>
-                  {!! Form::model($alternative, ['method' => 'PATCH', 'route' => ['alternative.update', $alternative->id], 'class' => 'form-horizontal']) !!}
-                  <?php } ?>
                           <table class='table table-hover table-responsive table-bordered'>
+                          <?php if($res['create']){ ?>
+                          {!! Form::model(new App\V1\Models\Alternative, ['class' => 'form-horizontal', 'route' => 'alternative.store']) !!}
+                          <?php } else { ?>
+                          {!! Form::model($alternative, ['method' => 'PATCH', 'route' => ['alternative.update', $alternative->id], 'class' => 'form-horizontal']) !!}
+                          <?php } ?>
                               <tr>
                                   <td>Name</td>
                                   <td><input type="text" name="alternative" class='form-control' value="<?php if($alternative){echo $alternative->alternative;} ?>"></td>
@@ -55,10 +55,11 @@
                               </tr>
                               <tr>
                                   <td></td>
-                                  <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}</td>
+                                  <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                                      <input type="reset" class="btn btn-warning" value="Reset">
+                          {!! Form::close() !!}
                               </tr>
                           </table>
-                  {!! Form::close() !!}
                 </div>
             </div>
         </div>

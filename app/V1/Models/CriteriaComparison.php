@@ -9,13 +9,13 @@ class CriteriaComparison extends Model
     protected $table = 'criteria_comparison';
 
     protected $fillable = [
-      'criteria_id_1', 'criteria_id_2', 'value'
+      'criteria_id_1', 'criteria_id_2', 'importance_leve_id'
     ];
 
     public $validate = [
       'criteria_id_1' => 'required',
       'criteria_id_2' => 'required',
-      'value' => 'required',
+      'importance_leve_id' => 'required',
     ];
 
     public function criteria1(){

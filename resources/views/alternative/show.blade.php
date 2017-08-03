@@ -2,13 +2,13 @@
 
 @section('breadcrumb')
 @include('breadcrumb')
-@stop  
+@stop
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">{{ $alternative->alternative }}</div>
 
                 <div class="panel-body">
                     <table class="table table-bordered">
@@ -77,7 +77,7 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->year }}</td>
                         <td>
-                          <a class="btn btn-success" href="{{ route('alternative.assessment', $alternative->id) . '?year_id=' . $item->id }}">Create Assessment</a>
+                          <a class="btn btn-success" href="{{ route('alternative.assessment', [$alternative->id, $item->id]) }}">Create Assessment</a>
                         </td>
                       </tr>
                       @endforeach

@@ -34,7 +34,7 @@ class CriteriaComparisonController extends Controller
     $this->criteria_comparison->fill([
       'criteria_id_1' => $request->input('criteria_id_1'),
       'criteria_id_2' => $request->input('criteria_id_2'),
-      'value' => $request->input('value'),
+      'importance_leve_id' => $request->input('importance_leve_id'),
     ]);
     $this->criteria_comparison->save();
     return Redirect::route('criteria_comparison.index');
@@ -63,7 +63,7 @@ class CriteriaComparisonController extends Controller
     $criteria_comparison = $this->criteria_comparison->find($id);
     $criteria_comparison->criteria_id_1 = $request->input('criteria_id_1');
     $criteria_comparison->criteria_id_2 = $request->input('criteria_id_2');
-    $criteria_comparison->value = $request->input('value');
+    $criteria_comparison->importance_leve_id = $request->input('importance_leve_id');
     $criteria_comparison->save();
     return Redirect::route('criteria_comparison.index');
   }

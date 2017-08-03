@@ -9,6 +9,9 @@ use App\V1\Models\DataAlternative;
 use App\V1\Models\CriteriaComparison;
 use App\V1\Models\RandomConsistencyIndex;
 use App\V1\Models\RankSalary;
+use App\V1\Models\AssessmentSummary;
+use App\V1\Models\AssessmentCriteria;
+use Illuminate\Support\Facades\DB;
 
 class AHPController extends Controller
 {
@@ -16,9 +19,12 @@ class AHPController extends Controller
     public function get_ahp_matrix_criteria(){
       $criteria = Criteria::orderBy('id', 'asc')->get();
 
+      $count_criteria = count($criteria) - 1;
+      $count_comparison = count(CriteriaComparison::all());
+      $total_comparison = ((1*$count_criteria*$count_criteria)/2) + ((1*$count_criteria)/2);
       $criteria_ids = array();
 
-      if(count($criteria) == 0){
+      if(count($criteria) == 0 || $count_comparison < $total_comparison){
         $matrix = null;
         $number_of_column = null;
         $sum = null;
@@ -62,12 +68,17 @@ class AHPController extends Controller
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
     }
 
-    public function get_ahp_matrix_alternative(){
+    public function get_ahp_matrix_alternative($id){
+
+      $year_id = $id;
+
       $alternative = Alternative::orderBy('id', 'asc')->get();
       $criteria = Criteria::orderBy('id', 'asc')->get();
 
+      $d_alt = DB::select("select distinct alternative_id, year_id from data_alternative where year_id = " . $year_id);
+
       $alternative_ids = array();
-      if(count($alternative) == 0){
+      if(count($alternative) == 0 || count($d_alt) < count($alternative)){
         $matrix = null;
         $alternative = null;
         $rank = null;
@@ -81,7 +92,7 @@ class AHPController extends Controller
 
         foreach ($criteria as $key => $value) {
           $criteria_ids[] = $criteria[$key]['id'];
-          $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where('criteria_id',$criteria[$key]['id'])->get();
+          $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where(['criteria_id' => $criteria[$key]['id'], 'year_id' => $year_id])->get();
           $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
           $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
           $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
@@ -90,8 +101,10 @@ class AHPController extends Controller
           $norm_matrix = $this->ahp_norm_matrix_criteria($alternative_ids, $matrix[$key]['result'], $matrix[$key]['number_of_column']);
           $matrix[$key]['norm_matrix'] = $norm_matrix;
           $eigen_vektor = $this->ahp_eigen_vektor_alternative($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
+          $eigen_vektor_id = $this->ahp_eigen_vektor_alternative_id($alternative_ids, $matrix[$key]['norm_matrix'], $alternative);
           //arsort($eigen_vektor);
           $matrix[$key]['eigen_vektor'] = $eigen_vektor;
+          $matrix[$key]['eigen_vektor_id'] = $eigen_vektor_id;
           foreach($matrix[$key]['norm_matrix'] as $k => $v){
             $tests[$key][$k] = $matrix[$key]['norm_matrix'][$k][0];
           }
@@ -107,6 +120,38 @@ class AHPController extends Controller
         $number_of_row = $this->ahp_number_of_row($criteria_ids, $norm_matrix);
         $eigen_vektor = $this->ahp_eigen_vektor($criteria_ids, $norm_matrix);
         $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
+
+        // Store to Table Assessment Summary
+        $check_sum = AssessmentSummary::where('year_id', $year_id)->get();
+        if(count($check_sum) == 0){
+          foreach($amaks as $key => $val){
+            $a_sum[$key] = new AssessmentSummary();
+            $a_sum[$key]->fill([
+              'alternative_id' => $amaks[$key]['id'],
+              'value' => $amaks[$key]['value'],
+              'rank_salary_id' => $amaks[$key]['rank_salary_id'],
+              'year_id' => $year_id,
+            ]);
+            $a_sum[$key]->save();
+          }
+        }
+        // Store to table Assessment Criteria
+        $check_sum_criteria = AssessmentCriteria::where('year_id', $year_id)->get();
+        if(count($check_sum_criteria) == 0){
+          foreach($matrix as $key => $val){
+            foreach($matrix[$key]['eigen_vektor_id'] as $k => $v){
+              $a_sum_crit[$k] = new AssessmentCriteria();
+              $a_sum_crit[$k]->fill([
+                'alternative_id' => $k,
+                'criteria_id' => $matrix[$key]['criteria_id'],
+                'value' => $v,
+                'year_id' => $year_id
+              ]);
+              $a_sum_crit[$k]->save();
+            }
+          }
+        }
+
       }
 
       return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
@@ -193,6 +238,16 @@ class AHPController extends Controller
       return $eigen_vektor;
     }
 
+    public function ahp_eigen_vektor_alternative_id($criteria_id, $norm_matrix, $alternative){
+      for($x = 0; $x < count($criteria_id); $x++){
+          //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
+          //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
+          $eigen_vektor[$alternative[$x]['id']] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
+      }
+      arsort($eigen_vektor);
+      return $eigen_vektor;
+    }
+
     public function ahp_amaks($criteria_id, $matrix, $eigen_vektor){
       for($x = 0; $x <  count($criteria_id); $x++){
         for($y = 0; $y < count($criteria_id); $y++){
@@ -233,8 +288,10 @@ class AHPController extends Controller
           $value[$key]['rank'] = $rank++;
           $up_salary = RankSalary::where('rank', $value[$key]['rank'])->first();
           if($up_salary){
+            $value[$key]['rank_salary_id'] = $up_salary->id;
             $value[$key]['up_salary'] = $up_salary->up_salary;
           } else {
+            $value[$key]['rank_salary_id'] = 0;
             $value[$key]['up_salary'] = 0;
           }
 

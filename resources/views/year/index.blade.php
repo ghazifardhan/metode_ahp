@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Year</div>
+                <div class="panel-heading">Assessment</div>
 
                 <div class="panel-body">
                     <table class="table table-bordered table-hover table-striped table-condensed">
@@ -28,9 +28,12 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->year }}</td>
                         <td>
+                        <!--
                           {!! link_to_route('year.edit', 'Edit', array($item->id), array('class' => 'btn btn-info')) !!}
 
                           <button class="btn btn-danger delete" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Delete</button>
+                        -->
+                        <a class="btn btn-success" href="{{ url('ahp_summary', $item->id) }}">Summary</a>
                         </td>
                       </tr>
                       @endforeach

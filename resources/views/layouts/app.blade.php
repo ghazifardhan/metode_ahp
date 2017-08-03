@@ -167,16 +167,9 @@ date_default_timezone_set('Asia/Jakarta');
           </a>
         </li>
         <li class="treeview">
-          <a href="#">
-            <span>AHP</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+          <a href="{{ url('ahp') }}">
+            <span>Pairwise Comparison</span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('ahp') }}">Pairwise Comparison</a></li>
-            <li><a href="{{ url('ahp_summary') }}">AHP Summary</a></li>
-          </ul>
         </li>
       </ul>
     </section>

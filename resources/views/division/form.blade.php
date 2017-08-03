@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumb')
 @include('breadcrumb')
-@stop  
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -29,7 +29,8 @@
                               </tr>
                               <tr>
                                   <td></td>
-                                  <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}</td>
+                                  <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                                        <input type="reset" class="btn btn-warning" value="Reset"></td>
                               </tr>
                           </table>
                   {!! Form::close() !!}

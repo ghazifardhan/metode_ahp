@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('breadcrumb')
 @include('breadcrumb')
-@stop    
+@stop
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Master Data Karyawan</div>
 
                 <div class="panel-body">
                     <table class="table table-bordered table-hover table-striped table-condensed">

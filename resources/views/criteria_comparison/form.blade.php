@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumb')
 @include('breadcrumb')
-@stop  
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -37,7 +37,7 @@
                                     </select>
                                   </td>
                                   <td>
-                                    <select name="value" class="form-control">
+                                    <select name="importance_leve_id" class="form-control">
                                       @foreach($importance_level as $items)
                                         <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->value){echo 'selected';}} ?> >{{ $items->level_name . " - " . $items->level_value }}</option>
                                       @endforeach

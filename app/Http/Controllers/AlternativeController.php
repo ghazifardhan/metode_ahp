@@ -84,16 +84,15 @@ class AlternativeController extends BaseController
       return view('alternative.show', compact('alternative', 'criteria', 'year'));
     }
 
-    public function showAssessmentForm($id){
+    public function showAssessmentForm($id, $year_id){
       $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
-      $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
-      $year = Year::orderBy('year', 'asc')->get();
+      $data_alternative = DataAlternative::where(['alternative_id' => $alternative->id, 'year_id' => $year_id])->orderBy('criteria_id', 'asc')->get();
 
       if(count($data_alternative) == 0){
-        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year'));
+        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year_id'));
       } else {
-        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year'));
+        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year_id'));
       }
     }
 
@@ -103,7 +102,7 @@ class AlternativeController extends BaseController
       return Redirect::route('alternative.index');
     }
 
-    public function test(Request $request){
+    public function createAssessment(Request $request, $id, $year_id){
       date_default_timezone_set('Asia/Jakarta');
       $time = date('Y-m-d H:i:s');
 
@@ -119,16 +118,16 @@ class AlternativeController extends BaseController
           'alternative_id' => $alternative_id,
           'criteria_id' => $criteria_id[$x],
           'value' => $value[$x],
-          'year_id' => $request->get('year_id'),
+          'year_id' => $year_id,
           'created_at' => $time,
           'updated_at' => $time,
         ]);
       }
 
-      return Redirect::route('alternative.index');
+      return Redirect::route('alternative.show', $alternative_id);
     }
 
-    public function test_update(Request $request){
+    public function updateAssessment(Request $request, $id, $year_id){
 
       //echo json_encode($request->input());
 
@@ -140,13 +139,13 @@ class AlternativeController extends BaseController
       $criteria_id = $request->input('criteria_id');
 
       for($x = 0; $x < count($value); $x++){
-        DB::table('data_alternative')->where(['alternative_id' => $alternative_id, 'criteria_id' => $criteria_id[$x]])->update([
+        DB::table('data_alternative')->where(['alternative_id' => $alternative_id, 'criteria_id' => $criteria_id[$x], 'year_id' => $year_id])->update([
           'value' => $value[$x],
           'updated_at' => $time,
         ]);
       }
 
-      return Redirect::route('alternative.index');
+      return Redirect::route('alternative.show', $alternative_id);
 
     }
 }
