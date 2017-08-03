@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\V1\Models\Year;
+use App\V1\Models\Alternative;
+use App\V1\Models\DataAlternative;
 use Redirect;
 use Validator;
 
@@ -63,5 +65,9 @@ class YearController extends Controller
       $year = $this->year->find($id);
       $year->delete();
       return Redirect::route('year.index');
+    }
+
+    public function createDataAlternative(Request $request){
+
     }
 }

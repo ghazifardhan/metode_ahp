@@ -10,6 +10,7 @@ use App\V1\Models\Alternative;
 use App\V1\Models\DataAlternative;
 use App\V1\Models\Criteria;
 use App\V1\Models\Division;
+use App\V1\Models\Year;
 use Redirect;
 use Validator;
 
@@ -78,11 +79,21 @@ class AlternativeController extends BaseController
       $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
+      $year = Year::orderBy('year', 'asc')->get();
+
+      return view('alternative.show', compact('alternative', 'criteria', 'year'));
+    }
+
+    public function showAssessmentForm($id){
+      $alternative = $this->alternative->with('division')->find($id);
+      $criteria = Criteria::orderBy('id', 'asc')->get();
+      $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
+      $year = Year::orderBy('year', 'asc')->get();
 
       if(count($data_alternative) == 0){
-        return view('alternative.show', compact('alternative', 'criteria'));
+        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year'));
       } else {
-        return view('alternative.show_update', compact('alternative', 'criteria', 'data_alternative'));
+        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year'));
       }
     }
 
@@ -93,7 +104,6 @@ class AlternativeController extends BaseController
     }
 
     public function test(Request $request){
-
       date_default_timezone_set('Asia/Jakarta');
       $time = date('Y-m-d H:i:s');
 
@@ -109,6 +119,7 @@ class AlternativeController extends BaseController
           'alternative_id' => $alternative_id,
           'criteria_id' => $criteria_id[$x],
           'value' => $value[$x],
+          'year_id' => $request->get('year_id'),
           'created_at' => $time,
           'updated_at' => $time,
         ]);

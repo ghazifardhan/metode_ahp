@@ -30,3 +30,4 @@ Route::get('ahp', 'AHPController@get_ahp_matrix_criteria');
 Route::get('ahp_summary', 'AHPController@get_ahp_matrix_alternative');
 Route::post('test', 'AlternativeController@test');
 Route::post('test_update', 'AlternativeController@test_update');
+Route::get('alternative/{id}/assessment', 'AlternativeController@showAssessmentForm')->name('alternative.assessment');

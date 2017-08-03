@@ -41,20 +41,48 @@
                         <td>{{ $alternative->division->name }}</td>
                       </tr>
                     </table>
+
+                    <!--
                     <form method="post" action="{{ url('test') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="alternative_id" value="{{ $alternative->id }}">
-                    <table class="table table-bordered">
-                        @foreach($criteria as $row)
-                        <tr>
-                          <td>{{ $row->criteria }}</td>
-                          <input type="hidden" name="criteria_id[]" value="{{ $row->id }}">
-                          <td><input name="value[]" class="form-control"></td>
-                        </tr>
-                        @endforeach
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <input type="hidden" name="alternative_id" value="{{ $alternative->id }}">
+                      <table class="table table-bordered">
+                          @foreach($criteria as $row)
+                          <tr>
+                            <td>{{ $row->criteria }}</td>
+                            <input type="hidden" name="criteria_id[]" value="{{ $row->id }}">
+                            <td><input name="value[]" class="form-control"></td>
+                          </tr>
+                          @endforeach
+                      </table>
+                      <input type="submit" name="submit" value="submit" class="btn btn-success">
+                    </form>
+                    -->
+
+                    <table class="table table-bordered table-hover table-striped table-condensed">
+                      <tr>
+                        <th>No</th>
+                        <th>Year</th>
+                        <th>Action</th>
+                      </tr>
+                      <?php if(count($year) == 0){ ?>
+                      <tr>
+                        <td colspan="4">Tidak ada Data</td>
+                      </tr>
+                      <?php } else {
+                        $no = 1; ?>
+                      @foreach($year as $item)
+                      <tr>
+
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item->year }}</td>
+                        <td>
+                          <a class="btn btn-success" href="{{ route('alternative.assessment', $alternative->id) . '?year_id=' . $item->id }}">Create Assessment</a>
+                        </td>
+                      </tr>
+                      @endforeach
+                      <?php } ?>
                     </table>
-                    <input type="submit" name="submit" value="submit" class="btn btn-success">
-                  </form>
                   </div>
             </div>
         </div>
