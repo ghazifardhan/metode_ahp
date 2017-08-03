@@ -11,6 +11,9 @@
                 <div class="panel-heading">Asessment for {{ $alternative->alternative }}</div>
 
                 <div class="panel-body">
+                @if(count($criteria) == 0)
+                <h3 align="center"> Please add criteria in criteria menu </h3>
+                @else
                 <form method="post" action="{{ route('create.assessment', [$alternative->id, $year_id]) }}">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <input type="hidden" name="alternative_id" value="{{ $alternative->id }}">
@@ -24,7 +27,8 @@
                           @endforeach
                       </table>
                       <input type="submit" name="submit" value="submit" class="btn btn-success">
-                    </form>
+                </form>
+                @endif
                 </div>
             </div>
         </div>
