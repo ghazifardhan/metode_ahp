@@ -192,7 +192,7 @@ class AHPController extends Controller
 
       $year_assessment = Year::find($year_id);
       $title = 'Assessment - ' . $year_assessment->year;
-      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title'));
+      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment'));
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return response($amaks);
     }

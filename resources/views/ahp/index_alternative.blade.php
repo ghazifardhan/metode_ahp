@@ -3,7 +3,7 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+{!! Breadcrumbs::render('ahp_summary', $year_assessment) !!}
 @stop
 @section('content')
 <div class="container">

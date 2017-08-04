@@ -142,3 +142,10 @@ Breadcrumbs::register('criteria_comparison.show', function($breadcrumbs, $criter
     $breadcrumbs->parent('criteria_comparison');
     $breadcrumbs->push($criteria_comparison->id, route('criteria_comparison.show', $criteria_comparison->id));
 });
+
+//Summary AHP
+Breadcrumbs::register('ahp_summary', function($breadcrumbs, $year_assessment)
+{
+    $breadcrumbs->parent('assessment');
+    $breadcrumbs->push($year_assessment->year, route('ahp_summary', $year_assessment->id));
+});

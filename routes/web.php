@@ -29,7 +29,7 @@ Route::resource('rank_salary', 'RankSalaryController');
 Route::resource('year', 'YearController');
 
 Route::get('ahp', 'AHPController@get_ahp_matrix_criteria');
-Route::get('ahp_summary/{id}', 'AHPController@get_ahp_matrix_alternative');
+Route::get('ahp_summary/{id}', 'AHPController@get_ahp_matrix_alternative')->name('ahp_summary');
 Route::post('alternative/{id}/assessment/{year_id}/create_assessment', 'AlternativeController@createAssessment')->name('create.assessment');
 Route::post('alternative/{id}/assessment/{year_id}/update_assessment', 'AlternativeController@updateAssessment')->name('update.assessment');
 Route::get('alternative/{id}/assessment/{year_id}', 'AlternativeController@showAssessmentForm')->name('alternative.assessment');
