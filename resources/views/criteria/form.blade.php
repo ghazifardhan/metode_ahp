@@ -3,7 +3,11 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+@if($res['create'])
+{!! Breadcrumbs::render('criteria.create') !!}
+@else
+{!! Breadcrumbs::render('criteria.edit', $criteria) !!}
+@endif
 @stop
 @section('content')
 <div class="container">

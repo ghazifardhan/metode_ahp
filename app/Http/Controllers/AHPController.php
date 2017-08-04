@@ -11,9 +11,11 @@ use App\V1\Models\RandomConsistencyIndex;
 use App\V1\Models\RankSalary;
 use App\V1\Models\AssessmentSummary;
 use App\V1\Models\AssessmentCriteria;
+use App\V1\Models\PairwiseComparison;
 use App\V1\Models\Year;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 class AHPController extends Controller
 {
@@ -64,6 +66,30 @@ class AHPController extends Controller
         $res['ci'] = $ci;
         $res['rci'] = $rci;
         $res['consistency'] = $consistency;
+
+        $pc = PairwiseComparison::all();
+        if(count($pc) == 0){
+          $pc_store = new PairwiseComparison();
+          $pc_store->fill([
+            't' => $res['t'],
+            'ci' => $res['ci'],
+            'rci_id' => $res['rci']['id'],
+            'consistency' => $res['consistency']['consistency'],
+            'consistency_value' => $res['consistency']['value'],
+            'created_by' => Auth::id(),
+            'updated_by' => Auth::id(),
+          ]);
+          $pc_store->save();
+        } else {
+          $pc_edit = PairwiseComparison::first();
+          $pc_edit->t = $res['t'];
+          $pc_edit->ci = $res['ci'];
+          $pc_edit->rci_id = $res['rci']['id'];
+          $pc_edit->consistency = $res['consistency']['consistency'];
+          $pc_edit->consistency_value = $res['consistency']['value'];
+          $pc_edit->updated_by = Auth::id();
+          $pc_edit->save();
+        }
       }
 
       $title = 'Pairwise Comparison';
@@ -71,6 +97,7 @@ class AHPController extends Controller
       //return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
       return response($res);
+      //return Redirect::route('criteria_comparison.index', compact('res'));
     }
 
     public function get_ahp_matrix_alternative($id){

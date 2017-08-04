@@ -3,7 +3,7 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+{!! Breadcrumbs::render('criteria_comparison') !!}
 @stop
 @section('content')
 <div class="container">
@@ -43,6 +43,31 @@
                       <?php } ?>
                     </table>
                     <a href="{{ route('criteria_comparison.create') }}">Create New Comparison</a>
+                    <!--
+                    <a class="btn btn-info" href="{{ url('ahp') }}" data-toggle="modal" data-target="#modal-default">Check Consistency</a>
+                    -->
+                    <button class="btn btn-default check-cons" style="float: right" data-toggle="modal" data-target="#modal-default">Check Consistency</button>
+
+                    <div class="modal fade" id="modal-default">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Consistency</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p class="cons-status"></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
             </div>
         </div>
@@ -62,6 +87,17 @@
       success: function(){
         console.log('Success Delete!');
         window.location.href = "{{ url('criteria_comparison') }}";
+      }
+    });
+  });
+
+  $('.check-cons').on('click', function(){
+    $.ajax({
+      url: 'ahp',
+      type: 'GET',
+      success: function($resp){
+        console.log($resp.consistency.value);
+        $('.cons-status').text("Status Consistency : " + $resp.consistency.consistency);
       }
     });
   });

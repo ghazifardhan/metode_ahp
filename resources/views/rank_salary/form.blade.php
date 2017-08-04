@@ -3,7 +3,11 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+@if($res['create'])
+{!! Breadcrumbs::render('rank_salary.create') !!}
+@else
+{!! Breadcrumbs::render('rank_salary.edit', $rank_salary) !!}
+@endif
 @stop
 @section('content')
 <div class="container">
