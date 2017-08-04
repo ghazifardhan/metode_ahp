@@ -18,7 +18,7 @@ return [
     | User Configuration
     */
 
-    'decimal' => 3,
+    'decimal' => 4,
 
     /*
     |--------------------------------------------------------------------------
@@ -170,6 +170,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         //Illuminate\Html\HtmlServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -235,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
 
     ],
 

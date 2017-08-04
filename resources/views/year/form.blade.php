@@ -3,7 +3,7 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+{!! Breadcrumbs::render('assessment.create') !!}
 @stop
 @section('content')
 <div class="container">

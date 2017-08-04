@@ -3,7 +3,11 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+@if($res['create'])
+{!! Breadcrumbs::render('alternative.create') !!}
+@else
+{!! Breadcrumbs::render('alternative.edit', $alternative) !!}
+@endif
 @stop
 @section('content')
 <div class="container">
