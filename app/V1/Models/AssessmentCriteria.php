@@ -9,7 +9,7 @@ class AssessmentCriteria extends Model
     protected $table = 'assessment_criteria';
 
     protected $fillable = [
-      'alternative_id', 'criteria_id', 'value', 'year_id'
+      'alternative_id', 'criteria_id', 'value', 'year_id', 'created_by', 'updated_by'
     ];
 
     public function alternative(){

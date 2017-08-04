@@ -9,7 +9,7 @@ class Year extends Model
     protected $table = 'year';
 
     protected $fillable = [
-    	'year'
+    	'year', 'created_by', 'updated_by'
     ];
 
     public $validate = [

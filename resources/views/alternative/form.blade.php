@@ -36,8 +36,8 @@
                                   <td><input type="text" name="alternative" class='form-control' value="<?php if($alternative){echo $alternative->alternative;} ?>"></td>
                               </tr>
                               <tr>
-                                  <td>Age</td>
-                                  <td><input type="number" name="age" class='form-control' value="<?php if($alternative){echo $alternative->age;} ?>"></td>
+                                  <td>Birth Date</td>
+                                  <td><input id="datepicker" type="text" name="birthdate" class='form-control' value="<?php if($alternative){echo $alternative->birthdate;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Address</td>
@@ -72,4 +72,15 @@
         </div>
     </div>
 </div>
+@section('script')
+<script>
+
+//Date picker
+    $('#datepicker').datepicker();
+    $('#datepicker').datepicker({
+      'dateFormat': 'yy-mm-dd'
+    })
+
+</script>
+@stop
 @endsection

@@ -3,7 +3,11 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+@if($res['create'])
+{!! Breadcrumbs::render('division.create') !!}
+@else
+{!! Breadcrumbs::render('division.edit', $division) !!}
+@endif
 @stop
 @section('content')
 <div class="container">

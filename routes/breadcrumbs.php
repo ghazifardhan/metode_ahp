@@ -42,3 +42,53 @@ Breadcrumbs::register('alternative.show', function($breadcrumbs, $alternative)
     $breadcrumbs->parent('alternative');
     $breadcrumbs->push($alternative->alternative, route('alternative.show', $alternative->id));
 });
+
+//Division
+Breadcrumbs::register('division', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Daftar Division', route('division.index'));
+});
+
+Breadcrumbs::register('division.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push('+ Create Division', route('division.create'));
+});
+
+Breadcrumbs::register('division.edit', function($breadcrumbs, $division)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push($division->name, route('division.edit', $division->id));
+});
+
+Breadcrumbs::register('division.show', function($breadcrumbs, $division)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push($division->name, route('division.show', $division->id));
+});
+
+//Rank Salary
+Breadcrumbs::register('rankgaji', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Daftar Division', route('division.index'));
+});
+
+Breadcrumbs::register('division.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push('+ Create Division', route('division.create'));
+});
+
+Breadcrumbs::register('division.edit', function($breadcrumbs, $division)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push($division->name, route('division.edit', $division->id));
+});
+
+Breadcrumbs::register('division.show', function($breadcrumbs, $division)
+{
+    $breadcrumbs->parent('division');
+    $breadcrumbs->push($division->name, route('division.show', $division->id));
+});

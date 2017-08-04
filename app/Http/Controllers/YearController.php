@@ -11,6 +11,7 @@ use App\V1\Models\Alternative;
 use App\V1\Models\DataAlternative;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class YearController extends Controller
 {
@@ -31,6 +32,8 @@ class YearController extends Controller
       Validator::validate($request->input(), $this->year->validate);
       $this->year->fill([
         'year' => $request->input('year'),
+        'created_by' => Auth::id(),
+        'updated_by' => Auth::id(),
       ]);
       $this->year->save();
       return Redirect::route('year.index');
@@ -55,6 +58,7 @@ class YearController extends Controller
     public function update(Request $request, $id){
       $year = $this->year->find($id);
       $year->year = $request->input('year');
+      $year->updated_by = Auth::id();
       $year->save();
       return Redirect::route('year.index');
     }

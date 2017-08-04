@@ -9,12 +9,12 @@ class Alternative extends Model
     protected $table = 'alternative';
 
     protected $fillable = [
-      'alternative', 'age', 'address', 'phone_number', 'salary', 'division_id'
+      'alternative', 'birthdate', 'address', 'phone_number', 'salary', 'division_id', 'created_by', 'updated_by'
     ];
 
     public $validate = [
       'alternative' => 'required',
-      'age' => 'required',
+      'birthdate' => 'required',
       'address' => 'required',
       'phone_number' => 'required',
       'salary' => 'required',

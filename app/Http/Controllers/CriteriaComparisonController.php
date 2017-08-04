@@ -10,6 +10,7 @@ use App\V1\Models\Criteria;
 use App\V1\Models\ImportanceLevel;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CriteriaComparisonController extends Controller
 {
@@ -36,6 +37,8 @@ class CriteriaComparisonController extends Controller
       'criteria_id_1' => $request->input('criteria_id_1'),
       'criteria_id_2' => $request->input('criteria_id_2'),
       'importance_leve_id' => $request->input('importance_leve_id'),
+      'created_by' => Auth::id(),
+      'updated_by' => Auth::id(),
     ]);
     $this->criteria_comparison->save();
     return Redirect::route('criteria_comparison.index');
@@ -66,6 +69,7 @@ class CriteriaComparisonController extends Controller
     $criteria_comparison->criteria_id_1 = $request->input('criteria_id_1');
     $criteria_comparison->criteria_id_2 = $request->input('criteria_id_2');
     $criteria_comparison->importance_leve_id = $request->input('importance_leve_id');
+    $criteria_comparison->updated_by = Auth::id();
     $criteria_comparison->save();
     return Redirect::route('criteria_comparison.index');
   }

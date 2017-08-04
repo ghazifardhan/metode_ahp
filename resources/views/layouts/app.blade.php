@@ -84,7 +84,7 @@ date_default_timezone_set('Asia/Jakarta');
 
           <!-- User Account: style can be found in dropdown.less -->
           <li><a href="" id="time"></a></li>
-          @if (Auth::guest( ))
+          @if (Auth::guest())
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Selamat Datang <span class="caret"></span>
@@ -159,17 +159,8 @@ date_default_timezone_set('Asia/Jakarta');
             <li><a href="{{ url('division') }}">Master Data Division</a></li>
             <li><a href="{{ url('rank_salary') }}">Master Data Rank Gaji</a></li>
             <li><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
+            <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
           </ul>
-        </li>
-        <li class="treeview">
-          <a href="{{ url('criteria_comparison') }}">
-            <span>Criteria Comparison</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ url('ahp') }}">
-            <span>Pairwise Comparison</span>
-          </a>
         </li>
       </ul>
     </section>

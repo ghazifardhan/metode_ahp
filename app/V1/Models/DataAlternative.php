@@ -9,7 +9,7 @@ class DataAlternative extends Model
     protected $table = 'data_alternative';
 
     protected $fillable = [
-      'alternative_id', 'criteria_id', 'value', 'year_id', 'created_at', 'updated_at'
+      'alternative_id', 'criteria_id', 'value', 'year_id', 'created_at', 'updated_at', 'created_by', 'updated_by'
     ];
 
     public $validate = [

@@ -9,7 +9,7 @@ class Division extends Model
     protected $table = 'division';
 
     protected $fillable = [
-      'name'
+      'name', 'created_by', 'updated_by'
     ];
 
     public $validate = [

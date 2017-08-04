@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 
 class RankSalaryController extends Controller
@@ -32,6 +33,8 @@ class RankSalaryController extends Controller
       $this->rank_salary->fill([
         'rank' => $request->input('rank'),
         'up_salary' => $request->input('up_salary'),
+        'created_by' => Auth::id(),
+        'updated_by' => Auth::id(),
       ]);
       $this->rank_salary->save();
       return Redirect::route('rank_salary.index');
@@ -57,6 +60,7 @@ class RankSalaryController extends Controller
       $rank_salary = $this->rank_salary->find($id);
       $rank_salary->rank = $request->input('rank');
       $rank_salary->up_salary = $request->input('up_salary');
+      $rank_salary->updated_by = Auth::id();
       $rank_salary->save();
       return Redirect::route('rank_salary.index');
     }

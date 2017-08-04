@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\V1\Models\Criteria;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CriteriaController extends Controller
 {
@@ -29,6 +30,8 @@ class CriteriaController extends Controller
     Validator::validate($request->input(), $this->criteria->validate);
     $this->criteria->fill([
       'criteria' => $request->input('criteria'),
+      'created_by' => Auth::id(),
+      'updated_by' => Auth::id(),
     ]);
     $this->criteria->save();
     return Redirect::route('criteria.index');
@@ -53,6 +56,7 @@ class CriteriaController extends Controller
   public function update(Request $request, $id){
     $criteria = $this->criteria->find($id);
     $criteria->criteria = $request->input('criteria');
+    $criteria->updated_by = Auth::id();
     $criteria->save();
     return Redirect::route('criteria.index');
   }

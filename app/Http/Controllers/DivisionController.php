@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\V1\Models\Division;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class DivisionController extends Controller
 {
@@ -34,6 +35,8 @@ class DivisionController extends Controller
       Validator::validate($request->input(), $this->division->validate);
       $this->division->fill([
           'name' => $request->input('name'),
+          'created_by' => Auth::id(),
+          'updated_by' => Auth::id(),
         ]);
       if($this->division->save()){
         $res['success'] = true;
@@ -58,6 +61,7 @@ class DivisionController extends Controller
     public function update(Request $request, $id){
       $division = $this->division->find($id);
       $division->name = $request->input('name');
+      $division->updated_by = Auth::id();
       $division->save();
       return Redirect::route('division.index');
     }

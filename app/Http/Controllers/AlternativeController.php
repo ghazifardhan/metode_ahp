@@ -13,6 +13,7 @@ use App\V1\Models\Division;
 use App\V1\Models\Year;
 use Redirect;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AlternativeController extends BaseController
 {
@@ -33,14 +34,15 @@ class AlternativeController extends BaseController
     public function store(Request $request){
 
       Validator::validate($request->input(), $this->alternative->validate);
-
       $this->alternative->fill([
         'alternative' => $request->input('alternative'),
-        'age' => $request->input('age'),
+        'birthdate' => date('Y-m-d', strtotime($request->input('birthdate'))),
         'address' => $request->input('address'),
         'phone_number' => $request->input('phone_number'),
         'salary' => $request->input('salary'),
         'division_id' => $request->input('division_id'),
+        'created_by' => Auth::id(),
+        'updated_by' => Auth::id(),
       ]);
       $this->alternative->save();
       return Redirect::route('alternative.index');
@@ -69,11 +71,12 @@ class AlternativeController extends BaseController
     public function update(Request $request, $id){
       $alternative = $this->alternative->find($id);
       $alternative->alternative = $request->input('alternative');
-      $alternative->age = $request->input('age');
+      $alternative->birthdate = date('Y-m-d', strtotime($request->input('birthdate')));
       $alternative->address = $request->input('address');
       $alternative->phone_number = $request->input('phone_number');
       $alternative->salary = $request->input('salary');
       $alternative->division_id = $request->input('division_id');
+      $alternative->updated_by = Auth::id();
       $alternative->save();
       return Redirect::route('alternative.index');
     }

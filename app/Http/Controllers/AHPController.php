@@ -13,6 +13,7 @@ use App\V1\Models\AssessmentSummary;
 use App\V1\Models\AssessmentCriteria;
 use App\V1\Models\Year;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AHPController extends Controller
 {
@@ -61,14 +62,15 @@ class AHPController extends Controller
 
         $res['t'] = $t;
         $res['ci'] = $ci;
-        $res['rci'] = $rci->index_value;
+        $res['rci'] = $rci;
         $res['consistency'] = $consistency;
       }
 
       $title = 'Pairwise Comparison';
 
-      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
+      //return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
+      return response($res);
     }
 
     public function get_ahp_matrix_alternative($id){
@@ -134,6 +136,8 @@ class AHPController extends Controller
               'value' => $amaks[$key]['value'],
               'rank_salary_id' => $amaks[$key]['rank_salary_id'],
               'year_id' => $year_id,
+              'created_by' => Auth::id(),
+              'updated_by' => Auth::id(),
             ]);
             $a_sum[$key]->save();
           }
@@ -148,7 +152,9 @@ class AHPController extends Controller
                 'alternative_id' => $k,
                 'criteria_id' => $matrix[$key]['criteria_id'],
                 'value' => $v,
-                'year_id' => $year_id
+                'year_id' => $year_id,
+                'created_by' => Auth::id(),
+                'updated_by' => Auth::id(),
               ]);
               $a_sum_crit[$k]->save();
             }

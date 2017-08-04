@@ -9,7 +9,7 @@ class AssessmentSummary extends Model
   protected $table = 'assessment_summary';
 
   protected $fillable = [
-    'alternative_id', 'criteria_id', 'value', 'rank_salary_id', 'year_id'
+    'alternative_id', 'criteria_id', 'value', 'rank_salary_id', 'year_id', 'created_by', 'updated_by'
   ];
 
   public function alternative(){

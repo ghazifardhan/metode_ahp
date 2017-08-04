@@ -9,7 +9,7 @@ class CriteriaComparison extends Model
     protected $table = 'criteria_comparison';
 
     protected $fillable = [
-      'criteria_id_1', 'criteria_id_2', 'importance_leve_id'
+      'criteria_id_1', 'criteria_id_2', 'importance_leve_id', 'created_by', 'updated_by'
     ];
 
     public $validate = [

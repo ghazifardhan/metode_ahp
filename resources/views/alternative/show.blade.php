@@ -23,8 +23,8 @@
                         <td>{{ $alternative->alternative }}</td>
                       </tr>
                       <tr>
-                        <td>Age</td>
-                        <td>{{ $alternative->age }}</td>
+                        <td>Birth Date</td>
+                        <td>{{ $alternative->birthdate }}</td>
                       </tr>
                       <tr>
                         <td>Address</td>

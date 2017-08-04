@@ -9,7 +9,7 @@ class Criteria extends Model
     protected $table = 'criteria';
 
     protected $fillable = [
-      'criteria'
+      'criteria', 'created_by', 'updated_by'
     ];
 
     public $validate = [
