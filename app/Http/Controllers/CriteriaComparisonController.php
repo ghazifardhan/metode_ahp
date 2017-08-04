@@ -23,7 +23,8 @@ class CriteriaComparisonController extends Controller
   public function index(){
     $criteria_comparison = $this->criteria_comparison->with('criteria1', 'criteria2', 'importance_level')->get();
     $res['result'] = $criteria_comparison;
-    return view('criteria_comparison.index', compact('criteria_comparison'));
+    $title = 'Daftar Criteria Comparison';
+    return view('criteria_comparison.index', compact('criteria_comparison', 'title'));
     //return response($res);
   }
 
@@ -46,7 +47,8 @@ class CriteriaComparisonController extends Controller
     $res['create'] = true;
     $res['status'] = "Create New";
     $criteria_comparison = null;
-    return view('criteria_comparison.form', compact('criteria', 'importance_level', 'res', 'criteria_comparison'));
+    $title = 'Add Criteria Comparison';
+    return view('criteria_comparison.form', compact('criteria', 'importance_level', 'res', 'criteria_comparison', 'title'));
   }
 
   public function edit($id){
@@ -55,8 +57,8 @@ class CriteriaComparisonController extends Controller
     $res['status'] = "Update";
     $criteria = Criteria::all();
     $importance_level = ImportanceLevel::all();
-
-    return view('criteria_comparison.form', compact('criteria_comparison', 'criteria', 'importance_level', 'res'));
+    $title = 'Edit Criteria Comparison';
+    return view('criteria_comparison.form', compact('criteria_comparison', 'criteria', 'importance_level', 'res', 'title'));
   }
 
   public function update(Request $request, $id){
@@ -70,7 +72,8 @@ class CriteriaComparisonController extends Controller
 
   public function show($id){
     $criteria_comparison = $this->criteria_comparison->find($id);
-    return view('criteria_comparison.show', compact('criteria_comparison'));
+    $title = 'Show Criteria Comparison';
+    return view('criteria_comparison.show', compact('criteria_comparison', 'title'));
   }
 
   public function destroy($id){

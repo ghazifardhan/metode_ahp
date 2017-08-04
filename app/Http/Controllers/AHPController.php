@@ -11,6 +11,7 @@ use App\V1\Models\RandomConsistencyIndex;
 use App\V1\Models\RankSalary;
 use App\V1\Models\AssessmentSummary;
 use App\V1\Models\AssessmentCriteria;
+use App\V1\Models\Year;
 use Illuminate\Support\Facades\DB;
 
 class AHPController extends Controller
@@ -64,7 +65,9 @@ class AHPController extends Controller
         $res['consistency'] = $consistency;
       }
 
-      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
+      $title = 'Pairwise Comparison';
+
+      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
     }
 
@@ -154,7 +157,9 @@ class AHPController extends Controller
 
       }
 
-      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
+      $year_assessment = Year::find($year_id);
+      $title = 'Assessment - ' . $year_assessment->year;
+      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title'));
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return response($amaks);
     }

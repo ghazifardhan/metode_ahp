@@ -23,7 +23,8 @@ class YearController extends Controller
 
     public function index(){
       $year = $this->year->all();
-      return view('year.index', compact('year'));
+      $title = 'Daftar Year Assessment';
+      return view('year.index', compact('year', 'title'));
     }
 
     public function store(Request $request){
@@ -39,14 +40,16 @@ class YearController extends Controller
       $res['create'] = true;
       $res['status'] = "Create New";
       $year = null;
-      return view('year.form', compact('year', 'res'));
+      $title = 'Add Year Assessment';
+      return view('year.form', compact('year', 'res', 'title'));
     }
 
     public function edit($id){
       $year = $this->year->find($id);
       $res['create'] = false;
       $res['status'] = "Update";
-      return view('year.form', compact('year', 'res'));
+      $title = 'Edit Year Assessment - ' . $year->year;
+      return view('year.form', compact('year', 'res', 'title'));
     }
 
     public function update(Request $request, $id){
@@ -58,16 +61,13 @@ class YearController extends Controller
 
     public function show($id){
       $year = $this->year->find($id);
-      return view('year.show', compact('year'));
+      $title = $year->year;
+      return view('year.show', compact('year', 'title'));
     }
 
     public function destroy($id){
       $year = $this->year->find($id);
       $year->delete();
       return Redirect::route('year.index');
-    }
-
-    public function createDataAlternative(Request $request){
-
     }
 }

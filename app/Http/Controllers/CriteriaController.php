@@ -21,7 +21,8 @@ class CriteriaController extends Controller
   public function index(){
     $criteria = $this->criteria->all();
     $res['result'] = $criteria;
-    return view('criteria.index', compact('criteria'));
+    $title = 'Daftar Criteria';
+    return view('criteria.index', compact('criteria', 'title'));
   }
 
   public function store(Request $request){
@@ -37,14 +38,16 @@ class CriteriaController extends Controller
     $res['create'] = true;
     $res['status'] = 'Create New';
     $criteria = null;
-    return view('criteria.form', compact('res', 'criteria'));
+    $title = 'Add Criteria Comparison';
+    return view('criteria.form', compact('res', 'criteria', 'title'));
   }
 
   public function edit($id){
     $criteria = $this->criteria->find($id);
     $res['create'] = false;
     $res['status'] = 'Update';
-    return view('criteria.form', compact('criteria', 'res'));
+    $title = 'Edit Criteria - ' . $criteria->criteria;
+    return view('criteria.form', compact('criteria', 'res', 'title'));
   }
 
   public function update(Request $request, $id){
@@ -56,7 +59,8 @@ class CriteriaController extends Controller
 
   public function show($id){
     $criteria = $this->criteria->find($id);
-    return view('criteria.show', compact('criteria'));
+    $title = $criteria->criteria;
+    return view('criteria.show', compact('criteria', 'title'));
   }
 
   public function destroy($id){

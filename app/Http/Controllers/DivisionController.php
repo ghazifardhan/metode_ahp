@@ -17,7 +17,8 @@ class DivisionController extends Controller
 
     public function index(){
       $division = $this->division->all();
-      return view('division.index', compact('division'));
+      $title = 'Daftar Division';
+      return view('division.index', compact('division', 'title'));
       //return response($division);
     }
 
@@ -25,7 +26,8 @@ class DivisionController extends Controller
       $res['create'] = true;
       $res['status'] = 'Create New';
       $division = null;
-      return view('division.form', compact('res', 'division'));
+      $title = 'Add Division';
+      return view('division.form', compact('res', 'division', 'title'));
     }
 
     public function store(Request $request){
@@ -40,7 +42,8 @@ class DivisionController extends Controller
       } else {
         $res['success'] = false;
         $res['result'] = 'Failed add division';
-        return view('division.form', compact('res'));
+        $title = 'Daftar Division';
+        return view('division.form', compact('res', 'title'));
       }
     }
 
@@ -48,7 +51,8 @@ class DivisionController extends Controller
       $res['create'] = false;
       $res['status'] = 'Update';
       $division = $this->division->find($id);
-      return view('division.form', compact('division', 'res'));
+      $title = 'Edit Division - ' . $division->name;
+      return view('division.form', compact('division', 'res', 'title'));
     }
 
     public function update(Request $request, $id){

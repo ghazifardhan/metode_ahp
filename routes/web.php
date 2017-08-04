@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $title = 'Welcome';
+    return view('welcome', compact('title'));
 });
 
 Auth::routes();

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+{{ $title }}
+@stop
 @section('style')
 <style>
     html, body {

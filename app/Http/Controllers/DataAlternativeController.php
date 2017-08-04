@@ -16,8 +16,4 @@ class DataAlternativeController extends Controller
       $this->data_alternatif = new DataAlternative();
       $this->middleware('auth');
     }
-
-    public function index($id){
-      $data_alternative = $this->data_alternatif
-    }
 }

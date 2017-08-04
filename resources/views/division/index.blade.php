@@ -1,7 +1,10 @@
 @extends('layouts.app')
+@section('title')
+{{ $title }}
+@stop
 @section('breadcrumb')
 @include('breadcrumb')
-@stop  
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -22,7 +25,7 @@
                       <tr>
                         <td colspan="3">Tidak ada data</td>
                       </tr>
-                      <?php } else { 
+                      <?php } else {
                         $no = 1;?>
                       @foreach($division as $divisions)
                       <tr>

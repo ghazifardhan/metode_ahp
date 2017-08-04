@@ -26,7 +26,8 @@ class AlternativeController extends BaseController
     public function index(){
       $alternative = $this->alternative->all();
       $res['result'] = $alternative;
-      return view('alternative.index', compact('alternative'));
+      $title = 'Daftar Karyawan';
+      return view('alternative.index', compact('alternative', 'title'));
     }
 
     public function store(Request $request){
@@ -50,7 +51,8 @@ class AlternativeController extends BaseController
       $res['create'] = true;
       $res['status'] = "Create New";
       $alternative = null;
-    	return view('alternative.form', compact('division', 'alternative', 'res'));
+      $title = 'Add Karyawan';
+    	return view('alternative.form', compact('division', 'alternative', 'res', 'title'));
     }
 
     public function edit($id){
@@ -60,7 +62,8 @@ class AlternativeController extends BaseController
       $division = Division::all();
       $res['create'] = false;
       $res['status'] = "Update";
-      return view('alternative.form', compact('alternative', 'division', 'res'));
+      $title = 'Edit Karyawan - ' . $alternative->alternative;
+      return view('alternative.form', compact('alternative', 'division', 'res', 'title'));
     }
 
     public function update(Request $request, $id){
@@ -80,19 +83,19 @@ class AlternativeController extends BaseController
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
       $year = Year::orderBy('year', 'asc')->get();
-
-      return view('alternative.show', compact('alternative', 'criteria', 'year'));
+      $title = $alternative->alternative;
+      return view('alternative.show', compact('alternative', 'criteria', 'year', 'title'));
     }
 
     public function showAssessmentForm($id, $year_id){
       $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $data_alternative = DataAlternative::where(['alternative_id' => $alternative->id, 'year_id' => $year_id])->orderBy('criteria_id', 'asc')->get();
-
+      $title = 'Assessment - ' . $alternative->alternative;
       if(count($data_alternative) == 0){
-        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year_id'));
+        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year_id', 'title'));
       } else {
-        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year_id'));
+        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year_id', 'title'));
       }
     }
 

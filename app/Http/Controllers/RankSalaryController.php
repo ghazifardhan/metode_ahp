@@ -23,7 +23,8 @@ class RankSalaryController extends Controller
     public function index(){
       $rank_salary = $this->rank_salary->all();
       $res['result'] = $rank_salary;
-      return view('rank_salary.index', compact('rank_salary'));
+      $title = 'Daftar Rank Salary';
+      return view('rank_salary.index', compact('rank_salary', 'title'));
     }
 
     public function store(Request $request){
@@ -40,14 +41,16 @@ class RankSalaryController extends Controller
       $res['create'] = true;
       $res['status'] = "Create New";
       $rank_salary = null;
-      return view('rank_salary.form', compact('rank_salary', 'res'));
+      $title = 'Add Rank Salary';
+      return view('rank_salary.form', compact('rank_salary', 'res', 'title'));
     }
 
     public function edit($id){
       $rank_salary = $this->rank_salary->find($id);
       $res['create'] = false;
       $res['status'] = "Update";
-      return view('rank_salary.form', compact('rank_salary', 'res'));
+      $title = 'Edit Rank Salary - ' . $rank_salary->rank;
+      return view('rank_salary.form', compact('rank_salary', 'res', 'title'));
     }
 
     public function update(Request $request, $id){
@@ -60,7 +63,8 @@ class RankSalaryController extends Controller
 
     public function show($id){
       $rank_salary = $this->rank_salary->find($id);
-      return view('rank_salary.show', compact('rank_salary'));
+      $title = $rank_salary->rank;
+      return view('rank_salary.show', compact('rank_salary', 'title'));
     }
 
     public function destroy($id){
