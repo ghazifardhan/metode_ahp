@@ -41,7 +41,7 @@
                       @endforeach
                       <?php } ?>
                     </table>
-                    <a href="{{ route('rank_salary.create') }}">Create New Rank Salary</a>
+                    <a class="btn btn-info" href="{{ route('rank_salary.create') }}">Create New Rank Salary</a>
                 </div>
             </div>
         </div>

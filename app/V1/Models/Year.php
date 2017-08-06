@@ -3,9 +3,12 @@
 namespace App\V1\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Year extends Model
 {
+	use SoftDeletes;
+
     protected $table = 'year';
 
     protected $fillable = [
@@ -15,4 +18,6 @@ class Year extends Model
     public $validate = [
       'year' => 'required',
     ];
+
+    protected $dates = ['deleted_at'];
 }

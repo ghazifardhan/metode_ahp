@@ -18,6 +18,12 @@ Breadcrumbs::register('assessment.create', function($breadcrumbs)
     $breadcrumbs->push('+ Create Assessment', route('year.create'));
 });
 
+Breadcrumbs::register('assessment.edit', function($breadcrumbs, $year)
+{
+    $breadcrumbs->parent('assessment');
+    $breadcrumbs->push($year->year, route('year.edit', $year->id));
+});
+
 // Alternative
 Breadcrumbs::register('alternative', function($breadcrumbs)
 {
@@ -41,6 +47,12 @@ Breadcrumbs::register('alternative.show', function($breadcrumbs, $alternative)
 {
     $breadcrumbs->parent('alternative');
     $breadcrumbs->push($alternative->alternative, route('alternative.show', $alternative->id));
+});
+
+Breadcrumbs::register('alternative.assessment', function($breadcrumbs, $alternative, $year)
+{
+    $breadcrumbs->parent('alternative.show', $alternative);
+    $breadcrumbs->push($year->year, route('alternative.assessment', [$alternative->id, $year->id]));
 });
 
 //Division

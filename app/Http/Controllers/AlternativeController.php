@@ -95,10 +95,11 @@ class AlternativeController extends BaseController
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $data_alternative = DataAlternative::where(['alternative_id' => $alternative->id, 'year_id' => $year_id])->orderBy('criteria_id', 'asc')->get();
       $title = 'Assessment - ' . $alternative->alternative;
+      $year = Year::find($year_id);
       if(count($data_alternative) == 0){
-        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year_id', 'title'));
+        return view('alternative.assessment.form', compact('alternative', 'criteria', 'year', 'title'));
       } else {
-        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year_id', 'title'));
+        return view('alternative.assessment.form_update', compact('alternative', 'criteria', 'data_alternative', 'year', 'title'));
       }
     }
 

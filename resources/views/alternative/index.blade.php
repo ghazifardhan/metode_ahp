@@ -38,7 +38,7 @@
                       @endforeach
                     <?php } ?>
                     </table>
-                    <a href="{{ route('alternative.create') }}">Create New Alternative</a>
+                    <a class="btn btn-info" href="{{ route('alternative.create') }}">Create New Alternative</a>
                 </div>
             </div>
         </div>

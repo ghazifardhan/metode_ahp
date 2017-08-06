@@ -36,13 +36,15 @@
 
                           <button class="btn btn-danger delete" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         -->
-                        <a class="btn btn-success" href="{{ url('ahp_summary', $item->id) }}">Summary</a>
+                        <a class="btn btn-success" href="{{ url('ahp_summary', $item->id) }}">View</a>
+                        <a class="btn btn-info" href="{{ route('year.edit', $item->id) }}">Edit</a>
+                        <button class="btn btn-danger delete" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         </td>
                       </tr>
                       @endforeach
                       <?php } ?>
                     </table>
-                    <a href="{{ route('year.create') }}">Create Year Assessment</a>
+                    <a class="btn btn-info" href="{{ route('year.create') }}">Create Year Assessment</a>
                 </div>
             </div>
         </div>

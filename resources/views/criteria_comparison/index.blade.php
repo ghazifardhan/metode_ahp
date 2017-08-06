@@ -42,7 +42,7 @@
                       @endforeach
                       <?php } ?>
                     </table>
-                    <a href="{{ route('criteria_comparison.create') }}">Create New Comparison</a>
+                    <a class="btn btn-info" href="{{ route('criteria_comparison.create') }}">Create New Comparison</a>
                     <!--
                     <a class="btn btn-info" href="{{ url('ahp') }}" data-toggle="modal" data-target="#modal-default">Check Consistency</a>
                     -->

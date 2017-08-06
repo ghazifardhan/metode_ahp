@@ -72,6 +72,6 @@ class YearController extends Controller
     public function destroy($id){
       $year = $this->year->find($id);
       $year->delete();
-      return Redirect::route('year.index');
+      //return Redirect::route('year.index');
     }
 }

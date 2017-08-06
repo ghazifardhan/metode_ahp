@@ -3,7 +3,11 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
+@if($res['create'])
 {!! Breadcrumbs::render('assessment.create') !!}
+@else
+{!! Breadcrumbs::render('assessment.edit', $year) !!}
+@endif
 @stop
 @section('content')
 <div class="container">

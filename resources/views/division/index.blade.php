@@ -41,7 +41,7 @@
                       @endforeach
                       <?php } ?>
                     </table>
-                    <a href="{{ route('division.create') }}">Create New Division</a>
+                    <a class="btn btn-info" href="{{ route('division.create') }}">Create New Division</a>
                 </div>
             </div>
         </div>

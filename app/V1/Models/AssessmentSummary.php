@@ -16,10 +16,6 @@ class AssessmentSummary extends Model
     return $this->hasOne('App\V1\Models\Alternative', 'id', 'alternative_id');
   }
 
-  public function criteria(){
-    return $this->hasOne('App\V1\Models\Criteria', 'id', 'criteria_id');
-  }
-
   public function year(){
     return $this->hasOne('App\V1\Models\Year', 'id', 'year_id');
   }

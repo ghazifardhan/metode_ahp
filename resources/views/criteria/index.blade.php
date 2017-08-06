@@ -38,7 +38,7 @@
                       @endforeach
                       <?php } ?>
                     </table>
-                    <a href="{{ route('criteria.create') }}">Create New Criteria</a>
+                    <a class="btn btn-info" href="{{ route('criteria.create') }}">Create New Criteria</a>
                 </div>
             </div>
         </div>

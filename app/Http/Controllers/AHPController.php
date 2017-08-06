@@ -154,8 +154,22 @@ class AHPController extends Controller
         $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
 
         // Store to Table Assessment Summary
-        $check_sum = AssessmentSummary::where('year_id', $year_id)->get();
+        $check_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('year_id', $year_id)->get();
         if(count($check_sum) == 0){
+          foreach($amaks as $key => $val){
+            $a_sum[$key] = new AssessmentSummary();
+            $a_sum[$key]->fill([
+              'alternative_id' => $amaks[$key]['id'],
+              'value' => $amaks[$key]['value'],
+              'rank_salary_id' => $amaks[$key]['rank_salary_id'],
+              'year_id' => $year_id,
+              'created_by' => Auth::id(),
+              'updated_by' => Auth::id(),
+            ]);
+            $a_sum[$key]->save();
+          }
+        } else {
+          DB::table('assessment_summary')->where('year_id', $year_id)->delete();
           foreach($amaks as $key => $val){
             $a_sum[$key] = new AssessmentSummary();
             $a_sum[$key]->fill([
@@ -170,8 +184,24 @@ class AHPController extends Controller
           }
         }
         // Store to table Assessment Criteria
-        $check_sum_criteria = AssessmentCriteria::where('year_id', $year_id)->get();
+        $check_sum_criteria = AssessmentCriteria::with('alternative', 'criteria', 'year')->where('year_id', $year_id)->get();
         if(count($check_sum_criteria) == 0){
+          foreach($matrix as $key => $val){
+            foreach($matrix[$key]['eigen_vektor_id'] as $k => $v){
+              $a_sum_crit[$k] = new AssessmentCriteria();
+              $a_sum_crit[$k]->fill([
+                'alternative_id' => $k,
+                'criteria_id' => $matrix[$key]['criteria_id'],
+                'value' => $v,
+                'year_id' => $year_id,
+                'created_by' => Auth::id(),
+                'updated_by' => Auth::id(),
+              ]);
+              $a_sum_crit[$k]->save();
+            }
+          }
+        } else {
+          DB::table('assessment_criteria')->where('year_id', $year_id)->delete();
           foreach($matrix as $key => $val){
             foreach($matrix[$key]['eigen_vektor_id'] as $k => $v){
               $a_sum_crit[$k] = new AssessmentCriteria();
@@ -190,11 +220,13 @@ class AHPController extends Controller
 
       }
 
+      $assessment_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('year_id', $year_id)->get();
+
       $year_assessment = Year::find($year_id);
       $title = 'Assessment - ' . $year_assessment->year;
-      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment'));
+      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
-      //return response($amaks);
+      //return response($assessment_sum);
     }
 
     public function array_sort_by_column($amaks) {

@@ -3,7 +3,7 @@
 {{ $title }}
 @stop
 @section('breadcrumb')
-@include('breadcrumb')
+{!! Breadcrumbs::render('alternative.assessment', $alternative, $year) !!}
 @stop
 @section('content')
 <div class="container">
@@ -16,7 +16,7 @@
                 @if(count($criteria) == 0)
                 <h3 align="center"> Please add criteria in criteria menu </h3>
                 @else
-                  <form method="post" action="{{ route('update.assessment', [$alternative->id, $year_id]) }}">
+                  <form method="post" action="{{ route('update.assessment', [$alternative->id, $year->id]) }}">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <input type="hidden" name="alternative_id" value="{{ $alternative->id }}">
                         <table class="table table-bordered">
