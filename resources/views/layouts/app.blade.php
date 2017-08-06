@@ -41,6 +41,21 @@ date_default_timezone_set('Asia/Jakarta');
   <![endif]-->
   <style>
 
+  @media print
+  {
+    #not-print-btn { display: none; }
+  }
+
+  @media print
+  {
+    #not-print-breadcrumbs { display:none; }
+  }
+
+  @media print
+  {
+    #not-print-footer { display:none; }
+  }
+
   <?php if(Auth::guest()){ ?>
   .content-wrapper {
     margin-left: 0px;
@@ -182,7 +197,7 @@ date_default_timezone_set('Asia/Jakarta');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <footer id="not-print-footer" class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>

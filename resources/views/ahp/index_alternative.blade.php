@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Summary </div>
+                <div class="panel-heading">Assessment Summary {{ $year_assessment->year }}</div>
 
                 <div id="data-print" class="panel-body">
                 <?php if($matrix == null){ ?>
@@ -41,7 +41,7 @@
                     <?php } ?>
 
                     <div style="text-align: center;">
-                      <button id="not-print" class="btn btn-info" style="align-self: center;" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></button>
+                      <button id="not-print-btn" class="btn btn-info" style="align-self: center;" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></button>
                     </div>
                 </div>
                 </div>
