@@ -10,11 +10,11 @@ date_default_timezone_set('Asia/Jakarta');
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -151,7 +151,7 @@ date_default_timezone_set('Asia/Jakarta');
             <!--<i class="fa fa-dashboard"></i>--> <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
+        <li class="treeview {{ active(['year.*', 'ahp_summary']) }}">
           <a href="#">
             <span>Admin</span>
             <span class="pull-right-container">
@@ -159,10 +159,10 @@ date_default_timezone_set('Asia/Jakarta');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('year') }}">Assessment</a></li>
+            <li class="{{ active('year.*') }}"><a href="{{ url('year') }}">Assessment</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview {{ active(['alternative.*','division.*','rank_salary.*','criteria.*','criteria_comparison.*', 'create.*','update.*']) }}">
           <a href="#">
             <span>Master Data</span>
             <span class="pull-right-container">
@@ -170,11 +170,11 @@ date_default_timezone_set('Asia/Jakarta');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
-            <li><a href="{{ url('division') }}">Master Data Division</a></li>
-            <li><a href="{{ url('rank_salary') }}">Master Data Rank Gaji</a></li>
-            <li><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
-            <li><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
+            <li class="{{ active('alternative.*') }}"><a href="{{ url('alternative') }}">Master Data Karyawan</a></li>
+            <li class="{{ active('division.*') }}"><a href="{{ url('division') }}">Master Data Division</a></li>
+            <li class="{{ active('rank_salary.*') }}"><a href="{{ url('rank_salary') }}">Master Data Rank Gaji</a></li>
+            <li class="{{ active('criteria.*') }}"><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
+            <li class="{{ active('criteria_comparison.*') }}"><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
           </ul>
         </li>
       </ul>
@@ -214,17 +214,10 @@ date_default_timezone_set('Asia/Jakarta');
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="{{ asset('js/app.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.6 -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
 <!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
 <!-- Sparkline -->
 <script src="{{ asset('plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap -->
@@ -233,8 +226,6 @@ date_default_timezone_set('Asia/Jakarta');
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('plugins/knob/jquery.knob.js') }}"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->

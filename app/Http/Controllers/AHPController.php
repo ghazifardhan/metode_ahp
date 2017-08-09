@@ -13,6 +13,7 @@ use App\V1\Models\AssessmentSummary;
 use App\V1\Models\AssessmentCriteria;
 use App\V1\Models\PairwiseComparison;
 use App\V1\Models\Year;
+use App\V1\Models\Division;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
@@ -100,7 +101,7 @@ class AHPController extends Controller
       //return Redirect::route('criteria_comparison.index', compact('res'));
     }
 
-    public function get_ahp_matrix_alternative($id){
+    public function get_ahp_matrix_alternative(Request $request, $id){
 
       $year_id = $id;
 
@@ -221,12 +222,18 @@ class AHPController extends Controller
       }
 
       $assessment_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('year_id', $year_id)->get();
-
+      $div = Division::all();
       $year_assessment = Year::find($year_id);
       $title = 'Assessment - ' . $year_assessment->year;
-      return view('ahp.index_alternative', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
+
+      if($request->input('report') == 'report_rank'){
+          return view('ahp.report-rank', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
+      } else {
+          return view('ahp.report-divisi', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
+      }
+
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
-      //return response($assessment_sum);
+      //return view('ahp.test', compact('assessment_sum', 'div'));
     }
 
     public function array_sort_by_column($amaks) {

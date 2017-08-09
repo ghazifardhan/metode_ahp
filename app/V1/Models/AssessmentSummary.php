@@ -23,4 +23,8 @@ class AssessmentSummary extends Model
   public function salary(){
     return $this->hasOne('App\V1\Models\RankSalary', 'id', 'rank_salary_id');
   }
+
+  public function division(){
+    return $this->hasOne('App\V1\Models\Division', 'id', 'division_is');
+  }
 }

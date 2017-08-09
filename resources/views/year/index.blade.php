@@ -36,7 +36,16 @@
 
                           <button class="btn btn-danger delete" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         -->
-                        <a class="btn btn-success" href="{{ url('ahp_summary', $item->id) }}">View</a>
+                        <!-- Single button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Report <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_rank' }}">Rank dan Kenaikan Gaji</a></li>
+                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_divisi' }}">Rank Per Divisi</a></li>
+                          </ul>
+                        </div>
                         <a class="btn btn-info" href="{{ route('year.edit', $item->id) }}">Edit</a>
                         <button class="btn btn-danger delete" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Delete</button>
                         </td>
