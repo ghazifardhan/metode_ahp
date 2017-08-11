@@ -10,6 +10,17 @@
 @endif
 @stop
 @section('content')
+@php
+
+if(isset($_GET['type'])){
+  $criteria_name = '';
+} else {
+  if($criteria){
+    $criteria_name = $criteria->criteria;  
+  }
+}
+
+@endphp
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -32,12 +43,16 @@
                           <table class='table table-hover table-responsive table-bordered'>
                               <tr>
                                   <td>Criteria Name</td>
-                                  <td><input type="text" name="criteria" class='form-control' value="<?php if($criteria){echo $criteria->criteria;} ?>"></td>
+                                  <td><input type="text" name="criteria" class='form-control' value="<?php if($criteria){echo $criteria_name;} ?>"></td>
                               </tr>
                               <tr>
                                   <td></td>
                                   <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-                                        <input type="reset" class="btn btn-warning" value="Reset"></td>
+                                    @if($criteria)
+                                    <a href="{{ route('criteria.edit', $criteria->id) . '?type=reset' }}" class="btn btn-warning">Reset</a>
+                                    @else
+                                    <input type="reset" class="btn btn-warning" value="Reset">
+                                    @endif
                               </tr>
                           </table>
                   {!! Form::close() !!}

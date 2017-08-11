@@ -10,6 +10,17 @@
 @endif
 @stop
 @section('content')
+@php
+
+if(isset($_GET['type'])){
+  $year_ = '';
+} else {
+  if($year){
+    $year_ = $year->year;
+  }
+}
+
+@endphp
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -33,11 +44,17 @@
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
                           <td>Year</td>
-                          <td><input type="number" name="year" class='form-control' value="<?php if($year){echo $year->year; } ?>"></td>
+                          <td><input type="number" name="year" class='form-control' value="<?php if($year){echo $year_; } ?>"></td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}</td>
+                          <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                          @if($year)
+                          <a href="{{ route('year.edit', $year->id) . '?type=reset' }}" class="btn btn-warning">Reset</a>
+                          @else
+                          <input type="reset" class="btn btn-warning" value="Reset">
+                          @endif
+                          </td>
                       </tr>
                   </table>
                   {!! Form::close() !!}

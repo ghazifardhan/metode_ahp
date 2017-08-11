@@ -10,6 +10,25 @@
 @endif
 @stop
 @section('content')
+@php
+
+if(isset($_GET['type'])){
+  $alternative_name = '';
+  $alternative_date = '';
+  $alternative_address = '';
+  $alternative_phone = '';
+  $alternative_salary = '';
+} else {
+  if($alternative){
+    $alternative_name = $alternative->alternative;
+    $alternative_date = $alternative->birthdate;
+    $alternative_address = $alternative->address;
+    $alternative_phone = $alternative->phone_number;
+    $alternative_salary = $alternative->salary;
+  }
+}
+
+@endphp
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -33,23 +52,23 @@
                           <?php } ?>
                               <tr>
                                   <td>Name</td>
-                                  <td><input type="text" name="alternative" class='form-control' value="<?php if($alternative){echo $alternative->alternative;} ?>"></td>
+                                  <td><input id="alternative" type="text" name="alternative" class='form-control' value="<?php if($alternative){echo $alternative_name;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Birth Date</td>
-                                  <td><input id="datepicker" type="text" name="birthdate" class='form-control' value="<?php if($alternative){echo $alternative->birthdate;} ?>"></td>
+                                  <td><input id="datepicker" type="text" name="birthdate" class='form-control' value="<?php if($alternative){echo $alternative_date;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Address</td>
-                                  <td><input type="text" name="address" class='form-control' value="<?php if($alternative){echo $alternative->address;} ?>"></td>
+                                  <td><input type="text" name="address" class='form-control' value="<?php if($alternative){echo $alternative_address;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Phone Number</td>
-                                  <td><input type="text" name="phone_number" class='form-control' value="<?php if($alternative){echo $alternative->phone_number;} ?>"></td>
+                                  <td><input type="text" name="phone_number" class='form-control' value="<?php if($alternative){echo $alternative_phone;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Salary</td>
-                                  <td><input type="number" name="salary" class='form-control' value="<?php if($alternative){echo $alternative->salary;} ?>"></td>
+                                  <td><input type="number" name="salary" class='form-control' value="<?php if($alternative){echo $alternative_salary;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Division</td>
@@ -63,8 +82,13 @@
                               <tr>
                                   <td></td>
                                   <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-                                      <input type="reset" class="btn btn-warning" value="Reset">
+                                    @if($alternative)
+                                    <a href="{{ route('alternative.edit', $alternative->id) . '?type=reset' }}" class="btn btn-warning">Reset</a>
+                                    @else
+                                    <input type="reset" class="btn btn-warning" value="Reset">
+                                    @endif
                           {!! Form::close() !!}
+
                               </tr>
                           </table>
                 </div>
@@ -79,7 +103,42 @@
     $('#datepicker').datepicker();
     $('#datepicker').datepicker({
       'dateFormat': 'yy-mm-dd'
-    })
+    });
+
+    function clear_form_elements(ele) {
+
+        tags = ele.getElementsByTagName('input');
+        for(i = 0; i < tags.length; i++) {
+            switch(tags[i].type) {
+                case 'password':
+                case 'text':
+                    tags[i].value = '';
+                    break;
+                case 'checkbox':
+                case 'radio':
+                    tags[i].checked = false;
+                    break;
+            }
+        }
+
+        tags = ele.getElementsByTagName('select');
+        for(i = 0; i < tags.length; i++) {
+            if(tags[i].type == 'select-one') {
+                tags[i].selectedIndex = 0;
+            }
+            else {
+                for(j = 0; j < tags[i].options.length; j++) {
+                    tags[i].options[j].selected = false;
+                }
+            }
+        }
+
+        tags = ele.getElementsByTagName('textarea');
+        for(i = 0; i < tags.length; i++) {
+            tags[i].value = '';
+        }
+
+    }
 
 </script>
 @stop

@@ -10,6 +10,19 @@
 @endif
 @stop
 @section('content')
+@php
+
+if(isset($_GET['type'])){
+  $rank_salary_rank = '';
+  $rank_salary_up_salary = '';
+} else {
+  if($rank_salary){
+    $rank_salary_rank = $rank_salary->rank;
+    $rank_salary_up_salary = $rank_salary->up_salary;
+  }
+}
+
+@endphp
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -33,15 +46,21 @@
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
                           <td>Rank</td>
-                          <td><input type="number" name="rank" class='form-control' value="<?php if($rank_salary){echo $rank_salary->rank; } ?>"></td>
+                          <td><input type="number" name="rank" class='form-control' value="<?php if($rank_salary){echo $rank_salary_rank; } ?>"></td>
                       </tr>
                       <tr>
                           <td>Salary Upgrade</td>
-                          <td><input type="number" name="up_salary" class='form-control' value="<?php if($rank_salary){echo $rank_salary->up_salary; } ?>"></td>
+                          <td><input type="number" name="up_salary" class='form-control' value="<?php if($rank_salary){echo $rank_salary_up_salary; } ?>"></td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}</td>
+                          <td>{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                          @if($rank_salary)
+                          <a href="{{ route('rank_salary.edit', $rank_salary->id) . '?type=reset' }}" class="btn btn-warning">Reset</a>
+                          @else
+                          <input type="reset" class="btn btn-warning" value="Reset">
+                          @endif
+                          </td>
                       </tr>
                   </table>
                   {!! Form::close() !!}
