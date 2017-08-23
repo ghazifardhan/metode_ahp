@@ -13,8 +13,8 @@ class ModifyTablePairwiseComparison extends Migration
      */
     public function up()
     {
-        Schema::table('pairwise_comparison', function($table){
-          $table->double('consistency_value', 8,4)->after('consistency');
+        Schema::table('hasil_perbandingan_kriteria', function($table){
+          $table->double('nilai_konsistensi', 8,4)->after('konsistensi');
         });
     }
 
@@ -25,8 +25,8 @@ class ModifyTablePairwiseComparison extends Migration
      */
     public function down()
     {
-        Schema::table('pairwise_comparison', function($table){
-          $table->dropColumn('consistency_value');
+        Schema::table('hasil_perbandingan_kriteria', function($table){
+          $table->dropColumn('nilai_konsistensi');
         });
     }
 }

@@ -30,9 +30,9 @@
                       @foreach($criteria_comparison as $row)
                       <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $row->criteria1->criteria }}</td>
-                        <td>{{ $row->importance_level->level_name . " - " . $row->importance_level->level_value }}</td>
-                        <td>{{ $row->criteria2->criteria }}</td>
+                        <td>{{ $row->criteria1->kriteria }}</td>
+                        <td>{{ $row->importance_level->nama_tingkat . " - " . $row->importance_level->nilai_tingkat }}</td>
+                        <td>{{ $row->criteria2->kriteria }}</td>
                         <td>
                           {!! link_to_route('criteria_comparison.edit', 'Edit', array($row->id), array('class' => 'btn btn-info')) !!}
 

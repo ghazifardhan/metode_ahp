@@ -13,17 +13,17 @@ class CreateTableAssessmentCriteria extends Migration
      */
     public function up()
     {
-      Schema::create('assessment_criteria', function(Blueprint $table){
+      Schema::create('hasil_penilaian_kriteria', function(Blueprint $table){
         $table->increments('id');
-        $table->integer('alternative_id')->unsigned();
-        $table->integer('criteria_id')->unsigned();
-        $table->float('value');
-        $table->integer('year_id')->unsigned();
+        $table->integer('calon_id')->unsigned();
+        $table->integer('kriteria_id')->unsigned();
+        $table->float('nilai');
+        $table->integer('tahun_id')->unsigned();
         $table->timestamps();
 
-        $table->foreign('alternative_id')->references('id')->on('alternative');
-        $table->foreign('criteria_id')->references('id')->on('criteria');
-        $table->foreign('year_id')->references('id')->on('year');
+        $table->foreign('calon_id')->references('id')->on('calon');
+        $table->foreign('kriteria_id')->references('id')->on('kriteria');
+        $table->foreign('tahun_id')->references('id')->on('tahun_penilaian');
       });
     }
 
@@ -34,6 +34,6 @@ class CreateTableAssessmentCriteria extends Migration
      */
     public function down()
     {
-        Schema::drop('assessment_criteria');
+        Schema::drop('hasil_penilaian_kriteria');
     }
 }

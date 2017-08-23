@@ -9,14 +9,14 @@ class Year extends Model
 {
 	use SoftDeletes;
 
-    protected $table = 'year';
+    protected $table = 'tahun_penilaian';
 
     protected $fillable = [
-    	'year', 'created_by', 'updated_by'
+    	'tahun', 'created_by', 'updated_by'
     ];
 
     public $validate = [
-      'year' => 'required',
+      'tahun' => 'required',
     ];
 
     protected $dates = ['deleted_at'];

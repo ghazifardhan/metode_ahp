@@ -13,8 +13,8 @@ class ModifyTableCriteriaComparison extends Migration
      */
     public function up()
     {
-        Schema::table('criteria_comparison', function($table){
-            $table->renameColumn('value', 'importance_leve_id');
+        Schema::table('perbandingan_kriteria', function($table){
+            $table->renameColumn('nilai', 'tingkat_kepentingan_id');
         });
     }
 
@@ -25,8 +25,8 @@ class ModifyTableCriteriaComparison extends Migration
      */
     public function down()
     {
-        Schema::table('criteria_comparison', function($table){
-            $table->renameColumn('importance_leve_id', 'value');
+        Schema::table('perbandingan_kriteria', function($table){
+            $table->renameColumn('tingkat_kepentingan_id', 'nilai');
         });
     }
 }

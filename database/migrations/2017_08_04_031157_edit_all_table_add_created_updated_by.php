@@ -13,7 +13,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
      */
     public function up()
     {
-        Schema::table('alternative', function($table){
+        Schema::table('calon', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -21,7 +21,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('assessment_criteria', function($table){
+        Schema::table('hasil_penilaian_kriteria', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -29,7 +29,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('assessment_summary', function($table){
+        Schema::table('ringkasan_penilaian', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -37,7 +37,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('criteria', function($table){
+        Schema::table('kriteria', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -45,7 +45,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('criteria_comparison', function($table){
+        Schema::table('perbandingan_kriteria', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -53,7 +53,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('data_alternative', function($table){
+        Schema::table('data_calon', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -61,7 +61,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('division', function($table){
+        Schema::table('divisi', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -69,7 +69,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('importance_level', function($table){
+        Schema::table('tingkat_kepentingan', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -77,7 +77,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('random_consistency_index', function($table){
+        Schema::table('indeks_konsistensi_acak', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -85,7 +85,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('rank_salary', function($table){
+        Schema::table('peringkat_gaji', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -93,7 +93,7 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
           $table->foreign('updated_by')->references('id')->on('users');
         });
 
-        Schema::table('year', function($table){
+        Schema::table('tahun_penilaian', function($table){
           $table->integer('created_by')->unsigned()->nullable();
           $table->integer('updated_by')->unsigned()->nullable();
 
@@ -110,79 +110,79 @@ class EditAllTableAddCreatedUpdatedBy extends Migration
      */
     public function down()
     {
-      Schema::table('alternative', function($table){
-        $table->dropForeign('alternative_created_by_foreign');
-        $table->dropForeign('alternative_updated_by_foreign');
+      Schema::table('calon', function($table){
+        $table->dropForeign('calon_created_by_foreign');
+        $table->dropForeign('calon_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('assessment_criteria', function($table){
-        $table->dropForeign('assessment_criteria_created_by_foreign');
-        $table->dropForeign('assessment_criteria_updated_by_foreign');
+      Schema::table('hasil_penilaian_kriteria', function($table){
+        $table->dropForeign('hasil_penilaian_kriteria_created_by_foreign');
+        $table->dropForeign('hasil_penilaian_kriteria_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('assessment_summary', function($table){
-        $table->dropForeign('assessment_summary_created_by_foreign');
-        $table->dropForeign('assessment_summary_updated_by_foreign');
+      Schema::table('ringkasan_penilaian', function($table){
+        $table->dropForeign('ringkasan_penilaian_created_by_foreign');
+        $table->dropForeign('ringkasan_penilaian_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('criteria', function($table){
-        $table->dropForeign('criteria_created_by_foreign');
-        $table->dropForeign('criteria_updated_by_foreign');
+      Schema::table('kriteria', function($table){
+        $table->dropForeign('kriteria_created_by_foreign');
+        $table->dropForeign('kriteria_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('criteria_comparison', function($table){
-        $table->dropForeign('criteria_comparison_created_by_foreign');
-        $table->dropForeign('criteria_comparison_updated_by_foreign');
+      Schema::table('perbandingan_kriteria', function($table){
+        $table->dropForeign('perbandingan_kriteria_created_by_foreign');
+        $table->dropForeign('perbandingan_kriteria_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('data_alternative', function($table){
-        $table->dropForeign('data_alternative_created_by_foreign');
-        $table->dropForeign('data_alternative_updated_by_foreign');
+      Schema::table('data_calon', function($table){
+        $table->dropForeign('data_calon_created_by_foreign');
+        $table->dropForeign('data_calon_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('division', function($table){
-        $table->dropForeign('division_created_by_foreign');
-        $table->dropForeign('division_updated_by_foreign');
+      Schema::table('divisi', function($table){
+        $table->dropForeign('divisi_created_by_foreign');
+        $table->dropForeign('divisi_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('importance_level', function($table){
-        $table->dropForeign('importance_level_created_by_foreign');
-        $table->dropForeign('importance_level_updated_by_foreign');
+      Schema::table('tingkat_kepentingan', function($table){
+        $table->dropForeign('tingkat_kepentingan_created_by_foreign');
+        $table->dropForeign('tingkat_kepentingan_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('random_consistency_index', function($table){
-        $table->dropForeign('random_consistency_index_created_by_foreign');
-        $table->dropForeign('random_consistency_index_updated_by_foreign');
+      Schema::table('indeks_konsistensi_acak', function($table){
+        $table->dropForeign('indeks_konsistensi_acak_created_by_foreign');
+        $table->dropForeign('indeks_konsistensi_acak_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('rank_salary', function($table){
-        $table->dropForeign('rank_salary_created_by_foreign');
-        $table->dropForeign('rank_salary_updated_by_foreign');
+      Schema::table('peringkat_gaji', function($table){
+        $table->dropForeign('peringkat_gaji_created_by_foreign');
+        $table->dropForeign('peringkat_gaji_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });
 
-      Schema::table('year', function($table){
-        $table->dropForeign('year_created_by_foreign');
-        $table->dropForeign('year_updated_by_foreign');
+      Schema::table('tahun_penilaian', function($table){
+        $table->dropForeign('tahun_penilaian_created_by_foreign');
+        $table->dropForeign('tahun_penilaian_updated_by_foreign');
         $table->dropColumn('created_by');
         $table->dropColumn('updated_by');
       });

@@ -13,14 +13,14 @@ class AddYearId extends Migration
      */
     public function up()
     {
-        Schema::table('data_alternative',function($table){
-            $table->integer('year_id')->after('value')->unsigned();
+        Schema::table('data_calon',function($table){
+            $table->integer('tahun_id')->after('nilai')->unsigned();
             //$table->foreign('year_id')->references('id')->on('year');
         });
 
-        Schema::table('data_alternative',function($table){
+        Schema::table('data_calon',function($table){
             //$table->integer('year_id')->after('value')->unsigned();
-            $table->foreign('year_id')->references('id')->on('year');
+            $table->foreign('tahun_id')->references('id')->on('tahun_penilaian');
         });
     }
 
@@ -31,9 +31,9 @@ class AddYearId extends Migration
      */
     public function down()
     {
-        Schema::table('data_alternative',function($table){
-            $table->dropColumn('year_id');
-            $table->dropForeign('year_id');
+        Schema::table('data_calon',function($table){
+            $table->dropColumn('tahun_id');
+            $table->dropForeign(['tahun_id']);
         });
     }
 }

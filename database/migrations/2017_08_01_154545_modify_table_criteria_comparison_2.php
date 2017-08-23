@@ -13,10 +13,10 @@ class ModifyTableCriteriaComparison2 extends Migration
      */
     public function up()
     {
-        Schema::table('criteria_comparison',function($table){
-            $table->integer('importance_leve_id')->unsigned()->change();
+        Schema::table('perbandingan_kriteria',function($table){
+            $table->integer('tingkat_kepentingan_id')->unsigned()->change();
 
-            $table->foreign('importance_leve_id')->references('id')->on('importance_level');
+            $table->foreign('tingkat_kepentingan_id')->references('id')->on('tingkat_kepentingan');
         });
     }
 
@@ -27,8 +27,8 @@ class ModifyTableCriteriaComparison2 extends Migration
      */
     public function down()
     {
-        Schema::table('criteria_comparison',function($table){
-            $table->dropForeign('importance_leve_id');
+        Schema::table('perbandingan_kriteria',function($table){
+            $table->dropForeign(['tingkat_kepentingan_id']);
         });
     }
 }

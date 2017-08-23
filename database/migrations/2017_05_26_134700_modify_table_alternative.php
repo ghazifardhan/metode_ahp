@@ -13,14 +13,14 @@ class ModifyTableAlternative extends Migration
      */
     public function up()
     {
-        Schema::table('alternative', function($table){
-          $table->integer('age');
-          $table->string('address');
-          $table->string('phone_number');
-          $table->double('salary');
-          $table->integer('division_id')->unsigned();
+        Schema::table('calon', function($table){
+          $table->integer('umur');
+          $table->string('alamat');
+          $table->string('nomor_hp');
+          $table->double('gaji');
+          $table->integer('divisi_id')->unsigned();
 
-          $table->foreign('division_id')->references('id')->on('division')->onDelete('cascade');
+          $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('cascade');
         });
     }
 

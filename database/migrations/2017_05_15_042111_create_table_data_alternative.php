@@ -13,15 +13,15 @@ class CreateTableDataAlternative extends Migration
      */
     public function up()
     {
-        Schema::create('data_alternative', function(Blueprint $table){
+        Schema::create('data_calon', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('alternative_id')->unsigned();
-          $table->integer('criteria_id')->unsigned();
-          $table->integer('value');
+          $table->integer('calon_id')->unsigned();
+          $table->integer('kriteria_id')->unsigned();
+          $table->integer('nilai');
           $table->timestamps();
 
-          $table->foreign('alternative_id')->references('id')->on('alternative')->onDelete('cascade');
-          $table->foreign('criteria_id')->references('id')->on('criteria')->onDelete('cascade');
+          $table->foreign('calon_id')->references('id')->on('calon')->onDelete('cascade');
+          $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateTableDataAlternative extends Migration
      */
     public function down()
     {
-        Schema::drop('data_alternative');
+        Schema::drop('data_calon');
     }
 }

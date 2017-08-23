@@ -13,7 +13,7 @@ class ModifyTableYear extends Migration
      */
     public function up()
     {
-        Schema::table('year', function($table){
+        Schema::table('tahun_penilaian', function($table){
           $table->timestamps();
         });
     }

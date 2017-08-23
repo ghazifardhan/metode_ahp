@@ -29,7 +29,7 @@ class CriteriaController extends Controller
   public function store(Request $request){
     Validator::validate($request->input(), $this->criteria->validate);
     $this->criteria->fill([
-      'criteria' => $request->input('criteria'),
+      'kriteria' => $request->input('kriteria'),
       'created_by' => Auth::id(),
       'updated_by' => Auth::id(),
     ]);
@@ -55,7 +55,7 @@ class CriteriaController extends Controller
 
   public function update(Request $request, $id){
     $criteria = $this->criteria->find($id);
-    $criteria->criteria = $request->input('criteria');
+    $criteria->kriteria = $request->input('kriteria');
     $criteria->updated_by = Auth::id();
     $criteria->save();
     return Redirect::route('criteria.index');
@@ -63,7 +63,7 @@ class CriteriaController extends Controller
 
   public function show($id){
     $criteria = $this->criteria->find($id);
-    $title = $criteria->criteria;
+    $title = $criteria->kriteria;
     return view('criteria.show', compact('criteria', 'title'));
   }
 

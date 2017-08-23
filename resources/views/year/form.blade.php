@@ -16,7 +16,7 @@ if(isset($_GET['type'])){
   $year_ = '';
 } else {
   if($year){
-    $year_ = $year->year;
+    $year_ = $year->tahun;
   }
 }
 
@@ -44,7 +44,7 @@ if(isset($_GET['type'])){
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
                           <td>Year</td>
-                          <td><input type="number" name="year" class='form-control' value="<?php if($year){echo $year_; } ?>"></td>
+                          <td><input type="number" name="tahun" class='form-control' value="<?php if($year){echo $year_; } ?>"></td>
                       </tr>
                       <tr>
                           <td></td>

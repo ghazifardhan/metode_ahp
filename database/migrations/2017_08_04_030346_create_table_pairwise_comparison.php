@@ -13,17 +13,17 @@ class CreateTablePairwiseComparison extends Migration
      */
     public function up()
     {
-        Schema::create('pairwise_comparison', function(Blueprint $table){
+        Schema::create('hasil_perbandingan_kriteria', function(Blueprint $table){
           $table->increments('id');
           $table->double('t', 8,4);
           $table->double('ci', 8,4);
           $table->integer('rci_id')->unsigned();
-          $table->boolean('consistency');
+          $table->boolean('konsistensi');
           $table->integer('created_by')->unsigned();
           $table->integer('updated_by')->unsigned();
           $table->timestamps();
 
-          $table->foreign('rci_id')->references('id')->on('random_consistency_index');
+          $table->foreign('rci_id')->references('id')->on('indeks_konsistensi_acak');
           $table->foreign('created_by')->references('id')->on('users');
           $table->foreign('updated_by')->references('id')->on('users');
         });
@@ -36,6 +36,6 @@ class CreateTablePairwiseComparison extends Migration
      */
     public function down()
     {
-        Schema::drop('pairwise_comparison');
+        Schema::drop('hasil_perbandingan_kriteria');
     }
 }

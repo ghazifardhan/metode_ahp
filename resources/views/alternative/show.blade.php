@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ $alternative->alternative }}</div>
+                <div class="panel-heading">{{ $alternative->calon }}</div>
 
                 <div class="panel-body">
                     <table class="table table-bordered">
@@ -20,27 +20,27 @@
                       </tr>
                       <tr>
                         <td>Name</td>
-                        <td>{{ $alternative->alternative }}</td>
+                        <td>{{ $alternative->calon }}</td>
                       </tr>
                       <tr>
                         <td>Birth Date</td>
-                        <td>{{ $alternative->birthdate }}</td>
+                        <td>{{ $alternative->tanggal_lahir }}</td>
                       </tr>
                       <tr>
                         <td>Address</td>
-                        <td>{{ $alternative->address }}</td>
+                        <td>{{ $alternative->alamat }}</td>
                       </tr>
                       <tr>
                         <td>Phone Number</td>
-                        <td>{{ $alternative->phone_number }}</td>
+                        <td>{{ $alternative->nomor_hp }}</td>
                       </tr>
                       <tr>
                         <td>Salary</td>
-                        <td>{{ $alternative->salary }}</td>
+                        <td>{{ $alternative->gaji }}</td>
                       </tr>
                       <tr>
                         <td>Division</td>
-                        <td>{{ $alternative->division->name }}</td>
+                        <td>{{ $alternative->division->nama }}</td>
                       </tr>
                     </table>
 
@@ -77,7 +77,7 @@
                       <tr>
 
                         <td>{{ $no++ }}</td>
-                        <td>{{ $item->year }}</td>
+                        <td>{{ $item->tahun }}</td>
                         <td>
                           <a class="btn btn-success" href="{{ route('alternative.assessment', [$alternative->id, $item->id]) }}">Create Assessment</a>
                         </td>

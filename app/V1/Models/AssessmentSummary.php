@@ -6,25 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssessmentSummary extends Model
 {
-  protected $table = 'assessment_summary';
+  protected $table = 'ringkasan_penilaian';
 
   protected $fillable = [
-    'alternative_id', 'criteria_id', 'value', 'rank_salary_id', 'year_id', 'created_by', 'updated_by'
+    'calon_id', 'kriteria_id', 'nilai', 'peringkat_gaji_id', 'tahun_id', 'created_by', 'updated_by'
   ];
 
   public function alternative(){
-    return $this->hasOne('App\V1\Models\Alternative', 'id', 'alternative_id');
+    return $this->hasOne('App\V1\Models\Alternative', 'id', 'calon_id');
   }
 
   public function year(){
-    return $this->hasOne('App\V1\Models\Year', 'id', 'year_id');
+    return $this->hasOne('App\V1\Models\Year', 'id', 'tahun_id');
   }
 
   public function salary(){
-    return $this->hasOne('App\V1\Models\RankSalary', 'id', 'rank_salary_id');
+    return $this->hasOne('App\V1\Models\RankSalary', 'id', 'peringkat_gaji_id');
   }
 
   public function division(){
-    return $this->hasOne('App\V1\Models\Division', 'id', 'division_is');
+    return $this->hasOne('App\V1\Models\Division', 'id', 'divisi_id');
   }
 }

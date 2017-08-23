@@ -35,12 +35,12 @@ class AlternativeController extends BaseController
 
       Validator::validate($request->input(), $this->alternative->validate);
       $this->alternative->fill([
-        'alternative' => $request->input('alternative'),
-        'birthdate' => date('Y-m-d', strtotime($request->input('birthdate'))),
-        'address' => $request->input('address'),
-        'phone_number' => $request->input('phone_number'),
-        'salary' => $request->input('salary'),
-        'division_id' => $request->input('division_id'),
+        'calon' => $request->input('calon'),
+        'tanggal_lahir' => date('Y-m-d', strtotime($request->input('tanggal_lahir'))),
+        'alamat' => $request->input('alamat'),
+        'nomor_hp' => $request->input('nomor_hp'),
+        'gaji' => $request->input('gaji'),
+        'divisi_id' => $request->input('divisi_id'),
         'created_by' => Auth::id(),
         'updated_by' => Auth::id(),
       ]);
@@ -64,18 +64,18 @@ class AlternativeController extends BaseController
       $division = Division::all();
       $res['create'] = false;
       $res['status'] = "Update";
-      $title = 'Edit Karyawan - ' . $alternative->alternative;
+      $title = 'Edit Karyawan - ' . $alternative->calon;
       return view('alternative.form', compact('alternative', 'division', 'res', 'title'));
     }
 
     public function update(Request $request, $id){
       $alternative = $this->alternative->find($id);
-      $alternative->alternative = $request->input('alternative');
-      $alternative->birthdate = date('Y-m-d', strtotime($request->input('birthdate')));
-      $alternative->address = $request->input('address');
-      $alternative->phone_number = $request->input('phone_number');
-      $alternative->salary = $request->input('salary');
-      $alternative->division_id = $request->input('division_id');
+      $alternative->calon = $request->input('calon');
+      $alternative->tanggal_lahir = date('Y-m-d', strtotime($request->input('tanggal_lahir')));
+      $alternative->alamat = $request->input('alamat');
+      $alternative->nomor_hp = $request->input('nomor_hp');
+      $alternative->gaji = $request->input('gaji');
+      $alternative->divisi_id = $request->input('divisi_id');
       $alternative->updated_by = Auth::id();
       $alternative->save();
       return Redirect::route('alternative.index');
@@ -84,17 +84,17 @@ class AlternativeController extends BaseController
     public function show($id){
       $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
-      $data_alternative = DataAlternative::where('alternative_id', $alternative->id)->orderBy('criteria_id', 'asc')->get();
-      $year = Year::orderBy('year', 'asc')->get();
-      $title = $alternative->alternative;
+      $data_alternative = DataAlternative::where('calon_id', $alternative->id)->orderBy('kriteria_id', 'asc')->get();
+      $year = Year::orderBy('tahun', 'asc')->get();
+      $title = $alternative->calon;
       return view('alternative.show', compact('alternative', 'criteria', 'year', 'title'));
     }
 
     public function showAssessmentForm($id, $year_id){
       $alternative = $this->alternative->with('division')->find($id);
       $criteria = Criteria::orderBy('id', 'asc')->get();
-      $data_alternative = DataAlternative::where(['alternative_id' => $alternative->id, 'year_id' => $year_id])->orderBy('criteria_id', 'asc')->get();
-      $title = 'Assessment - ' . $alternative->alternative;
+      $data_alternative = DataAlternative::where(['calon_id' => $alternative->id, 'tahun_id' => $year_id])->orderBy('kriteria_id', 'asc')->get();
+      $title = 'Assessment - ' . $alternative->calon;
       $year = Year::find($year_id);
       if(count($data_alternative) == 0){
         return view('alternative.assessment.form', compact('alternative', 'criteria', 'year', 'title'));
@@ -121,13 +121,15 @@ class AlternativeController extends BaseController
         if($value[$x] == null){
           $value[$x] = 0;
         }
-        DB::table('data_alternative')->insert([
-          'alternative_id' => $alternative_id,
-          'criteria_id' => $criteria_id[$x],
-          'value' => $value[$x],
-          'year_id' => $year_id,
+        DB::table('data_calon')->insert([
+          'calon_id' => $alternative_id,
+          'kriteria_id' => $criteria_id[$x],
+          'nilai' => $value[$x],
+          'tahun_id' => $year_id,
           'created_at' => $time,
           'updated_at' => $time,
+          'created_by' => Auth::id(),
+          'updated_by' => Auth::id(),
         ]);
       }
 
@@ -146,8 +148,8 @@ class AlternativeController extends BaseController
       $criteria_id = $request->input('criteria_id');
 
       for($x = 0; $x < count($value); $x++){
-        DB::table('data_alternative')->where(['alternative_id' => $alternative_id, 'criteria_id' => $criteria_id[$x], 'year_id' => $year_id])->update([
-          'value' => $value[$x],
+        DB::table('data_calon')->where(['calon_id' => $alternative_id, 'kriteria_id' => $criteria_id[$x], 'tahun_id' => $year_id])->update([
+          'nilai' => $value[$x],
           'updated_at' => $time,
         ]);
       }

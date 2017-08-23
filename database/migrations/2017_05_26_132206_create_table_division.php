@@ -13,9 +13,9 @@ class CreateTableDivision extends Migration
      */
     public function up()
     {
-        Schema::create('division', function(Blueprint $table){
+        Schema::create('divisi', function(Blueprint $table){
           $table->increments('id');
-          $table->string('name');
+          $table->string('nama');
           $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableDivision extends Migration
      */
     public function down()
     {
-        Schema::drop('division');
+        Schema::drop('divisi');
     }
 }

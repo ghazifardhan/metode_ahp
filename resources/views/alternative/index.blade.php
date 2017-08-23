@@ -16,7 +16,7 @@
                     <table class="table table-bordered table-hover table-striped table-condensed">
                       <tr>
                         <th>ID</th>
-                        <th>Alternative</th>
+                        <th>Nama</th>
                         <th>Action</th>
                       </tr>
                       <?php if(count($alternative) == 0){ ?>
@@ -28,7 +28,7 @@
                       <tr>
 
                         <td>{{ $alternatives->id }}</td>
-                        <td>{!! link_to_route('alternative.show', $alternatives->alternative, array($alternatives->id), array('class' => '')) !!}</td>
+                        <td>{!! link_to_route('alternative.show', $alternatives->calon, array($alternatives->id), array('class' => '')) !!}</td>
                         <td>
                           {!! link_to_route('alternative.edit', 'Edit', array($alternatives->id), array('class' => 'btn btn-info')) !!}
 

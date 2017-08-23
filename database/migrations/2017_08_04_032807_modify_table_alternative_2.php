@@ -13,10 +13,10 @@ class ModifyTableAlternative2 extends Migration
      */
     public function up()
     {
-        Schema::table('alternative', function($table){
-          $table->dropColumn('age');
+        Schema::table('calon', function($table){
+          $table->dropColumn('umur');
 
-          $table->date('birthdate')->nullable()->default('1900-01-01')->after('updated_at');
+          $table->date('tanggal_lahir')->nullable()->default('1900-01-01')->after('updated_at');
         });
     }
 
@@ -27,10 +27,10 @@ class ModifyTableAlternative2 extends Migration
      */
     public function down()
     {
-        Schema::table('alternative', function($table){
-          $table->dropColumn('birthdate');
+        Schema::table('calon', function($table){
+          $table->dropColumn('tanggal_lahir');
 
-          $table->integer('age');
+          $table->integer('umur');
         });
     }
 }

@@ -23,12 +23,12 @@
                       <tr>
                         <td colspan="3">Tidak ada Data</td>
                       </tr>
-                      <?php } else { ?>
+                      <?php } else { $no = 1; ?>
                       @foreach($criteria as $criterias)
                       <tr>
 
-                        <td>{{ $criterias->id }}</td>
-                        <td>{{ $criterias->criteria }}</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $criterias->kriteria }}</td>
                         <td>
                           {!! link_to_route('criteria.edit', 'Edit', array($criterias->id), array('class' => 'btn btn-info')) !!}
 

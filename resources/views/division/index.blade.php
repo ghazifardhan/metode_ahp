@@ -31,7 +31,7 @@
                       <tr>
 
                         <td>{{ $no++ }}</td>
-                        <td>{{ $divisions->name }}</td>
+                        <td>{{ $divisions->nama }}</td>
                         <td>
                           {!! link_to_route('division.edit', 'Edit', array($divisions->id), array('class' => 'btn btn-info')) !!}
 

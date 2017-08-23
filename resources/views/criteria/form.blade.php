@@ -16,7 +16,7 @@ if(isset($_GET['type'])){
   $criteria_name = '';
 } else {
   if($criteria){
-    $criteria_name = $criteria->criteria;  
+    $criteria_name = $criteria->kriteria;  
   }
 }
 
@@ -43,7 +43,7 @@ if(isset($_GET['type'])){
                           <table class='table table-hover table-responsive table-bordered'>
                               <tr>
                                   <td>Criteria Name</td>
-                                  <td><input type="text" name="criteria" class='form-control' value="<?php if($criteria){echo $criteria_name;} ?>"></td>
+                                  <td><input type="text" name="kriteria" class='form-control' value="<?php if($criteria){echo $criteria_name;} ?>"></td>
                               </tr>
                               <tr>
                                   <td></td>

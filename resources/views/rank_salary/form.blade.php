@@ -17,8 +17,8 @@ if(isset($_GET['type'])){
   $rank_salary_up_salary = '';
 } else {
   if($rank_salary){
-    $rank_salary_rank = $rank_salary->rank;
-    $rank_salary_up_salary = $rank_salary->up_salary;
+    $rank_salary_rank = $rank_salary->peringkat;
+    $rank_salary_up_salary = $rank_salary->kenaikan_gaji;
   }
 }
 
@@ -46,11 +46,11 @@ if(isset($_GET['type'])){
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
                           <td>Rank</td>
-                          <td><input type="number" name="rank" class='form-control' value="<?php if($rank_salary){echo $rank_salary_rank; } ?>"></td>
+                          <td><input type="number" name="peringkat" class='form-control' value="<?php if($rank_salary){echo $rank_salary_rank; } ?>"></td>
                       </tr>
                       <tr>
                           <td>Salary Upgrade</td>
-                          <td><input type="number" name="up_salary" class='form-control' value="<?php if($rank_salary){echo $rank_salary_up_salary; } ?>"></td>
+                          <td><input type="number" name="kenaikan_gaji" class='form-control' value="<?php if($rank_salary){echo $rank_salary_up_salary; } ?>"></td>
                       </tr>
                       <tr>
                           <td></td>

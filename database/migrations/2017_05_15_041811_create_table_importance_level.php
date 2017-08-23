@@ -13,10 +13,10 @@ class CreateTableImportanceLevel extends Migration
      */
     public function up()
     {
-        Schema::create('importance_level', function(Blueprint $table){
+        Schema::create('tingkat_kepentingan', function(Blueprint $table){
           $table->increments('id');
-          $table->string('level_name');
-          $table->double('level_value');
+          $table->string('nama_tingkat');
+          $table->double('nilai_tingkat');
           $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTableImportanceLevel extends Migration
      */
     public function down()
     {
-        Schema::drop('importance_level');
+        Schema::drop('tingkat_kepentingan');
     }
 }

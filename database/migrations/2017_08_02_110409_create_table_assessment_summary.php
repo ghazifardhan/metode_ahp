@@ -13,19 +13,19 @@ class CreateTableAssessmentSummary extends Migration
      */
     public function up()
     {
-      Schema::create('assessment_summary', function(Blueprint $table){
+      Schema::create('ringkasan_penilaian', function(Blueprint $table){
         $table->increments('id');
-        $table->integer('alternative_id')->unsigned();
-        $table->integer('criteria_id')->unsigned();
-        $table->float('value');
-        $table->integer('rank_salary_id')->unsigned();
-        $table->integer('year_id')->unsigned();
+        $table->integer('calon_id')->unsigned();
+        $table->integer('kriteria_id')->unsigned();
+        $table->float('nilai');
+        $table->integer('peringkat_gaji_id')->unsigned();
+        $table->integer('tahun_id')->unsigned();
         $table->timestamps();
 
-        $table->foreign('alternative_id')->references('id')->on('alternative');
-        $table->foreign('criteria_id')->references('id')->on('criteria');
-        $table->foreign('rank_salary_id')->references('id')->on('rank_salary');
-        $table->foreign('year_id')->references('id')->on('year');
+        $table->foreign('calon_id')->references('id')->on('calon');
+        $table->foreign('kriteria_id')->references('id')->on('kriteria');
+        $table->foreign('peringkat_gaji_id')->references('id')->on('peringkat_gaji');
+        $table->foreign('tahun_id')->references('id')->on('tahun_penilaian');
       });
     }
 
@@ -36,6 +36,6 @@ class CreateTableAssessmentSummary extends Migration
      */
     public function down()
     {
-        Schema::drop('assessment_summary');
+        Schema::drop('ringkasan_penilaian');
     }
 }

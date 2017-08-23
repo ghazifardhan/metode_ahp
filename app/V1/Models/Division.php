@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Division extends Model
 {
-    protected $table = 'division';
+    protected $table = 'divisi';
 
     protected $fillable = [
-      'name', 'created_by', 'updated_by'
+      'nama', 'created_by', 'updated_by'
     ];
 
     public $validate = [
-      'name' => 'required'
+      'nama' => 'required'
     ];
 }

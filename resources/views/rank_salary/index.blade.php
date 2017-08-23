@@ -30,8 +30,8 @@
                       <tr>
 
                         <td>{{ $no++ }}</td>
-                        <td>{{ $rank_salaries->rank }}</td>
-                        <td>{{ "Rp " . number_format($rank_salaries->up_salary, "0", ",", ".") }}</td>
+                        <td>{{ $rank_salaries->peringkat }}</td>
+                        <td>{{ "Rp " . number_format($rank_salaries->kenaikan_gaji, "0", ",", ".") }}</td>
                         <td>
                           {!! link_to_route('rank_salary.edit', 'Edit', array($rank_salaries->id), array('class' => 'btn btn-info')) !!}
 

@@ -31,8 +31,8 @@ class RankSalaryController extends Controller
     public function store(Request $request){
       Validator::validate($request->input(), $this->rank_salary->validate);
       $this->rank_salary->fill([
-        'rank' => $request->input('rank'),
-        'up_salary' => $request->input('up_salary'),
+        'peringkat' => $request->input('peringkat'),
+        'kenaikan_gaji' => $request->input('kenaikan_gaji'),
         'created_by' => Auth::id(),
         'updated_by' => Auth::id(),
       ]);
@@ -58,8 +58,8 @@ class RankSalaryController extends Controller
 
     public function update(Request $request, $id){
       $rank_salary = $this->rank_salary->find($id);
-      $rank_salary->rank = $request->input('rank');
-      $rank_salary->up_salary = $request->input('up_salary');
+      $rank_salary->peringkat = $request->input('peringkat');
+      $rank_salary->kenaikan_gaji = $request->input('kenaikan_gaji');
       $rank_salary->updated_by = Auth::id();
       $rank_salary->save();
       return Redirect::route('rank_salary.index');
@@ -67,7 +67,7 @@ class RankSalaryController extends Controller
 
     public function show($id){
       $rank_salary = $this->rank_salary->find($id);
-      $title = $rank_salary->rank;
+      $title = $rank_salary->peringkat;
       return view('rank_salary.show', compact('rank_salary', 'title'));
     }
 

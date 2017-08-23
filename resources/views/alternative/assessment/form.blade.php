@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Asessment for {{ $alternative->alternative }}</div>
+                <div class="panel-heading">Asessment for {{ $alternative->calon }}</div>
 
                 <div class="panel-body">
                 @if(count($criteria) == 0)
@@ -22,7 +22,7 @@
                       <table class="table table-bordered">
                           @foreach($criteria as $row)
                           <tr>
-                            <td>{{ $row->criteria }}</td>
+                            <td>{{ $row->kriteria }}</td>
                             <input type="hidden" name="criteria_id[]" value="{{ $row->id }}">
                             <td><input name="value[]" class="form-control" required></td>
                           </tr>

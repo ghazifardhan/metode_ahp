@@ -6,27 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class DataAlternative extends Model
 {
-    protected $table = 'data_alternative';
+    protected $table = 'data_calon';
 
     protected $fillable = [
-      'alternative_id', 'criteria_id', 'value', 'year_id', 'created_at', 'updated_at', 'created_by', 'updated_by'
+      'calon_id', 'kriteria_id', 'nilai', 'tahun_id', 'created_at', 'updated_at', 'created_by', 'updated_by'
     ];
 
     public $validate = [
-      'alternative_id' => 'required',
-      'criteria_id' => 'required',
-      'value' => 'criteria'
+      'calon_id' => 'required',
+      'kriteria_id' => 'required',
+      'nilai' => 'required'
     ];
 
     public function alternative(){
-      return $this->hasOne('App\V1\Models\Alternative', 'id', 'alternative_id');
+      return $this->hasOne('App\V1\Models\Alternative', 'id', 'calon_id');
     }
 
     public function criteria(){
-      return $this->hasOne('App\V1\Models\Criteria', 'id', 'criteria_id');
+      return $this->hasOne('App\V1\Models\Criteria', 'id', 'kriteria_id');
     }
 
     public function year(){
-      return $this->hasOne('App\V1\Models\Year', 'id', 'year_id');
+      return $this->hasOne('App\V1\Models\Year', 'id', 'tahun_id');
     }
 }

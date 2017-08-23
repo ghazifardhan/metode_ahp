@@ -13,10 +13,10 @@ class CreateTableRandomConsistencyIndex extends Migration
      */
     public function up()
     {
-        Schema::create('random_consistency_index', function(Blueprint $table){
+        Schema::create('indeks_konsistensi_acak', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('total_index');
-          $table->float('index_value');
+          $table->integer('jumlah_indeks');
+          $table->float('nilai_indeks');
           $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTableRandomConsistencyIndex extends Migration
      */
     public function down()
     {
-        Schema::drop('random_consistency_index');
+        Schema::drop('indeks_konsistensi_acak');
     }
 }

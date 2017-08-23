@@ -75,8 +75,8 @@ class AHPController extends Controller
             't' => $res['t'],
             'ci' => $res['ci'],
             'rci_id' => $res['rci']['id'],
-            'consistency' => $res['consistency']['consistency'],
-            'consistency_value' => $res['consistency']['value'],
+            'konsistensi' => $res['consistency']['consistency'],
+            'nilai_konsistensi' => $res['consistency']['value'],
             'created_by' => Auth::id(),
             'updated_by' => Auth::id(),
           ]);
@@ -86,8 +86,8 @@ class AHPController extends Controller
           $pc_edit->t = $res['t'];
           $pc_edit->ci = $res['ci'];
           $pc_edit->rci_id = $res['rci']['id'];
-          $pc_edit->consistency = $res['consistency']['consistency'];
-          $pc_edit->consistency_value = $res['consistency']['value'];
+          $pc_edit->konsistensi = $res['consistency']['consistency'];
+          $pc_edit->nilai_konsistensi = $res['consistency']['nilai'];
           $pc_edit->updated_by = Auth::id();
           $pc_edit->save();
         }
@@ -108,7 +108,7 @@ class AHPController extends Controller
       $alternative = Alternative::orderBy('id', 'asc')->get();
       $criteria = Criteria::orderBy('id', 'asc')->get();
 
-      $d_alt = DB::select("select distinct alternative_id, year_id from data_alternative where year_id = " . $year_id);
+      $d_alt = DB::select("select distinct calon_id, tahun_id from data_calon where tahun_id = " . $year_id);
 
       $alternative_ids = array();
       if(count($alternative) == 0 || count($d_alt) < count($alternative)){
@@ -125,9 +125,9 @@ class AHPController extends Controller
 
         foreach ($criteria as $key => $value) {
           $criteria_ids[] = $criteria[$key]['id'];
-          $data_alternative = DataAlternative::with('alternative')->orderBy('alternative_id','asc')->where(['criteria_id' => $criteria[$key]['id'], 'year_id' => $year_id])->get();
+          $data_alternative = DataAlternative::with('alternative')->orderBy('calon_id','asc')->where(['kriteria_id' => $criteria[$key]['id'], 'tahun_id' => $year_id])->get();
           $matrix[$key]['criteria_id'] = $criteria[$key]['id'];
-          $matrix[$key]['criteria_name'] = $criteria[$key]['criteria'];
+          $matrix[$key]['criteria_name'] = $criteria[$key]['kriteria'];
           $matrix[$key]['result'] = $this->ahp_matrix_alternative($alternative_ids, $data_alternative);
           $sum = $this->ahp_number_of_column($alternative_ids, $matrix[$key]['result']);
           $matrix[$key]['number_of_column'] = $this->ahp_sum($alternative_ids, $sum);
@@ -155,29 +155,29 @@ class AHPController extends Controller
         $amaks = $this->ahp_amaks_alt($criteria_ids, $alternative_ids, $rank, $eigen_vektor, $alternative);
 
         // Store to Table Assessment Summary
-        $check_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('year_id', $year_id)->get();
+        $check_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('tahun_id', $year_id)->get();
         if(count($check_sum) == 0){
           foreach($amaks as $key => $val){
             $a_sum[$key] = new AssessmentSummary();
             $a_sum[$key]->fill([
-              'alternative_id' => $amaks[$key]['id'],
-              'value' => $amaks[$key]['value'],
-              'rank_salary_id' => $amaks[$key]['rank_salary_id'],
-              'year_id' => $year_id,
+              'calon_id' => $amaks[$key]['id'],
+              'nilai' => $amaks[$key]['nilai'],
+              'peringkat_gaji_id' => $amaks[$key]['rank_salary_id'],
+              'tahun_id' => $year_id,
               'created_by' => Auth::id(),
               'updated_by' => Auth::id(),
             ]);
             $a_sum[$key]->save();
           }
         } else {
-          DB::table('assessment_summary')->where('year_id', $year_id)->delete();
+          DB::table('ringkasan_penilaian')->where('tahun_id', $year_id)->delete();
           foreach($amaks as $key => $val){
             $a_sum[$key] = new AssessmentSummary();
             $a_sum[$key]->fill([
-              'alternative_id' => $amaks[$key]['id'],
-              'value' => $amaks[$key]['value'],
-              'rank_salary_id' => $amaks[$key]['rank_salary_id'],
-              'year_id' => $year_id,
+              'calon_id' => $amaks[$key]['id'],
+              'nilai' => $amaks[$key]['nilai'],
+              'peringkat_gaji_id' => $amaks[$key]['rank_salary_id'],
+              'tahun_id' => $year_id,
               'created_by' => Auth::id(),
               'updated_by' => Auth::id(),
             ]);
@@ -185,16 +185,16 @@ class AHPController extends Controller
           }
         }
         // Store to table Assessment Criteria
-        $check_sum_criteria = AssessmentCriteria::with('alternative', 'criteria', 'year')->where('year_id', $year_id)->get();
+        $check_sum_criteria = AssessmentCriteria::with('alternative', 'criteria', 'year')->where('tahun_id', $year_id)->get();
         if(count($check_sum_criteria) == 0){
           foreach($matrix as $key => $val){
             foreach($matrix[$key]['eigen_vektor_id'] as $k => $v){
               $a_sum_crit[$k] = new AssessmentCriteria();
               $a_sum_crit[$k]->fill([
-                'alternative_id' => $k,
-                'criteria_id' => $matrix[$key]['criteria_id'],
-                'value' => $v,
-                'year_id' => $year_id,
+                'calon_id' => $k,
+                'kriteria_id' => $matrix[$key]['kriteria_id'],
+                'nilai' => $v,
+                'tahun_id' => $year_id,
                 'created_by' => Auth::id(),
                 'updated_by' => Auth::id(),
               ]);
@@ -202,15 +202,15 @@ class AHPController extends Controller
             }
           }
         } else {
-          DB::table('assessment_criteria')->where('year_id', $year_id)->delete();
+          DB::table('hasil_penilaian_kriteria')->where('tahun_id', $year_id)->delete();
           foreach($matrix as $key => $val){
             foreach($matrix[$key]['eigen_vektor_id'] as $k => $v){
               $a_sum_crit[$k] = new AssessmentCriteria();
               $a_sum_crit[$k]->fill([
-                'alternative_id' => $k,
-                'criteria_id' => $matrix[$key]['criteria_id'],
-                'value' => $v,
-                'year_id' => $year_id,
+                'calon_id' => $k,
+                'kriteria_id' => $matrix[$key]['criteria_id'],
+                'nilai' => $v,
+                'tahun_id' => $year_id,
                 'created_by' => Auth::id(),
                 'updated_by' => Auth::id(),
               ]);
@@ -221,7 +221,7 @@ class AHPController extends Controller
 
       }
 
-      $assessment_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('year_id', $year_id)->get();
+      $assessment_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('tahun_id', $year_id)->get();
       $div = Division::all();
       $year_assessment = Year::find($year_id);
       $title = 'Assessment - ' . $year_assessment->year;
@@ -248,8 +248,8 @@ class AHPController extends Controller
             } else {
               if($x < $y){
               $q = CriteriaComparison::with('criteria1', 'criteria2', 'importance_level')->where(
-                ['criteria_id_1' => $criteria_id[$x],
-                 'criteria_id_2' => $criteria_id[$y]
+                ['kriteria_id_1' => $criteria_id[$x],
+                 'kriteria_id_2' => $criteria_id[$y]
                ])->first();
                if(count($q) > 0){
                  $nilai = $q->importance_level->level_value;
@@ -308,8 +308,8 @@ class AHPController extends Controller
     public function ahp_eigen_vektor_alternative($criteria_id, $norm_matrix, $alternative){
       for($x = 0; $x < count($criteria_id); $x++){
           //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
-          //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
-          $eigen_vektor[$alternative[$x]['alternative']] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
+          //$eigen_vektor[$x]['nilai'] = array_sum($norm_matrix[$x])/count($criteria_id);
+          $eigen_vektor[$alternative[$x]['calon']] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
       }
       arsort($eigen_vektor);
       return $eigen_vektor;
@@ -318,7 +318,7 @@ class AHPController extends Controller
     public function ahp_eigen_vektor_alternative_id($criteria_id, $norm_matrix, $alternative){
       for($x = 0; $x < count($criteria_id); $x++){
           //$eigen_vektor[$x]['name'] = $alternative[$x]['alternative'];
-          //$eigen_vektor[$x]['value'] = array_sum($norm_matrix[$x])/count($criteria_id);
+          //$eigen_vektor[$x]['nilai'] = array_sum($norm_matrix[$x])/count($criteria_id);
           $eigen_vektor[$alternative[$x]['id']] = round(array_sum($norm_matrix[$x])/count($criteria_id), config('app.decimal'));
       }
       arsort($eigen_vektor);
@@ -347,7 +347,7 @@ class AHPController extends Controller
 
       for($x = 0; $x <  count($alternative_id); $x++){
           $sum_amaks[$x]['id'] = $alternative_id[$x];
-          $sum_amaks[$x]['name'] = $alternative[$x]['alternative'];
+          $sum_amaks[$x]['name'] = $alternative[$x]['calon'];
           $sum_amaks[$x]['value'] = round(array_sum($amaks[$x]), config('app.decimal'));
       }
 
@@ -363,10 +363,10 @@ class AHPController extends Controller
       foreach ($value as $key => $row)
       {
           $value[$key]['rank'] = $rank++;
-          $up_salary = RankSalary::where('rank', $value[$key]['rank'])->first();
+          $up_salary = RankSalary::where('peringkat', $value[$key]['rank'])->first();
           if($up_salary){
             $value[$key]['rank_salary_id'] = $up_salary->id;
-            $value[$key]['up_salary'] = $up_salary->up_salary;
+            $value[$key]['up_salary'] = $up_salary->kenaikan_gaji;
           } else {
             $value[$key]['rank_salary_id'] = 0;
             $value[$key]['up_salary'] = 0;
@@ -396,7 +396,7 @@ class AHPController extends Controller
 
       $index = count($criteria_id);
 
-      $rci = RandomConsistencyIndex::where('total_index', $index)->first();
+      $rci = RandomConsistencyIndex::where('jumlah_indeks', $index)->first();
 
       return $rci;
 
@@ -418,7 +418,7 @@ class AHPController extends Controller
     public function ahp_matrix_alternative($alternative_ids, $data_alternative){
       for($x=0;$x<count($alternative_ids);$x++){
     		for($y=0;$y<count($alternative_ids);$y++){
-    			$matrix[$x][$y] = round($data_alternative[$x]['value']/$data_alternative[$y]['value'],config('app.decimal'));
+    			$matrix[$x][$y] = round($data_alternative[$x]['nilai']/$data_alternative[$y]['nilai'],config('app.decimal'));
     		}
     	}
     	return $matrix;

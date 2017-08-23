@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PairwiseComparison extends Model
 {
-    protected $table = 'pairwise_comparison';
+    protected $table = 'hasil_perbandingan_kriteria';
 
     protected $fillable = [
-      't', 'ci', 'rci_id', 'consistency', 'consistency_value', 'created_by', 'updated_by'
+      't', 'ci', 'rci_id', 'konsistensi', 'nilai_konsistensi', 'created_by', 'updated_by'
     ];
 
     public function rci(){

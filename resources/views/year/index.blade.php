@@ -29,7 +29,7 @@
                       <tr>
 
                         <td>{{ $no++ }}</td>
-                        <td>{{ $item->year }}</td>
+                        <td>{{ $item->tahun }}</td>
                         <td>
                         <!--
                           {!! link_to_route('year.edit', 'Edit', array($item->id), array('class' => 'btn btn-info')) !!}

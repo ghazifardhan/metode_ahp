@@ -34,9 +34,9 @@ class CriteriaComparisonController extends Controller
     Validator::validate($request->input(), $this->criteria_comparison->validate);
 
     $this->criteria_comparison->fill([
-      'criteria_id_1' => $request->input('criteria_id_1'),
-      'criteria_id_2' => $request->input('criteria_id_2'),
-      'importance_leve_id' => $request->input('importance_leve_id'),
+      'kriteria_id_1' => $request->input('kriteria_id_1'),
+      'kriteria_id_2' => $request->input('kriteria_id_2'),
+      'tingkat_kepentingan_id' => $request->input('tingkat_kepentingan_id'),
       'created_by' => Auth::id(),
       'updated_by' => Auth::id(),
     ]);
@@ -66,9 +66,9 @@ class CriteriaComparisonController extends Controller
 
   public function update(Request $request, $id){
     $criteria_comparison = $this->criteria_comparison->find($id);
-    $criteria_comparison->criteria_id_1 = $request->input('criteria_id_1');
-    $criteria_comparison->criteria_id_2 = $request->input('criteria_id_2');
-    $criteria_comparison->importance_leve_id = $request->input('importance_leve_id');
+    $criteria_comparison->kriteria_id_1 = $request->input('kriteria_id_1');
+    $criteria_comparison->kriteria_id_2 = $request->input('kriteria_id_2');
+    $criteria_comparison->tingkat_kepentingan_id = $request->input('tingkat_kepentingan_id');
     $criteria_comparison->updated_by = Auth::id();
     $criteria_comparison->save();
     return Redirect::route('criteria_comparison.index');

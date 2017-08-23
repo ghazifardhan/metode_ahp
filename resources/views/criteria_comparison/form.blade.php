@@ -37,23 +37,23 @@
                               </tr>
                               <tr>
                                   <td>
-                                    <select name="criteria_id_1" class="form-control">
+                                    <select name="kriteria_id_1" class="form-control">
                                       @foreach($criteria as $items)
-                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->criteria_id_1){echo 'selected';}} ?> >{{ $items->criteria }}</option>
+                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->kriteria_id_1){echo 'selected';}} ?> >{{ $items->kriteria }}</option>
                                       @endforeach
                                     </select>
                                   </td>
                                   <td>
-                                    <select name="importance_leve_id" class="form-control">
+                                    <select name="tingkat_kepentingan_id" class="form-control">
                                       @foreach($importance_level as $items)
-                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->value){echo 'selected';}} ?> >{{ $items->level_name . " - " . $items->level_value }}</option>
+                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->nilai){echo 'selected';}} ?> >{{ $items->nama_tingkat . " - " . $items->nilai_tingkat }}</option>
                                       @endforeach
                                     </select>
                                   </td>
                                   <td>
-                                    <select name="criteria_id_2" class="form-control">
+                                    <select name="kriteria_id_2" class="form-control">
                                       @foreach($criteria as $items)
-                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->criteria_id_2){echo 'selected';}} ?> >{{ $items->criteria }}</option>
+                                        <option value="{{ $items->id }}" <?php if($criteria_comparison){if($items->id == $criteria_comparison->criteria_id_2){echo 'selected';}} ?> >{{ $items->kriteria }}</option>
                                       @endforeach
                                     </select>
                                   </td>

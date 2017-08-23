@@ -31,7 +31,7 @@ class YearController extends Controller
     public function store(Request $request){
       Validator::validate($request->input(), $this->year->validate);
       $this->year->fill([
-        'year' => $request->input('year'),
+        'tahun' => $request->input('tahun'),
         'created_by' => Auth::id(),
         'updated_by' => Auth::id(),
       ]);
@@ -57,7 +57,7 @@ class YearController extends Controller
 
     public function update(Request $request, $id){
       $year = $this->year->find($id);
-      $year->year = $request->input('year');
+      $year->tahun = $request->input('tahun');
       $year->updated_by = Auth::id();
       $year->save();
       return Redirect::route('year.index');

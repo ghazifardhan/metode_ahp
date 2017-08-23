@@ -20,11 +20,11 @@ if(isset($_GET['type'])){
   $alternative_salary = '';
 } else {
   if($alternative){
-    $alternative_name = $alternative->alternative;
-    $alternative_date = $alternative->birthdate;
-    $alternative_address = $alternative->address;
-    $alternative_phone = $alternative->phone_number;
-    $alternative_salary = $alternative->salary;
+    $alternative_name = $alternative->calon;
+    $alternative_date = $alternative->tanggal_lahir;
+    $alternative_address = $alternative->alamat;
+    $alternative_phone = $alternative->nomor_hp;
+    $alternative_salary = $alternative->gaji;
   }
 }
 
@@ -52,29 +52,29 @@ if(isset($_GET['type'])){
                           <?php } ?>
                               <tr>
                                   <td>Name</td>
-                                  <td><input id="alternative" type="text" name="alternative" class='form-control' value="<?php if($alternative){echo $alternative_name;} ?>"></td>
+                                  <td><input id="alternative" type="text" name="calon" class='form-control' value="<?php if($alternative){echo $alternative_name;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Birth Date</td>
-                                  <td><input id="datepicker" type="text" name="birthdate" class='form-control' value="<?php if($alternative){echo $alternative_date;} ?>"></td>
+                                  <td><input id="datepicker" type="text" name="tanggal_lahir" class='form-control' value="<?php if($alternative){echo $alternative_date;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Address</td>
-                                  <td><input type="text" name="address" class='form-control' value="<?php if($alternative){echo $alternative_address;} ?>"></td>
+                                  <td><input type="text" name="alamat" class='form-control' value="<?php if($alternative){echo $alternative_address;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Phone Number</td>
-                                  <td><input type="text" name="phone_number" class='form-control' value="<?php if($alternative){echo $alternative_phone;} ?>"></td>
+                                  <td><input type="text" name="nomor_hp" class='form-control' value="<?php if($alternative){echo $alternative_phone;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Salary</td>
-                                  <td><input type="number" name="salary" class='form-control' value="<?php if($alternative){echo $alternative_salary;} ?>"></td>
+                                  <td><input type="number" name="gaji" class='form-control' value="<?php if($alternative){echo $alternative_salary;} ?>"></td>
                               </tr>
                               <tr>
                                   <td>Division</td>
-                                  <td><select class="form-control" name="division_id">
+                                  <td><select class="form-control" name="divisi_id">
                                       @foreach($division as $items)
-                                      <option value="{{ $items->id }}" <?php if($alternative){ if($items->id == $alternative->division_id){ echo 'selected';} } ?>>{{ $items->name }}</option>
+                                      <option value="{{ $items->id }}" <?php if($alternative){ if($items->id == $alternative->division_id){ echo 'selected';} } ?>>{{ $items->nama }}</option>
                                       @endforeach
                                       </select>
                                   </td>

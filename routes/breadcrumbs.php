@@ -21,7 +21,7 @@ Breadcrumbs::register('assessment.create', function($breadcrumbs)
 Breadcrumbs::register('assessment.edit', function($breadcrumbs, $year)
 {
     $breadcrumbs->parent('assessment');
-    $breadcrumbs->push($year->year, route('year.edit', $year->id));
+    $breadcrumbs->push($year->tahun, route('year.edit', $year->id));
 });
 
 // Alternative
@@ -40,19 +40,19 @@ Breadcrumbs::register('alternative.create', function($breadcrumbs)
 Breadcrumbs::register('alternative.edit', function($breadcrumbs, $alternative)
 {
     $breadcrumbs->parent('alternative');
-    $breadcrumbs->push($alternative->alternative, route('alternative.edit', $alternative->id));
+    $breadcrumbs->push($alternative->calon, route('alternative.edit', $alternative->id));
 });
 
 Breadcrumbs::register('alternative.show', function($breadcrumbs, $alternative)
 {
     $breadcrumbs->parent('alternative');
-    $breadcrumbs->push($alternative->alternative, route('alternative.show', $alternative->id));
+    $breadcrumbs->push($alternative->calon, route('alternative.show', $alternative->id));
 });
 
 Breadcrumbs::register('alternative.assessment', function($breadcrumbs, $alternative, $year)
 {
     $breadcrumbs->parent('alternative.show', $alternative);
-    $breadcrumbs->push($year->year, route('alternative.assessment', [$alternative->id, $year->id]));
+    $breadcrumbs->push($year->tahun, route('alternative.assessment', [$alternative->id, $year->id]));
 });
 
 //Division
@@ -71,13 +71,13 @@ Breadcrumbs::register('division.create', function($breadcrumbs)
 Breadcrumbs::register('division.edit', function($breadcrumbs, $division)
 {
     $breadcrumbs->parent('division');
-    $breadcrumbs->push($division->name, route('division.edit', $division->id));
+    $breadcrumbs->push($division->nama, route('division.edit', $division->id));
 });
 
 Breadcrumbs::register('division.show', function($breadcrumbs, $division)
 {
     $breadcrumbs->parent('division');
-    $breadcrumbs->push($division->name, route('division.show', $division->id));
+    $breadcrumbs->push($division->nama, route('division.show', $division->id));
 });
 
 //Rank Salary
@@ -96,13 +96,13 @@ Breadcrumbs::register('rank_salary.create', function($breadcrumbs)
 Breadcrumbs::register('rank_salary.edit', function($breadcrumbs, $rank_salary)
 {
     $breadcrumbs->parent('rank_salary');
-    $breadcrumbs->push($rank_salary->rank, route('rank_salary.edit', $rank_salary->id));
+    $breadcrumbs->push($rank_salary->peringkat, route('rank_salary.edit', $rank_salary->id));
 });
 
 Breadcrumbs::register('rank_salary.show', function($breadcrumbs, $rank_salary)
 {
     $breadcrumbs->parent('rank_salary');
-    $breadcrumbs->push($rank_salary->rank, route('rank_salary.show', $rank_salary->id));
+    $breadcrumbs->push($rank_salary->peringkat, route('rank_salary.show', $rank_salary->id));
 });
 
 //Criteria
@@ -121,13 +121,13 @@ Breadcrumbs::register('criteria.create', function($breadcrumbs)
 Breadcrumbs::register('criteria.edit', function($breadcrumbs, $criteria)
 {
     $breadcrumbs->parent('criteria');
-    $breadcrumbs->push($criteria->criteria, route('criteria.edit', $criteria->id));
+    $breadcrumbs->push($criteria->kriteria, route('criteria.edit', $criteria->id));
 });
 
 Breadcrumbs::register('criteria.show', function($breadcrumbs, $criteria)
 {
     $breadcrumbs->parent('criteria');
-    $breadcrumbs->push($criteria->criteria, route('criteria.show', $criteria->id));
+    $breadcrumbs->push($criteria->kriteria, route('criteria.show', $criteria->id));
 });
 
 //Criteria Comparison
@@ -159,5 +159,5 @@ Breadcrumbs::register('criteria_comparison.show', function($breadcrumbs, $criter
 Breadcrumbs::register('ahp_summary', function($breadcrumbs, $year_assessment)
 {
     $breadcrumbs->parent('assessment');
-    $breadcrumbs->push($year_assessment->year, route('ahp_summary', $year_assessment->id));
+    $breadcrumbs->push($year_assessment->tahun, route('ahp_summary', $year_assessment->id));
 });

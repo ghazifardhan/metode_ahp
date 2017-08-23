@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class RankSalary extends Model
 {
-    protected $table = 'rank_salary';
+    protected $table = 'peringkat_gaji';
 
     protected $fillable = [
-    	'rank', 'up_salary', 'created_by', 'updated_by'
+    	'peringkat', 'kenaikan_gaji', 'created_by', 'updated_by'
     ];
 
     public $validate = [
-      'rank' => 'required',
-      'up_salary' => 'required'
+      'peringkat' => 'required',
+      'kenaikan_gaji' => 'required'
     ];
 }

@@ -13,10 +13,10 @@ class CreateTableSalaryRank extends Migration
      */
     public function up()
     {
-        Schema::create('rank_salary', function(Blueprint $table){
+        Schema::create('peringkat_gaji', function(Blueprint $table){
             $table->increments('id');
-            $table->integer('rank');
-            $table->integer('up_salary');
+            $table->integer('peringkat');
+            $table->integer('kenaikan_gaji');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTableSalaryRank extends Migration
      */
     public function down()
     {
-        Schema::drop('rank_salary');
+        Schema::drop('peringkat_gaji');
     }
 }

@@ -16,7 +16,7 @@ if(isset($_GET['type'])){
   $division_name = '';
 } else {
   if($division){
-    $division_name = $division->name;
+    $division_name = $division->nama;
   }
 }
 
@@ -43,7 +43,7 @@ if(isset($_GET['type'])){
                           <table class='table table-hover table-responsive table-bordered'>
                               <tr>
                                   <td>Division Name</td>
-                                  <td><input type="text" name="name" class='form-control' value="<?php if($division){echo $division_name;}?>"></td>
+                                  <td><input type="text" name="nama" class='form-control' value="<?php if($division){echo $division_name;}?>"></td>
                               </tr>
                               <tr>
                                   <td></td>

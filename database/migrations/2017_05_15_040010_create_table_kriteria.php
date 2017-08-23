@@ -13,9 +13,9 @@ class CreateTableKriteria extends Migration
      */
     public function up()
     {
-        Schema::create('criteria', function(Blueprint $table){
+        Schema::create('kriteria', function(Blueprint $table){
           $table->increments('id');
-          $table->string('criteria');
+          $table->string('kriteria');
           $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableKriteria extends Migration
      */
     public function down()
     {
-        Schema::drop('criteria');
+        Schema::drop('kriteria');
     }
 }

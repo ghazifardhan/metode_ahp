@@ -34,7 +34,7 @@ class DivisionController extends Controller
     public function store(Request $request){
       Validator::validate($request->input(), $this->division->validate);
       $this->division->fill([
-          'name' => $request->input('name'),
+          'nama' => $request->input('nama'),
           'created_by' => Auth::id(),
           'updated_by' => Auth::id(),
         ]);
@@ -54,13 +54,13 @@ class DivisionController extends Controller
       $res['create'] = false;
       $res['status'] = 'Update';
       $division = $this->division->find($id);
-      $title = 'Edit Division - ' . $division->name;
+      $title = 'Edit Division - ' . $division->nama;
       return view('division.form', compact('division', 'res', 'title'));
     }
 
     public function update(Request $request, $id){
       $division = $this->division->find($id);
-      $division->name = $request->input('name');
+      $division->nama = $request->input('nama');
       $division->updated_by = Auth::id();
       $division->save();
       return Redirect::route('division.index');

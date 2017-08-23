@@ -13,9 +13,9 @@ class ModifyTableAssessmentSummary extends Migration
      */
     public function up()
     {
-        Schema::table('assessment_summary', function($table){
-          $table->dropForeign('assessment_summary_criteria_id_foreign');
-          $table->dropColumn('criteria_id');
+        Schema::table('ringkasan_penilaian', function($table){
+          $table->dropForeign('ringkasan_penilaian_kriteria_id_foreign');
+          $table->dropColumn('kriteria_id');
         });
     }
 
@@ -26,9 +26,9 @@ class ModifyTableAssessmentSummary extends Migration
      */
     public function down()
     {
-      Schema::table('assessment_summary', function($table){
-        $table->integer('criteria_id')->unsigned();
-        $table->foreign('criteria_id')->references('id')->on('criteria');
+      Schema::table('ringkasan_penilaian', function($table){
+        $table->integer('kriteria_id')->unsigned();
+        $table->foreign('kriteria_id')->references('id')->on('kriteria');
       });
     }
 }

@@ -13,7 +13,7 @@ class ModifyTableCreateComparison extends Migration
      */
     public function up()
     {
-        Schema::table('criteria_comparison', function($table){
+        Schema::table('perbandingan_kriteria', function($table){
           $table->timestamps();
         });
     }

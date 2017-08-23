@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class RandomConsistencyIndex extends Model
 {
-    protected $table = 'random_consistency_index';
+    protected $table = 'indeks_konsistensi_acak';
 }

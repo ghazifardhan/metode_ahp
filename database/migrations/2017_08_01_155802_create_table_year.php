@@ -13,9 +13,9 @@ class CreateTableYear extends Migration
      */
     public function up()
     {
-        Schema::create('year', function(Blueprint $table){
+        Schema::create('tahun_penilaian', function(Blueprint $table){
             $table->increments('id');
-            $table->integer('year')->unsigned();
+            $table->integer('tahun')->unsigned();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateTableYear extends Migration
      */
     public function down()
     {
-        Schema::drop('year');
+        Schema::drop('tahun_penilaian');
     }
 }

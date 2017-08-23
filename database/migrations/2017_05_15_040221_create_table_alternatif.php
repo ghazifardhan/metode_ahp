@@ -13,9 +13,9 @@ class CreateTableAlternatif extends Migration
      */
     public function up()
     {
-        Schema::create('alternative', function(Blueprint $table){
+        Schema::create('calon', function(Blueprint $table){
           $table->increments('id');
-          $table->string('alternative');
+          $table->string('calon');
           $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableAlternatif extends Migration
      */
     public function down()
     {
-        Schema::drop('alternative');
+        Schema::drop('calon');
     }
 }
