@@ -25,13 +25,14 @@ class YearController extends Controller
     public function index(){
       $year = $this->year->all();
       $title = 'Daftar Year Assessment';
+      
       return view('year.index', compact('year', 'title'));
     }
 
     public function store(Request $request){
       Validator::validate($request->input(), $this->year->validate);
       $this->year->fill([
-        'tahun' => $request->input('tahun'),
+        'tahun' => $request->input('bulan') . "-" . $request->input('tahun'),
         'created_by' => Auth::id(),
         'updated_by' => Auth::id(),
       ]);
@@ -44,7 +45,23 @@ class YearController extends Controller
       $res['status'] = "Create New";
       $year = null;
       $title = 'Add Year Assessment';
-      return view('year.form', compact('year', 'res', 'title'));
+
+      $listMonth = [
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember'
+      ];
+
+      return view('year.form', compact('year', 'res', 'title', 'listMonth'));
     }
 
     public function edit($id){
@@ -52,12 +69,28 @@ class YearController extends Controller
       $res['create'] = false;
       $res['status'] = "Update";
       $title = 'Edit Year Assessment - ' . $year->year;
-      return view('year.form', compact('year', 'res', 'title'));
+      $listMonth = [
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember'
+      ];
+      $month_year = explode("-", $year->tahun);
+
+      return view('year.form', compact('year', 'res', 'title', 'month_year', 'listMonth'));
     }
 
     public function update(Request $request, $id){
       $year = $this->year->find($id);
-      $year->tahun = $request->input('tahun');
+      $year->tahun = $request->input('bulan') . "-" . $request->input('tahun');
       $year->updated_by = Auth::id();
       $year->save();
       return Redirect::route('year.index');

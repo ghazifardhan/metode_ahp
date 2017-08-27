@@ -14,11 +14,17 @@
 
 if(isset($_GET['type'])){
   $year_ = '';
+  $month = '';
+  $year__ = '';
 } else {
   if($year){
     $year_ = $year->tahun;
+    $month = $month_year[0];
+    $year__ = $month_year[1];
   }
 }
+
+
 
 @endphp
 <div class="container">
@@ -43,8 +49,27 @@ if(isset($_GET['type'])){
                   <?php } ?>
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
-                          <td>Year</td>
-                          <td><input type="number" name="tahun" class='form-control' value="<?php if($year){echo $year_; } ?>"></td>
+                          <td>Periode</td>
+                          <td>
+                          <div class="row">
+                          <div class="col-md-4">
+                            <select name="bulan" class="form-control">
+                                @foreach($listMonth as $key => $val)
+                                <option value="{{$key}}" <?php if($key == $month){echo 'selected';}?> >{{$val}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+
+                            <div class="col-md-4">
+                            <select name="tahun" class="form-control">
+                                @php for($x=2017;$x<2050;$x++){ @endphp
+                                <option value="{{$x}}" <?php if($key == $year__){echo 'selected';}?>>{{$x}}</option>
+                                @php } @endphp
+                            </select>
+                            </div>
+                            </div>
+
+                          </td>
                       </tr>
                       <tr>
                           <td></td>
@@ -63,4 +88,15 @@ if(isset($_GET['type'])){
         </div>
     </div>
 </div>
+@section('script')
+<script>
+
+    $('.datepicker').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        'dateFormat': 'mm-yy'
+    });
+
+</script>
+@stop
 @endsection
