@@ -12,7 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        $this->call(table_importance_level::class);
-        $this->call(TableRCISeeder::class);
+        //$this->call(table_importance_level::class);
+        //$this->call(TableRCISeeder::class);
+        //$this->call(SeederTableCalon::class);
+        //$this->call(SeederTableDataCalon::class);
+        //$this->call(SeederTablePerbandinganKriteria::class);
     }
 }

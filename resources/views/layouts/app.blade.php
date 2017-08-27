@@ -175,6 +175,7 @@ date_default_timezone_set('Asia/Jakarta');
             <li class="{{ active('rank_salary.*') }}"><a href="{{ url('rank_salary') }}">Master Data Rank Gaji</a></li>
             <li class="{{ active('criteria.*') }}"><a href="{{ url('criteria') }}">Master Data Criteria</a></li>
             <li class="{{ active('criteria_comparison.*') }}"><a href="{{ url('criteria_comparison') }}">Criteria Comparison</a></li>
+            <li class="{{ active('criteria_comparison.*') }}"><a href="{{ url('ahp') }}">Pairwise Comparison</a></li>
           </ul>
         </li>
       </ul>

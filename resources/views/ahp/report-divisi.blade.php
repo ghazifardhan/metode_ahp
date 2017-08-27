@@ -15,11 +15,12 @@
                 @foreach($div as $key => $val)
                 <table class="table table-bordered table-hover table-striped table-condensed">
                   <tr>
-                    <th colspan="2">Division {{ $div[$key]['nama'] }}</th>
+                    <th colspan="3">Division {{ $div[$key]['nama'] }}</th>
                   </tr>
                   <tr>
                     <th>Rank</th>
                     <th>Nama Karyawan</th>
+                    <th>Grade</th>
                   </tr>
                 @php $rank = 1 @endphp
                 @foreach($assessment_sum as $k => $v)
@@ -27,6 +28,7 @@
                 <tr>
                 <td>{{ $rank++ }}</td>
                 <td>{{ $assessment_sum[$k]['alternative']['calon'] }}</td>
+                <td>{{ $assessment_sum[$k]['grade'] }}</td>
                 </tr>
                 @endif
                 @endforeach

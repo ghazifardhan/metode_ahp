@@ -12,6 +12,10 @@
 @section('content')
 @php
 
+
+$month = '';
+  $year__ = '';
+  
 if(isset($_GET['type'])){
   $year_ = '';
   $month = '';

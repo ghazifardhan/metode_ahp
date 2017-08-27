@@ -83,9 +83,9 @@ class AHPController extends Controller
         }
       }
       $title = 'Pairwise Comparison';
-      //return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
+      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
-      return response($res);
+      //return response($res);
       //return Redirect::route('criteria_comparison.index', compact('res'));
     }
     public function get_ahp_matrix_alternative(Request $request, $id){
@@ -201,24 +201,26 @@ class AHPController extends Controller
       $assessment_sum = AssessmentSummary::with('alternative', 'year', 'salary')->where('tahun_id', $year_id)->get();
       $div = Division::all();
       $year_assessment = Year::find($year_id);
-<<<<<<< HEAD
       $title = 'Assessment - ' . $year_assessment->year;
 
-      
+      for($x=0;$x<count($assessment_sum);$x++){
+        if($x<3){
+          $assessment_sum[$x]['grade'] = 'A';
+        } else if($x>= 3 && $x < 6){
+          $assessment_sum[$x]['grade'] = 'B';
+        } else if($x>= 6 && $x < 9){
+          $assessment_sum[$x]['grade'] = 'C';
+        } else if($x>= 9 && $x < 12){
+          $assessment_sum[$x]['grade'] = 'D';
+        } else if($x>= 12){
+          $assessment_sum[$x]['grade'] = 'E';
+        }
+      }
 
       if($request->input('report') == 'report_rank'){
-          return compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum');
-      } else {
-          //return view('ahp.report-divisi', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
-=======
-      $title = 'Assessment - ' . $year_assessment->tahun;
-      if($request->input('report') == 'report_rank'){
           return view('ahp.report-rank', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
-          //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
       } else {
           return view('ahp.report-divisi', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
-          //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
->>>>>>> 50ccc9b35efde7510ff825cf8285da9c9eb63646
       }
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return view('ahp.test', compact('assessment_sum', 'div'));

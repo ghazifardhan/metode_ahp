@@ -34,12 +34,13 @@ th, td {
     <div class="row">
         <div class="col-md-11">
             <div class="panel panel-default">
-                <div class="panel-heading">Pairwise Comparison <input id="not-print" type="button" class="btn btn-info" style="float: right;" onclick="javascript:window.print();" value="Print"></div>
+                <div class="panel-heading">Pairwise Comparison </div>
 
                 <div class="panel-body">
                   <?php if(!$matrix){ ?>
                     <h1 align="center">Tidak ada data</h1>
                     <?php } else { ?>
+                    <div style="overflow-y: auto; overflow-x:scroll;">
                     <table border="1" class="mytable">
                       <tr>
                         <th colspan="{{ count($criteria)+1 }}">Pairwise Comparison</th>
@@ -47,11 +48,11 @@ th, td {
                       <tr>
                         <td class="col-md-1"><b>Criteria</b></td>
                         @foreach($criteria as $row)
-                        <td class="col-md-1">{{ $row->criteria }}</td>
+                        <td class="col-md-1">{{ $row->kriteria }}</td>
                         @endforeach
                         @foreach($criteria as $key => $val)
                         <tr>
-                        <td>{{ $criteria[$key]['criteria'] }}</td>
+                        <td>{{ $criteria[$key]['kriteria'] }}</td>
                         @foreach($matrix as $k => $v)
                         <td>{{ $matrix[$key][$k] }}</td>
                         @endforeach
@@ -71,14 +72,14 @@ th, td {
                         <tr>
                           <td><b>Criteria</b></td>
                           @foreach($criteria as $row)
-                          <td>{{ $row->criteria }}</td>
+                          <td>{{ $row->kriteria }}</td>
                           @endforeach
                           <td>Jumlah Baris</td>
                           <td>Eigen Vektor</td>
                           <td>A-maks</td>
                           @foreach($criteria as $key => $val)
                           <tr>
-                          <td>{{ $criteria[$key]['criteria'] }}</td>
+                          <td>{{ $criteria[$key]['kriteria'] }}</td>
                           @foreach($norm_matrix as $k => $v)
                           <td>{{ $norm_matrix[$key][$k] }}</td>
                           <?php $jumlah_kolom_norm[$k][$key] = $norm_matrix[$key][$k]; ?>
@@ -101,7 +102,7 @@ th, td {
                           </tr>
                           <tr>
                             <td>Random Index</td>
-                            <td>{{ $res['rci'] }}</td>
+                            <td>{{ $res['rci']['nilai_indeks'] }}</td>
                           </tr>
                           <tr>
                               <td colspan="2"><b>Consistency</b></td>
@@ -115,6 +116,7 @@ th, td {
                               <td><?php if($res['consistency']['consistency']){ echo 'Konsisten'; } else { echo 'Tidak Konsisten';} ?></td>
                           </tr>
                         </table>
+                        </div>
                         <?php } ?>
                 </div>
             </div>

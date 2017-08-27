@@ -18,7 +18,7 @@
                 <?php } else { ?>
                     <table class="table table-bordered">
                       <tr>
-                        <th colspan="5">Rank Summary</th>
+                        <th colspan="6">Rank Summary</th>
                       </tr>
                       <tr>
                         <th>No</th>
@@ -26,6 +26,7 @@
                         <th>Salary</th>
                         <th>Upgrade Salary</th>
                         <th>Total Salary</th>
+                        <th>Grade</th>
                       </tr>
                       @php $no = 1 @endphp
                       @foreach($assessment_sum as $item)
@@ -35,6 +36,7 @@
                         <td>{{ "Rp " . number_format($item->alternative->gaji, "0", ",", ".") }}</td>
                         <td>{{ "Rp " . number_format($item->salary->kenaikan_gaji, "0", ",", ".") }}</td>
                         <td>{{ "Rp " . number_format($item->alternative->gaji + $item->salary->kenaikan_gaji, "0", ",", ".") }}</td>
+                        <td>{{ $item->grade }}</td>
                       </tr>
                       @endforeach
                     </table>

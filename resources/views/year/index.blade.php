@@ -16,7 +16,7 @@
                     <table class="table table-bordered table-hover table-striped table-condensed">
                       <tr>
                         <th>No</th>
-                        <th>Year</th>
+                        <th>Periode</th>
                         <th>Action</th>
                       </tr>
                       <?php if(count($year) == 0){ ?>
