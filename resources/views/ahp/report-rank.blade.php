@@ -31,10 +31,10 @@
                       @foreach($assessment_sum as $item)
                       <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $item->alternative->alternative }}</td>
-                        <td>{{ "Rp " . number_format($item->alternative->salary, "0", ",", ".") }}</td>
-                        <td>{{ "Rp " . number_format($item->salary->up_salary, "0", ",", ".") }}</td>
-                        <td>{{ "Rp " . number_format($item->alternative->salary + $item->salary->up_salary, "0", ",", ".") }}</td>
+                        <td>{{ $item->alternative->calon }}</td>
+                        <td>{{ "Rp " . number_format($item->alternative->gaji, "0", ",", ".") }}</td>
+                        <td>{{ "Rp " . number_format($item->salary->kenaikan_gaji, "0", ",", ".") }}</td>
+                        <td>{{ "Rp " . number_format($item->alternative->gaji + $item->salary->kenaikan_gaji, "0", ",", ".") }}</td>
                       </tr>
                       @endforeach
                     </table>
