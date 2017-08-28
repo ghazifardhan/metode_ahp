@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Redirect;
 class AHPController extends Controller
 {
-    public function get_ahp_matrix_criteria(){
+    public function get_ahp_matrix_criteria(Request $request){
       $criteria = Criteria::orderBy('id', 'asc')->get();
       $count_criteria = count($criteria) - 1;
       $count_comparison = count(CriteriaComparison::all());
@@ -83,7 +83,11 @@ class AHPController extends Controller
         }
       }
       $title = 'Pairwise Comparison';
-      return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
+      if($request->input("from_ajax")){
+        return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
+      } else {
+        return view('ahp.index', compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res', 'title'));
+      }
       //return response(compact('criteria', 'matrix', 'sum', 'norm_matrix', 'number_of_row', 'eigen_vektor', 'sum_amaks', 'res'));
       //return response($res);
       //return Redirect::route('criteria_comparison.index', compact('res'));

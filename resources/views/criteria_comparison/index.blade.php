@@ -95,9 +95,10 @@
     $.ajax({
       url: 'ahp',
       type: 'GET',
-      success: function($resp){
-        console.log($resp.consistency.value);
-        $('.cons-status').text("Status Consistency : " + $resp.consistency.consistency);
+      data: {from_ajax: true},
+      success: function(resp){
+        console.log(resp.res);
+        $('.cons-status').text("Status Consistency : " + resp.res.consistency.consistency);
       }
     });
   });
