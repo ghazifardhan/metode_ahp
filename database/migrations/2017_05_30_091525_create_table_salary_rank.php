@@ -15,7 +15,7 @@ class CreateTableSalaryRank extends Migration
     {
         Schema::create('peringkat_gaji', function(Blueprint $table){
             $table->increments('id');
-            $table->integer('peringkat');
+            $table->string('peringkat', 1);
             $table->integer('kenaikan_gaji');
             $table->timestamps();
         });

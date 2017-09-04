@@ -15,7 +15,7 @@ class CreateTableAlternatif extends Migration
     {
         Schema::create('calon', function(Blueprint $table){
           $table->increments('id');
-          $table->string('calon');
+          $table->string('calon', 20);
           $table->timestamps();
         });
     }
