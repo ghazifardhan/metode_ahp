@@ -13,7 +13,7 @@ class RankSalary extends Model
     ];
 
     public $validate = [
-      'peringkat' => 'required',
+      'peringkat' => 'required|unique:peringkat_gaji',
       'kenaikan_gaji' => 'required'
     ];
 }

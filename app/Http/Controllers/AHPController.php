@@ -223,8 +223,11 @@ class AHPController extends Controller
 
       if($request->input('report') == 'report_rank'){
           return view('ahp.report-rank', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
-      } else {
+          //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum'));
+      } else if($request->input('report') == 'report_divisi'){
           return view('ahp.report-divisi', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
+      } else {
+          return view('ahp.report-only-rank', compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks', 'title', 'year_assessment', 'assessment_sum', 'div'));
       }
       //return response(compact('matrix','alternative', 'rank', 'criteria', 'eigen_vektor', 'amaks'));
       //return view('ahp.test', compact('assessment_sum', 'div'));
@@ -339,6 +342,32 @@ class AHPController extends Controller
           $value[$key]['name'] = $row['name'];
       }
       array_multisort($value, SORT_DESC, $sum_amaks);
+      
+      $rank_a = RankSalary::where("peringkat", "A")->first();
+      $rank_b = RankSalary::where("peringkat", "B")->first();
+      $rank_c = RankSalary::where("peringkat", "C")->first();
+      $rank_d = RankSalary::where("peringkat", "D")->first();
+      $rank_e = RankSalary::where("peringkat", "E")->first();
+
+      for($x=0;$x<count($value);$x++){
+        if($x<3){
+          $value[$x]['rank_salary_id'] = $rank_a->id;
+          $value[$x]['up_salary'] = $rank_a->kenaikan_gaji;
+        } else if($x>= 3 && $x < 6){
+          $value[$x]['rank_salary_id'] = $rank_b->id;
+          $value[$x]['up_salary'] = $rank_b->kenaikan_gaji;
+        } else if($x>= 6 && $x < 9){
+          $value[$x]['rank_salary_id'] = $rank_c->id;
+          $value[$x]['up_salary'] = $rank_c->kenaikan_gaji;
+        } else if($x>= 9 && $x < 12){
+          $value[$x]['rank_salary_id'] = $rank_d->id;
+          $value[$x]['up_salary'] = $rank_d->kenaikan_gaji;
+        } else if($x>= 12){
+          $value[$x]['rank_salary_id'] = $rank_e->id;
+          $value[$x]['up_salary'] = $rank_e->kenaikan_gaji;
+        }
+      }
+      /*
       foreach ($value as $key => $row)
       {
           $value[$key]['rank'] = $rank++;
@@ -351,6 +380,7 @@ class AHPController extends Controller
             $value[$key]['up_salary'] = 0;
           }
       }
+      */
       return $value;
     }
     public function ahp_t($criteria_id, $sum_amaks, $eigen_vektor){

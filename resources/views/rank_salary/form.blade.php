@@ -46,7 +46,7 @@ if(isset($_GET['type'])){
                   <table class='table table-hover table-responsive table-bordered'>
                       <tr>
                           <td>Rank</td>
-                          <td><input type="number" name="peringkat" class='form-control' value="<?php if($rank_salary){echo $rank_salary_rank; } ?>"></td>
+                          <td><input type="text" name="peringkat" class='form-control' value="<?php if($rank_salary){echo $rank_salary_rank; } ?>"></td>
                       </tr>
                       <tr>
                           <td>Salary Upgrade</td>

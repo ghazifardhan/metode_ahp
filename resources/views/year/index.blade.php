@@ -42,8 +42,9 @@
                             Report <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
-                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_rank' }}">Rank dan Kenaikan Gaji</a></li>
-                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_divisi' }}">Rank Per Divisi</a></li>
+                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_only_rank' }}">1. Rank</a></li>
+                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_rank' }}">2. Rank dan Kenaikan Gaji</a></li>
+                            <li><a href="{{ url('ahp_summary', $item->id) . '?report=report_divisi' }}">3. Rank Per Divisi</a></li>
                           </ul>
                         </div>
                         <a class="btn btn-info" href="{{ route('year.edit', $item->id) }}">Edit</a>
